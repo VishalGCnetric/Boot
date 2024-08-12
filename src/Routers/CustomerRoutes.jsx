@@ -29,6 +29,8 @@ import NewArrivals from "../Pages/NewArrivals";
 import SunglassClp from "../Pages/SunglassClp";
 import Profile from "../customer/Components/Auth/Profile";
 import TransactionComponent from "../customer/Components/Checkout/TransactionComponent";
+import NewNavbar from "../customer/Components/Navbar/NewNavbar";
+import DeliveryCard from "../customer/Components/Navbar/DeliveryCard";
 
 
 const CustomerRoutes = () => {
@@ -45,7 +47,9 @@ const CustomerRoutes = () => {
 
       <ThemeProvider theme={customerTheme}>
         <HeaderTop />
-        {showNavigation && <Navigation />}
+        <NewNavbar/>
+        <DeliveryCard/>
+        {/* {showNavigation && <Navigation />} */}
         <Routes>
           <Route path="/sign-in" element={<Login />}></Route>
           <Route path="/sign-up" element={<RegisterPage />}></Route>
