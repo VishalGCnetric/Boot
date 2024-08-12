@@ -1,249 +1,105 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link,  useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { getCustomerNew } from '../../../action/Customer';
-import { login } from '../../../Redux/Auth/Action';
-import { Toaster,toast } from 'react-hot-toast';
-
-const Container = styled.div`
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    hr{
-        margin: 20px 0px ;
-        display:none;
-        border: 1.3px solid #e0e0e0;
-    }
-    @media (max-width: 600px) {
-        flex-direction: column;
-        hr{
-            display:block;
-        }
-    }
-`;
-
-const LoginForm = styled.form`
-    width: 50%;
-    @media (max-width: 600px) {
-        width: 98%;
-    }
-`;
-
-const Heading = styled.h6`
-    font-size: 22px;
-    color: #333;
-`;
-
-const SubHeading = styled.p`
-    margin-bottom: 50px;
-    color: #666;
-`;
-
-const Label = styled.label`
-    display: block;
-    /* font-weight: bold; */
-    font-size:14px;
-    color: #444;
-`;
-
-const Input = styled.input`
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: none;
-    border-bottom: ${({ showBorder }) => (showBorder ? '1px solid #ddd' : 'none')};
-    border-radius: 0;
-    outline: none;
-    font-size: 16px;
-`;
-
-const PasswordContainer = styled.div`
-    position: relative;
-`;
-
-const ShowPassword = styled.span`
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #2d2e2e;
-    font-size: 14px;
-`;
-
-const ForgotPassword = styled.div`
-    text-align: right;
-    margin-bottom: 20px;
-`;
-
-const ForgotPasswordLink = styled.a`
-    color: #2d2e2e;
-    text-decoration: none;
-    font-size: 14px;
-`;
-const Button = styled.button`
-    padding: 12px;
-    background-color: #080808;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-left: auto; /* Aligns the button to the right */
-
-    &:hover {
-        background-color: red;
-    }
-`;
-
-
-const Sidebar = styled.div`
-    width: 35%;
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    @media (max-width: 600px) {
-        width: 100%;
-        padding:0;
-        justify-content: flex-start;
-    }
-`;
-
-const SidebarHeading = styled.h3`
-    font-size: 14px;
-    margin-bottom: 10px;
-    color: #333;
-    font-weight:600;
-`;
-
-const SidebarList = styled.ul`
-    list-style: none;
-    padding: 0;
-    font-weight:600;
-`;
-
-const SidebarListItem = styled.li`
-    margin-bottom: 5px;
-`;
-
-const SidebarLink = styled.a`
-    color: #434445;
-    text-decoration: none;
-    font-size: 12px;
-`;
+import React, { useState } from 'react';
 
 const Login = () => {
-    const [showPassword, setShowPassword] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState({});
-    const dispatch = useDispatch();
-    const jwt = localStorage.getItem("jwt");
-    const navigate = useNavigate()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({ email: '', password: '' });
 
- // handle submit start
-  
-    const handleSubmit = async(event) => {
-      event.preventDefault();
-      const errors = {};
-      if (!email) {
-          errors.email = 'Email is required';
-      }
-      if (!password) {
-          errors.password = 'Password is required';
-      }
-      setErrors(errors);
-      const data = new FormData(event.currentTarget);
-      const userData = {
-        email: data.get("email"),
-        password: data.get("password"),
-      };
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
 
-      try {
-         await dispatch(login(userData,navigate,toast));
-         window.location.reload();
-      } catch (error) {
-        console.log(error)
-      }
-     
-    };
+  const handleLogin = (e) => {
+    e.preventDefault();
 
-    useEffect(()=>{
-        if(jwt){
-            navigate('/')
-        }
-        
-    },[jwt])
-// handle submit end
-  
-//  show password start
-    const handlePasswordVisibilityToggle = () => {
-        setShowPassword(!showPassword);
-    };
+    let emailError = '';
+    let passwordError = '';
 
-// show password end
+    if (!email) {
+      emailError = 'Email is required';
+    } else if (!validateEmail(email)) {
+      emailError = 'Please enter a valid email';
+    }
 
-    return (
+    if (!password) {
+      passwordError = 'Password is required';
+    }
 
-        <Container>
-            <Toaster/>
-            <LoginForm onSubmit={handleSubmit}>
-                <Heading>LOGIN </Heading>
-                <SubHeading>Log in with your account details.</SubHeading>
-                <Label htmlFor="email">E-mail address</Label>
-                <Input
-                    type="text"
-                    id="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    showBorder={true}
-                />
-                {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
-                <Label htmlFor="password">Password</Label>
-                <PasswordContainer>
-                    <Input
-                        type={showPassword ? 'text' : 'password'}
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        showBorder={true}
-                    />
-                    <ShowPassword onClick={handlePasswordVisibilityToggle}>
-                        {showPassword ? 'Hide' : 'Show'}
-                    </ShowPassword>
-                </PasswordContainer>
-                {errors.password && <span style={{ color: 'red' }}>{errors.password}</span>}
-                <ForgotPassword>
-                    <ForgotPasswordLink href="#">Forgot Password?</ForgotPasswordLink>
-                </ForgotPassword>
-                <Button type="submit">LOG IN</Button>
+    setErrors({ email: emailError, password: passwordError });
 
-                <div style={{marginTop:'60px'}}>
-                    <h3>Not a member? <Link to="/sign-up">CREATE AN ACCOUNT</Link></h3>
-                </div>
-            </LoginForm>
-            <hr />
-            <Sidebar>
-                <SidebarList>
-                <SidebarHeading>POPULAR LINKS</SidebarHeading>
-                <hr/>
-                    <SidebarListItem><SidebarLink href="#">REGISTER</SidebarLink></SidebarListItem>
-                    <SidebarListItem><SidebarLink href="#">MY ORDERS</SidebarLink></SidebarListItem>
-                    <SidebarListItem><SidebarLink href="#">MY RETURNS</SidebarLink></SidebarListItem>
-                    <SidebarListItem><SidebarLink href="#">CHECK GIFT CARD BALANCE</SidebarLink></SidebarListItem>
-                </SidebarList>
-            </Sidebar>
+    if (!emailError && !passwordError) {
+      // Perform login logic here
+      console.log('Logged in with:', { email, password });
+    }
+  };
 
-        </Container>
-    );
-}
+  return (
+    <div className="flex flex-col md:flex-row justify-between m-10 pr-36 pl-36 bg-white ">
+      {/* Returning Customer Section */}
+      <div className="w-full md:w-1/2 pr-10 border-r-2 mt-8 md:mt-0">
+        <h2 className="text-2xl font-bold">Returning customer</h2>
+        <form className="mt-4" onSubmit={handleLogin}>
+          <label className="block mb-2 " htmlFor="email">
+            Email address*
+          </label>
+          <input
+            className={`w-full p-2 border rounded mb-2 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+            type="email"
+            id="email"
+            placeholder="email@address.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+
+          <label className="block mb-2" htmlFor="password">
+            Password*
+          </label>
+          <input
+            className={`w-full p-2 border rounded mb-2 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+
+          <div className="flex items-center mb-4">
+            <input type="checkbox" id="remember" className="mr-2" />
+            <label htmlFor="remember" className="">
+              Remember me
+            </label>
+          </div>
+          <button className="bg-blue-600 text-white p-2 rounded w-full hover:bg-blue-700">
+            Log in
+          </button>
+          <a href="#" className=" hover:underline block text-right mt-2">
+            Forgotten your password?
+          </a>
+        </form>
+      </div>
+
+      {/* New Customer Section */}
+      <div className="w-full md:w-1/2  pl-10 mt-8 md:mt-0">
+        <h2 className="text-2xl font-bold">New customer</h2>
+        <p className="mt-4 ">
+          Register for a Boots account to enjoy:
+        </p>
+        <ul className="list-disc list-inside mt-2 ">
+          <li>Faster checkout</li>
+          <li>Easy order tracking</li>
+          <li>Offers sent directly to you</li>
+          <li>A favourites list to store all your essentials</li>
+          <li>Access to online clinics and medicines ordering</li>
+        </ul>
+        <button className="bg-green-600 text-white p-2 rounded w-full mt-4 hover:bg-green-700">
+          Register
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Login;
