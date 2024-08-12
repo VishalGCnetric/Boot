@@ -1,17 +1,54 @@
-import React from 'react';
-import { FaTruck } from 'react-icons/fa';
-const sharedClasses = {
-  textZinc: 'text-zinc-800 dark:text-zinc-200',
-  bgZinc: 'bg-zinc-100 dark:bg-zinc-800',
-};
+import { Link } from "react-router-dom";
 
 const HeaderTop = () => {
   return (
-    <div className={`p-2 rounded-t-lg flex items-center justify-center align-center ${sharedClasses.bgZinc}`}>
-     
-       <FaTruck className="mr-2" />
-      <span className={`${sharedClasses.textZinc} font-semibold`}>Ray-Ban® Official Store India :</span>
-      <a href="#" className={`ml-2 underline ${sharedClasses.textZinc}`}>Free Shipping</a>
+    <div className="flex justify-end w-full text-xs">
+      <div className="flex justify-between w-full bg-gray-100 p-2">
+        <div className="flex gap-5">
+          <div className="flex items-center gap-2">
+            <a href="#" className="text-black">
+              Ship to
+            </a>
+            <img
+              className="w-5 h-3 object-cover"
+              alt="Ship to"
+              src="/image@2x.png"
+            />
+          </div>
+          <div className="flex items-center gap-2 border-r border-gray-300 pr-3">
+            <a href="#" className="text-black">
+              Find a store
+            </a>
+            <img
+              className="w-5 h-5"
+              alt="Find a store"
+              src="/image-1.svg"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <a href="#" className="text-black">
+              Help
+            </a>
+            <img
+              className="w-8 h-8  pt-2"
+              alt="Help"
+              src="/image-2.svg"
+            />
+          </div>
+        </div>
+        <div className="flex items-center gap-5">
+          <div className="flex items-center gap-2">
+            <Link to="/login" className="text-black">
+              Log in/register
+            </Link>
+          </div>
+          <div className="flex items-center gap-2 border-l border-gray-300 pl-3 text-red-500">
+            <a href="#" className="text-red-500">
+              Boots Advantage Card
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
