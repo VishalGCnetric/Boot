@@ -142,7 +142,7 @@ const handleCloseCart = () => {
   };
 
   return (
-    <div className="bg-white pb-4 z-999">
+    <div className="bg-white mt-20 pb-4 z-999">
       {/* Mobile menu */}
       <Toaster/>
       <Transition.Root show={open} as={Fragment}>
@@ -384,8 +384,9 @@ const jwt= localStorage.getItem("jwt")
       </Button>
       <Slide direction="left" in={openCart} mountOnEnter unmountOnExit>      
         <div className="absolute top-16 right-20 z-10">
-          {cartItems?.cartItems?.cart?.totalQuantity === 0 ? (
-            <BasketModel handleCloseCart={handleCloseCart} />
+          {cartItems?.cartItems?.cart?.totalQuantity === 0 ? (<>
+            {/* // <BasketModel handleCloseCart={handleCloseCart} /> */}
+            </>
           ) : (
             <ShoppingCart handleCloseCart={handleCloseCart} />
           )}

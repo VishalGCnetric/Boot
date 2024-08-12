@@ -5,6 +5,9 @@ import Carousel from "../customer/Components/Carousel/Carousel";
 import { API_BASE_URL } from "../config/api";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import HomeCardSlider from "../customer/Components/Home/HomeCardSlider";
+import HomeBannerSlider from "../customer/Components/Home/HomeBannerSlider";
+import HomeCircleCard from "../customer/Components/Home/HomeCircleCard";
 
 const Homepage = () => {
   const [banners, setBanners] = useState()
@@ -24,11 +27,19 @@ const Homepage = () => {
 
   return (
     <MainContainer>
-      <Link to='/shops'>
-        <div className="firstbanner" style={{ marginBottom: '30px' }}>
-          <img src={banners?.[2].url} alt="" />
+      
+        <div className="firstbanner mt-10" style={{ marginBottom: '30px' }}>
+          {/* <img src={banners?.[2].url} alt="" /> */}
+          <HomeCardSlider/>
         </div>
-      </Link>
+        <div className="firstbanner" style={{ marginBottom: '30px' }}>
+          {/* <img src={banners?.[2].url} alt="" /> */}
+          <HomeBannerSlider/>
+        </div>
+        <div className="firstbanner w-full" style={{ marginBottom: '30px' }}>
+          {/* <img src={banners?.[2].url} alt="" /> */}
+          <HomeCircleCard/>
+        </div>
       <div>
         <Carousel text={'New Arrivals'} />
       </div>
