@@ -385,7 +385,8 @@ const jwt= localStorage.getItem("jwt")
       <Slide direction="left" in={openCart} mountOnEnter unmountOnExit>      
         <div className="absolute top-16 right-20 z-10">
           {cartItems?.cartItems?.cart?.totalQuantity === 0 ? (
-            <BasketModel handleCloseCart={handleCloseCart} />
+            <></>
+            // <BasketModel handleCloseCart={handleCloseCart} />
           ) : (
             <ShoppingCart handleCloseCart={handleCloseCart} />
           )}

@@ -1,288 +1,190 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { register } from '../../../Redux/Auth/Action';
-import { Toaster } from 'react-hot-toast';
-
-const Container = styled.div`
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    hr{
-        margin: 20px 0px ;
-        display:none;
-        border: 1.3px solid #e0e0e0;
-    }
-
-    @media (max-width: 600px) {
-        flex-direction: column;
-        hr{
-            display:block;
-        }
-    }
-`;
-
-const LoginForm = styled.form`
-    width: 50%;
-    @media (max-width: 600px) {
-        width: 98%;
-    }
-`;
-
-const Heading = styled.h6`
-    font-size: 22px;
-    color: #333;
-    margin-bottom: 20px;
-`;
-
-const SubHeading = styled.p`
-    margin-bottom: 50px;
-    color: #666;
-`;
-
-const Label = styled.label`
-    display: block;
-    /* font-weight: bold; */
-    margin-top: 20px;
-    font-size:14px;
-    color: #444;
-`;
-
-const Input = styled.input`
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 5px;
-    border: none;
-    border-bottom: ${({ showBorder }) => (showBorder ? '1px solid #ddd' : 'none')};
-    border-radius: 0;
-    outline: none;
-    font-size: 16px;
-`;
-
-const PasswordContainer = styled.div`
-    position: relative;
-`;
-
-const ShowPassword = styled.span`
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #2d2e2e;
-    font-size: 14px;
-`;
-
-const ForgotPassword = styled.div`
-    text-align: right;
-    margin-bottom: 20px;
-`;
-
-const ForgotPasswordLink = styled.a`
-    color: #2d2e2e;
-    text-decoration: none;
-    font-size: 14px;
-`;
-const Button = styled.button`
-    padding: 12px;
-    background-color: #080808;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-left: auto; /* Aligns the button to the right */
-
-    &:hover {
-        background-color: #080808;
-    }
-`;
-
-
-const Sidebar = styled.div`
-    width: 35%;
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    @media (max-width: 600px) {
-        width: 100%;
-        padding:0;
-        justify-content: flex-start;
-    }
-`;
-
-const SidebarHeading = styled.h3`
-    font-size: 14px;
-    margin-bottom: 10px;
-    color: #333;
-    font-weight:600;
-`;
-
-const SidebarList = styled.ul`
-    list-style: none;
-    padding: 0;
-    font-weight:600;
-`;
-
-const SidebarListItem = styled.li`
-    margin-bottom: 5px;
-`;
-
-const SidebarLink = styled.a`
-    color: #434445;
-    text-decoration: none;
-    font-size: 12px;
-`;
 
 const RegisterPage = () => {
-    const [showPassword, setShowPassword] = useState(false);
-    const [email, setEmail] = useState('');
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [password, setPassword] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [formData, setFormData] = useState({
+        title: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        agreeToTerms: false,
+        receiveDeals: false,
+    });
+
     const [errors, setErrors] = useState({});
-    const dispatch = useDispatch()
 
-    const handlePasswordVisibilityToggle = () => {
-        setShowPassword(!showPassword);
+    const handleChange = (e) => {
+        const { id, value, checked, type } = e.target;
+        setFormData({
+            ...formData,
+            [id]: type === 'checkbox' ? checked : value,
+        });
     };
 
-// handle submit start
+    const validate = () => {
+        let tempErrors = {};
 
-    const handleSubmit = async (e) => {
+        if (!formData.title) tempErrors.title = 'Please select a title.';
+        if (!formData.firstName) tempErrors.firstName = 'First name is required.';
+        if (!formData.lastName) tempErrors.lastName = 'Last name is required.';
+        if (!formData.email) tempErrors.email = 'Email address is required.';
+        if (!/\S+@\S+\.\S+/.test(formData.email)) tempErrors.email = 'Email is invalid.';
+        if (!formData.password) tempErrors.password = 'Password is required.';
+        if (formData.password.length < 6) tempErrors.password = 'Password must be at least 6 characters.';
+        if (formData.password !== formData.confirmPassword) tempErrors.confirmPassword = 'Passwords do not match.';
+        if (!formData.agreeToTerms) tempErrors.agreeToTerms = 'You must agree to the terms.';
+
+        setErrors(tempErrors);
+        return Object.keys(tempErrors).length === 0;
+    };
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-        // Basic validation
-        const errors = {};
-        if (!firstName) {
-            errors.firstName = 'First Name is required';
-        }
-        if (!lastName) {
-            errors.lastName = 'Last Name is required';
-        }
-        if (!phoneNumber) {
-            errors.phoneNumber = 'Phone Number is required';
-        }
-        if (!email) {
-            errors.email = 'Email is required';
-        }
-        if (!password) {
-            errors.password = 'Password is required';
-        }
-
-        setErrors(errors);
-        // Submit logic...
-        const data = new FormData(e.currentTarget);
-        const userData = {
-            firstName: data.get("first_name"),
-            lastName: data.get("last_name"),
-            phoneNumber: data.get("phone_number"),
-            email: data.get("email"),
-            password: data.get("password")
-        };
-
-        try {
-            await dispatch(register(userData))
-        } catch (error) {
-
+        if (validate()) {
+            console.log('Form data:', formData);
+            // Handle form submission
         }
     };
-// handle submit end
 
     return (
+        <div className="w-full min-h-screen mt-5  flex items-center justify-center">
+            <div className="w-full borderx  px-6 px-36 bg-white rounded-lg shadow-lg mx-4">
+                <h2 className="text-3xl font-extrabold text-center text-blue-600 mb-6">Create Your Account</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label htmlFor="title" className="block text-gray-700 font-medium mb-1">Title*</label>
+                        <select
+                            id="title"
+                            value={formData.title}
+                            onChange={handleChange}
+                            className={`border ${errors.title ? 'border-red-500' : 'border-gray-300'} rounded-lg p-2 w-full`}
+                        >
+                            <option value="">Please Select</option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Ms.">Ms.</option>
+                            <option value="Mrs.">Mrs.</option>
+                        </select>
+                        {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
+                    </div>
 
-        <Container>
-            <Toaster />
-            <LoginForm onSubmit={handleSubmit}>
-                <Heading>CREATE ACCOUNT</Heading>
+                    <div className="mb-4">
+                        <label htmlFor="firstName" className="block text-gray-700 font-medium mb-1">First Name*</label>
+                        <input
+                            type="text"
+                            id="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            className={`border ${errors.firstName ? 'border-red-500' : 'border-gray-300'} rounded-lg p-2 w-full`}
+                            required
+                        />
+                        {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
+                    </div>
 
-                <Label htmlFor="first_name">First Name</Label>
-                <Input
-                    type="text"
-                    id="first_name"
-                    name="first_name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    showBorder={true}
-                />
-                {errors.firstName && <span style={{ color: 'red', fontSize: '10px' }}>{errors.firstName}</span>}
+                    <div className="mb-4">
+                        <label htmlFor="lastName" className="block text-gray-700 font-medium mb-1">Last Name*</label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            className={`border ${errors.lastName ? 'border-red-500' : 'border-gray-300'} rounded-lg p-2 w-full`}
+                            required
+                        />
+                        {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
+                    </div>
 
-                <Label htmlFor="last_name">Last Name</Label>
-                <Input
-                    type="text"
-                    id="last_name"
-                    name="last_name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    showBorder={true}
-                />
-                {errors.lastName && <span style={{ color: 'red', fontSize: '10px' }}>{errors.lastName}</span>}
+                    <div className="mb-4">
+                        <label htmlFor="email" className="block text-gray-700 font-medium mb-1">Email Address*</label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            className={`border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg p-2 w-full`}
+                            required
+                        />
+                        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                        <small className="text-gray-500">This will be your username</small>
+                    </div>
 
-                <Label htmlFor="phone_number">Phone Number</Label>
-                <PasswordContainer>
-                    <Input
+                    <div className="mb-4">
+                        <label htmlFor="password" className="block text-gray-700 font-medium mb-1">Password*</label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className={`border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-lg p-2 w-full`}
+                            required
+                        />
+                        {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+                    </div>
 
-                        id="phone_number"
-                        name="phone_number"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                        showBorder={true}
-                    />
-                    {errors.phoneNumber && <span style={{ color: 'red', fontSize: '10px' }}>{errors.phoneNumber}</span>}
-                </PasswordContainer>
+                    <div className="mb-4">
+                        <label htmlFor="confirmPassword" className="block text-gray-700 font-medium mb-1">Confirm Password*</label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            className={`border ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'} rounded-lg p-2 w-full`}
+                            required
+                        />
+                        {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+                    </div>
 
+                    <p className="text-gray-500 text-sm">*Required fields</p>
 
-                <Label htmlFor="email">E-mail address</Label>
-                <Input
-                    type="text"
-                    id="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    showBorder={true}
-                />
-                {errors.email && <span style={{ color: 'red', fontSize: '10px' }}>{errors.email}</span>}
+                    <div className="p-6 mb-4">
+                        <h2 className="text-lg font-semibold text-gray-800 mb-4">How We Use Your Personal Data</h2>
+                        <p className="text-gray-600 mb-4">
+                            We will collect and process your personal data you share with us such as your name and email address to provide and manage your account. We may share your data with carefully selected companies that provide services on our behalf but assure you that we will never sell your data.
+                        </p>
+                        <p className="text-gray-600 mb-4">
+                            For more details, please see our <a href="#" className="text-blue-600 hover:underline">privacy policy</a> or contact <a href="mailto:Boots.CustomerCare_Team@boots.co.uk" className="text-blue-600 hover:underline">Boots.CustomerCare_Team@boots.co.uk</a>.
+                        </p>
+                        <div className="mb-4">
+                            <label className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    id="receiveDeals"
+                                    checked={formData.receiveDeals}
+                                    onChange={handleChange}
+                                    className="form-checkbox h-5 w-5 text-blue-600 border-gray-300 rounded"
+                                />
+                                <span className="ml-2 text-gray-700">
+                                    Yes, I would like to receive exclusive deals, information on the latest products, and relevant offers.
+                                </span>
+                            </label>
+                        </div>
+                        <div className="mb-4">
+                            <label className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    id="agreeToTerms"
+                                    checked={formData.agreeToTerms}
+                                    onChange={handleChange}
+                                    className={`form-checkbox h-5 w-5 text-blue-600 border-gray-300 rounded ${errors.agreeToTerms ? 'border-red-500' : ''}`}
+                                    required
+                                />
+                                <span className="ml-2 text-gray-700">
+                                    I agree to the <a href="#" className="text-blue-600 hover:underline">terms & conditions*</a>
+                                </span>
+                            </label>
+                            {errors.agreeToTerms && <p className="text-red-500 text-sm">{errors.agreeToTerms}</p>}
+                        </div>
+                    </div>
 
-                <Label htmlFor="password">Password</Label>
-                <PasswordContainer>
-                    <Input
-                        type={showPassword ? 'text' : 'password'}
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        showBorder={true}
-                    />
-                    {errors.password && <span style={{ color: 'red', fontSize: '10px' }}>{errors.password}</span>}
-                </PasswordContainer>
-
-                <ForgotPassword>
-                    <ForgotPasswordLink href="#">Forgot Password?</ForgotPasswordLink>
-                </ForgotPassword>
-
-                <Button type="submit">CREATE ACCOUNT</Button>
-
-                <div style={{ marginTop: '60px' }}>
-                    <h3>Not a member? <span>Already a member? LOGIN</span></h3>
-                </div>
-            </LoginForm>
-            <hr />
-            <Sidebar>
-                <SidebarList>
-                    <SidebarHeading>POPULAR LINKS</SidebarHeading>
-                    <hr style={{ color: "black" }} />
-                    <SidebarListItem><SidebarLink href="#">REGISTER</SidebarLink></SidebarListItem>
-                    <SidebarListItem><SidebarLink href="#">MY ORDERS</SidebarLink></SidebarListItem>
-                    <SidebarListItem><SidebarLink href="#">MY RETURNS</SidebarLink></SidebarListItem>
-                    <SidebarListItem><SidebarLink href="#">CHECK GIFT CARD BALANCE</SidebarLink></SidebarListItem>
-                </SidebarList>
-            </Sidebar>
-        </Container>
+                    <button
+                        type="submit"
+                        className="bg-blue-600 text-white hover:bg-blue-700 transition duration-200 py-3 px-4 flex rounded-lg items-end ml-auto mb-20"
+                    >
+                        Create My Account
+                    </button>
+                </form>
+            </div>
+        </div>
     );
 }
 
