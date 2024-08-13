@@ -8,6 +8,12 @@ import { Link } from "react-router-dom";
 import HomeCardSlider from "../customer/Components/Home/HomeCardSlider";
 import HomeBannerSlider from "../customer/Components/Home/HomeBannerSlider";
 import HomeCircleCard from "../customer/Components/Home/HomeCircleCard";
+import HomeTimerBanner from "../customer/Components/Home/HomeTimerBanner";
+import FindOutBanner from "../customer/Components/Home/FindOutBanner";
+import ShopNowBanner from "../customer/Components/Home/ShopNowBanner";
+import HomeTodayGrid from "../customer/Components/Home/HomeTodayGrid";
+import HealthPicksSlider from "../customer/Components/Home/HealthPickerSlider";
+
 
 const Homepage = () => {
   const [banners, setBanners] = useState()
@@ -33,37 +39,28 @@ const Homepage = () => {
           <HomeCardSlider/>
         </div>
         <div className="firstbanner" style={{ marginBottom: '30px' }}>
+       <HomeTimerBanner/>
+        </div>
+        <div className="firstbanner" style={{ marginBottom: '30px' }}>
           {/* <img src={banners?.[2].url} alt="" /> */}
           <HomeBannerSlider/>
         </div>
-        <div className="firstbanner w-full" style={{ marginBottom: '30px' }}>
+        <div className="self-stretch flex flex-col items-start justify-start pt-0 px-0 pb-[7px] box-border max-w-full">
           {/* <img src={banners?.[2].url} alt="" /> */}
-          <HomeCircleCard/>
+          {/* <HomeCircleCard/> */}
+          <HomeTodayGrid/>
+          <ShopNowBanner/>
         </div>
       <div>
         <Carousel text={'New Arrivals'} />
       </div>
       <div style={{ margin: '30px 0', textAlign: 'center', fontSize: '23px', fontWeight: '800' }}>
-        <h1>THIS IS WHAT DISRUPTION LOOKS LIKE</h1>
+      <FindOutBanner/>
       </div>
-      <FlexDiv>
-        <Link to='/shops'>
-          <div className="hover">
-            <img src={banners?.[0].url} alt="" />
-          </div>
-        </Link>
-        <Link to='/shops'>
-          <div className="hover">
-            <img src={banners?.[1].url} alt="" />
-          </div>
-        </Link>
-      </FlexDiv>
-      <Link to='/shops'>
-        <div className="firstbanner">
-          <img src={banners?.[3].url} alt="" />
-        </div>
-      </Link>
-
+     
+      <div style={{ margin: '30px 0', textAlign: 'center', fontSize: '23px', fontWeight: '800' }}>
+      <HealthPicksSlider/>
+      </div>
     </MainContainer>
   );
 };

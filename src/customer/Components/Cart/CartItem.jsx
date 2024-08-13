@@ -14,7 +14,11 @@ import {
   handleRemoveItemFromCart,
 } from "../../../action/cart";
 import { grey } from "@mui/material/colors";
-
+const cardClasses = "max-w-sm mx-auto p-4 mb-2 border-1 bg-white dark:bg-card shadow-lg rounded-lg";
+const textClasses = "text-zinc-500 dark:text-zinc-400";
+const buttonClasses = "bg-zinc-200 dark:bg-zinc-600 p-2";
+const borderClasses = "border border-zinc-300 dark:border-zinc-500";
+const labelClasses = "mr-4 text-zinc-600 dark:text-zinc-400";
 const CartItem = ({
   item,
   showButton,
@@ -44,66 +48,30 @@ const CartItem = ({
   };
 
   return (
-    <div className="p-5 shadow-lg border rounded-md">
-      <div className="flex items-center">
-        <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
-          <img
-            className="w-full h-full object-cover object-top"
-            src={item?.productVariant?.images[0]?.url}
-            alt=""
-          />
-        </div>
-        <div className="ml-5 space-y-1">
-          <p className="font-semibold">{item?.productVariant?.name}</p>
-          {/* <p className="opacity-70">Size: {item?.size},White</p>
-          <p className="opacity-70 mt-2">Seller: {item?.product?.brand}</p> */}
-          <div className="flex space-x-2 items-center pt-3">
-            <p className="opacity-50 line-through">
-              ₹{item?.productVariant.price / 100}
-            </p>
-            <p className="font-semibold text-lg">
-              ₹{item?.productVariant.price / 100}
-            </p>
-            <p className="text-green-600 font-semibold">10% off</p>
-          </div>
-        </div>
+    <div className={cardClasses}>
+    <div className="flex items-center mb-4">
+      <img aria-hidden="true" alt="Sperm Concentration Rapid Test" src="https://boots.scene7.com/is/image/Boots/10288958?op_sharpen=1" className="mr-4 w-16"/>
+      <div>
+        <h2 className="text-lg font-semibold text-zinc-800 dark:text-zinc-200">MyHealthChecked Sperm Concentration Rapid Test</h2>
+        <p className={textClasses}>10330207</p>
       </div>
-      {showButton && (
-        <div className="lg:flex items-center lg:space-x-10 pt-4">
-          <div className="flex items-center space-x-2 ">
-            <IconButton
-              onClick={(e) => handleUpdateCartMinus(e, item.id, item.quantity)}
-              disabled={item?.quantity <= 1}
-              color="primary"
-              aria-label="add an alarm"
-            >
-              <RemoveCircleOutlineIcon />
-            </IconButton>
-
-            <span className="py-1 px-7 border rounded-sm">
-              {item?.quantity}
-            </span>
-            <IconButton
-              onClick={(e) => handleUpdateCartPlus(e, item.id, item.quantity)}
-              color="primary"
-              aria-label="add an alarm"
-            >
-              <AddCircleOutlineIcon />
-            </IconButton>
-          </div>
-          <div className="flex text-sm lg:text-base mt-5 lg:mt-0">
-            <Button
-              onClick={(e) => handleRemoveItemFromCart(e, item.id)}
-              variant="contained"
-              sx={{ bgcolor: grey[900] }}
-            >
-              Remove{" "}
-            </Button>
-          </div>
-        </div>
-      )}
     </div>
+    
+    <div className="flex justify-between mb-2">
+      <span className="text-xl font-bold text-green-600">999 points</span>
+      <span className="text-red-500">Save 250 points</span>
+    </div>
+    <div className="flex items-center mb-4">
+      <label className={labelClasses}>Quantity:</label>
+      <button className={`${buttonClasses} rounded-l`}>-</button>
+      <input type="number" value="1" className={`${borderClasses} w-16 text-center`} readOnly/>
+      <button className={`${buttonClasses} rounded-r`}>+</button>
+    </div>
+    <div className="text-blue-500 mb-2">Your offers (1 applied)</div>
+    <button className="text-red-500 hover:underline">Remove</button>
+  </div>
   );
 };
 
 export default CartItem;
+

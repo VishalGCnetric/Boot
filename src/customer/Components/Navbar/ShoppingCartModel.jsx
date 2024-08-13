@@ -15,12 +15,11 @@ export const EmptyCart = ({ handleCloseCart }) => {
   return (
     <div className={containerStyles}>
       <div className={innerContainerStyles}>
-        <button onClick={handleCloseCart} className={buttonStyles}>
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-        <p className={textStyles}>You have no items in your shopping cart.</p>
+       
+      <div className="bg-white p-4 border border-border rounded-lg mt-6">
+      <h2 className="text-lg font-bold">Your basket</h2>
+      <p className="text-danger mt-2">Your basket is empty</p>
+    </div>
       </div>
     </div>
   );

@@ -4,19 +4,41 @@ import styled from 'styled-components';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import AdventCalendar from './AdventCalender';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 // Sample products data
 const products = [
-  { id: 1, name: 'ALICE', image: 'https://india.ray-ban.com/media/catalog/product/cache/ecdbd5a50e6b93b224fc4aacce3c4ac7/0/r/0rx7239_2012_6.png' },
-  { id: 2, name: 'AVIATOR TITANIUM', image: 'https://india.ray-ban.com/media/catalog/product/cache/ecdbd5a50e6b93b224fc4aacce3c4ac7/0/r/0rx7239_2012_6.png' },
-  { id: 3, name: 'ALAIN', image: 'https://india.ray-ban.com/media/catalog/product/cache/ecdbd5a50e6b93b224fc4aacce3c4ac7/0/r/0rx7239_2012_6.png' },
-  { id: 1, name: 'ALICE', image: 'https://india.ray-ban.com/media/catalog/product/cache/ecdbd5a50e6b93b224fc4aacce3c4ac7/0/r/0rx7239_2012_6.png' },
-  { id: 2, name: 'ALAIN', image: 'https://india.ray-ban.com/media/catalog/product/cache/ecdbd5a50e6b93b224fc4aacce3c4ac7/0/r/0rx7239_2012_6.png' },
-  { id: 3, name: 'Product 3', image: 'https://india.ray-ban.com/media/catalog/product/cache/ecdbd5a50e6b93b224fc4aacce3c4ac7/0/r/0rx7239_2012_6.png' },
-  { id: 1, name: 'Product 1', image: 'https://india.ray-ban.com/media/catalog/product/cache/ecdbd5a50e6b93b224fc4aacce3c4ac7/0/r/0rx7239_2012_6.png' },
-  { id: 2, name: 'Product 2', image: 'https://india.ray-ban.com/media/catalog/product/cache/ecdbd5a50e6b93b224fc4aacce3c4ac7/0/r/0rx7239_2012_6.png' },
-  { id: 3, name: 'Product 3', image: 'https://india.ray-ban.com/media/catalog/product/cache/ecdbd5a50e6b93b224fc4aacce3c4ac7/0/r/0rx7239_2012_6.png' },
-  // Add more products here
+  {
+    alt: 'photo-printing',
+    text: 'Photo printing',
+    src: 'https://assets.boots.com/content/dam/boots/seasonal-campaigns/christmas/2024/13a_advent_calendar/13a_Advent_Calendar_Nav_withoutsg.dam.ts%3D1723106048701.png',
+  },
+  {
+    alt: 'skincare',
+    text: 'Skincare',
+    src: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P10a_Homepage_CircleNav_SunHoliday.dam.ts%3D1716208803095.png',
+  },
+  {
+    alt: 'health-hub-skin-advice',
+    text: 'Health Hub skin advice',
+    src: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P10a_Homepage_CircleNav_Pollen.dam.ts%3D1715087584705.png',
+  },
+  {
+    alt: 'trending',
+    text: 'Trending',
+    src: 'https://assets.boots.com/content/dam/boots/shop-by-department/photo/2020-2021/11b/Photo11b_PhotoPrinting_CircleNav_Prints_Supplied.dam.ts%3D1621523495789.jpg',
+  },
+  {
+    alt: 'prescriptions',
+    text: 'Prescriptions',
+    src: 'https://assets.boots.com/content/dam/boots/shop-by-department/beauty-and-skincare/2023-2024/p10a/circle-navs/10a_Beauty_CircleNav_Skincare_10343758_Summer24.dam.ts%3D1714732997964.png',
+  },
+  {
+    alt: 'advantage-card',
+    text: 'Sign up to Advantage Card',
+    src: 'https://assets.boots.com/content/dam/boots/shop-by-department/photo/2020-2021/11b/Photo11b_PhotoPrinting_CircleNav_Prints_Supplied.dam.ts%3D1621523495789.jpg',
+  },
 ];
 
 const CarouselContainer = styled.div`
@@ -33,10 +55,15 @@ const ProductCard = styled.div`
   background-color: aliceblue;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  /* text-align: center; // Center text content */
+   text-align: center; 
+       padding:auto;
 
+display:flex;
+align-item:center;
+justfy-content:center;
   img {
-    width: 100%;
+    width: 50%;
+    padding:auto;
     height: auto;
     border-radius: 8px; // Add border-radius to the image
   }
@@ -56,23 +83,47 @@ const Arrow = styled.div`
 `;
 
 const PrevArrow = styled(Arrow)`
+color:black;
   left: 10px;
 `;
 
 const NextArrow = styled(Arrow)`
+color:black;
   right: 10px;
 `;
+const CustomPrevArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div
+      onClick={onClick}
+      className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 cursor-pointer"
+    >
+      <FaChevronLeft />
+    </div>
+  );
+};
 
+const CustomNextArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div
+      onClick={onClick}
+      className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 cursor-pointer"
+    >
+      <FaChevronRight />
+    </div>
+  );
+};
 const Carousel = ({text}) => {
   const settings = {
     infinite: true,
     speed: 1500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
+    slidesToShow: 5,
+    slidesToScroll: 3,
     autoplay: true,
     autoplaySpeed: 2000,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
     responsive: [
       {
         breakpoint: 768, // Adjusted breakpoint for mobile view
@@ -94,14 +145,7 @@ const Carousel = ({text}) => {
       <Slider {...settings}>
         {products.map((product) => (
 
-          <ProductCard key={product.id}>
-
-            {text &&<h3 style={{ color: 'red' ,position:'absolute',top:'10px',left:'35%'}}>New Arrivals</h3>}
-
-            <img src={product.image} alt={product.name} />
-            <p>{product.name}</p>
-            <p>$2000.00</p>
-          </ProductCard>
+     <AdventCalendar {...product}/>
         ))}
       </Slider>
       <PrevArrow />

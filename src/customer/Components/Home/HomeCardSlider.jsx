@@ -70,7 +70,7 @@ const HomeCardSlider = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 4,
     slidesToScroll: 2,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
@@ -94,14 +94,14 @@ const HomeCardSlider = () => {
 
   return (
     <div className="relative text-center bg-gradient-to-r from-yellow-300 to-yellow-50 py-2">
-      <h1 className="text-2xl font-semibold text-orange-600 mt-10">
+      <h1 className="text-4xl font-semibold text-orange-600 mt-10">
         Celebrate summer with our hottest offers!
       </h1>
 
       <Slider {...settings} className="py-4 px-6">
         {cards.map((card, index) => (
-       <div key={index} className="px-2">
-       <div className="relative bg-white shadow-md rounded-lg overflow-hidden h-80 flex flex-col justify-between">
+       <div key={index} className="px-2 py-2">
+       <div className="relative bg-white shadow-md rounded-lg overflow-hidden h-86 flex flex-col justify-between">
          <div className="relative">
            <img
              src={card.imageSrc}

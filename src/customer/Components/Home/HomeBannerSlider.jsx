@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const bannerData = [
     {
@@ -42,11 +43,12 @@ const HomeBannerSlider = () => {
     const settings = {
         dots: true,
         infinite: true,
+        autoplaySpeed: 1000,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />
+        nextArrow: <CustomNextArrow />,
+        prevArrow: <CustomPrevArrow />
     };
 
     return (
@@ -68,39 +70,41 @@ const HomeBannerSlider = () => {
     );
 };
 
-const SampleNextArrow = (props) => {
-    const { className, style, onClick } = props;
+const CustomPrevArrow = (props) => {
+    const { onClick } = props;
     return (
-        <div
-            className={className}
-            style={{ ...style, display: "block", right: 0 }}
-            onClick={onClick}
-        />
+      <div
+        onClick={onClick}
+        className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 cursor-pointer"
+      >
+        <FaChevronLeft />
+      </div>
     );
-};
+  };
 
-const SamplePrevArrow = (props) => {
-    const { className, style, onClick } = props;
+  const CustomNextArrow = (props) => {
+    const { onClick } = props;
     return (
-        <div
-            className={className}
-            style={{ ...style, display: "block", left: 0 }}
-            onClick={onClick}
-        />
+      <div
+        onClick={onClick}
+        className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 cursor-pointer"
+      >
+        <FaChevronRight />
+      </div>
     );
-};
+  };
 
 const Banner = ({ title, subtitle, description, buttonText, imageUrl, imageAlt }) => {
     return (
         <div className="flex items-center justify-between bg-gray-100 p-8 rounded-lg">
-            <div className="w-1/2">
+            <div className="w-1/2 text-center">
                 <h2 className="text-3xl font-bold">{title}</h2>
                 <h3 className="text-xl mt-2">{subtitle}</h3>
                 <p className="text-lg mt-4">{description}</p>
                 <button className="mt-6 bg-black text-white py-2 px-4 rounded-lg">{buttonText}</button>
             </div>
-            <div className="w-1/2">
-                <img src={imageUrl} alt={imageAlt} className="rounded-lg" />
+            <div className="w-1/2 ">
+                <img src={imageUrl} alt={imageAlt} className="rounded-lg  w-full h-[110%]" />
             </div>
         </div>
     );
