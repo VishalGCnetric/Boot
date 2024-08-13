@@ -48,9 +48,9 @@ const RegisterPage = () => {
     };
 
     return (
-        <div className="w-full min-h-screen mt-5  flex items-center justify-center">
-            <div className="w-full borderx  px-6 px-36 bg-white rounded-lg shadow-lg mx-4">
-                <h2 className="text-3xl font-extrabold text-center text-blue-600 mb-6">Create Your Account</h2>
+        <div className="w-full min-h-screen flex items-center justify-center p-4 md:p-8">
+            <div className="w-full max-w-xl lg:max-w-3xl bg-white rounded-lg shadow-lg p-6 md:p-12">
+                <h2 className="text-2xl md:text-3xl font-extrabold text-center text-blue-600 mb-6">Create Your Account</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="title" className="block text-gray-700 font-medium mb-1">Title*</label>
@@ -178,7 +178,7 @@ const RegisterPage = () => {
 
                     <button
                         type="submit"
-                        className="bg-blue-600 text-white hover:bg-blue-700 transition duration-200 py-3 px-4 flex rounded-lg items-end ml-auto mb-20"
+                        className="bg-blue-600 text-white hover:bg-blue-700 transition duration-200 py-3 px-4 rounded-lg w-full md:w-auto"
                     >
                         Create My Account
                     </button>

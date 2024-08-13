@@ -34,9 +34,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-between m-10 pr-36 pl-36 bg-white ">
+    <div className="container my-10 flex flex-col md:flex-row justify-between p-5 sm:px-36 bg-white ">
       {/* Returning Customer Section */}
-      <div className="w-full md:w-1/2 pr-10 border-r-2 mt-8 md:mt-0">
+      <div className="w-full md:w-1/2 sm:pr-10  sm:border-r-2 mt-8 md:mt-0">
         <h2 className="text-2xl font-bold">Returning customer</h2>
         <form className="mt-4" onSubmit={handleLogin}>
           <label className="block mb-2 " htmlFor="email">
@@ -82,12 +82,12 @@ const Login = () => {
       </div>
 
       {/* New Customer Section */}
-      <div className="w-full md:w-1/2  pl-10 mt-8 md:mt-0">
+      <div className="w-full md:w-1/2 sm:pr-10 lg:ml-10 mt-8 md:mt-0">
         <h2 className="text-2xl font-bold">New customer</h2>
         <p className="mt-4 ">
           Register for a Boots account to enjoy:
         </p>
-        <ul className="list-disc list-inside mt-2 ">
+        <ul className="list-none list-inside mt-2 ">
           <li>Faster checkout</li>
           <li>Easy order tracking</li>
           <li>Offers sent directly to you</li>
