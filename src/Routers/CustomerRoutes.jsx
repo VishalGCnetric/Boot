@@ -51,7 +51,7 @@ const CustomerRoutes = () => {
         <DeliveryCard/>
         {/* {showNavigation && <Navigation />} */}
         <Routes>
-          <Route path="/sign-in" element={<Login />}></Route>
+          <Route path="/login" element={<Login />}></Route>
           <Route path="/sign-up" element={<RegisterPage />}></Route>
           <Route path="/shopping-cart" element={<ShoppingCart />}></Route>
           {/* <Route path="/register" element={<Homepage />}></Route> */}
