@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 // Reusable Card Component
 const PromoCard = ({ imgSrc, badgeText, title, description, shopNowText }) => {
   return (
-    <div className="rounded-tl-none rounded-tr-mini rounded-br-mini rounded-bl-none bg-wwwbootscom-white border-wwwbootscom-alto border-[1px] border-solid flex flex-col items-end justify-start gap-[281.6px] mq450:gap-[141px]">
-      <div className="flex flex-row items-start justify-start relative">
+    <div className="rounded-tl-none relative rounded-tr-mini rounded-br-mini rounded-bl-none bg-wwwbootscom-white border-wwwbootscom-alto border-[1px] border-solid flex flex-col items-end justify-start gap-[281.6px] mq450:gap-[141px]">
+      <div className="flex flex-row items-start justify-start">
         <img
-          className="h-[354.7px] w-[315.5px] absolute !m-[0] bottom-[-261.7px] left-[-194.5px] rounded-tl-mini rounded-tr-none rounded-b-none max-w-full overflow-hidden object-cover"
+          className="w-[279.3px] h-[313.9px] absolute !m-[0] top-[-20px] left-[-14px] rounded-tl-mini rounded-tr-none rounded-b-none max-h-full overflow-hidden object-cover"
           alt=""
           src={imgSrc}
         />
@@ -35,15 +35,17 @@ const PromoCard = ({ imgSrc, badgeText, title, description, shopNowText }) => {
                 </div>
               </div>
             </div>
-            <div className="self-stretch flex flex-col items-center justify-start pt-0 px-[46px] pb-[5px] text-sm mq450:pl-5 mq450:pr-5 mq450:box-border">
-              <div className="flex flex-row items-start justify-center min-w-[182px] max-w-[275.5px]">
-                <div className="overflow-y-auto flex flex-col items-center justify-start py-0 px-[47px]">
-                  <b className="relative [text-decoration:underline] tracking-[1px] leading-[20px] inline-block min-w-[87px]">
-                    {shopNowText}
-                  </b>
-                </div>
-              </div>
-            </div>
+            <div className="self-stretch flex flex-col items-start justify-end pt-[22.7px] px-0 pb-[0.1px] box-border min-h-[40px] text-sm">
+                    <div className="self-stretch flex flex-col items-center justify-center py-0 px-7">
+                      <div className="rounded-8xs border-wwwbootscom-deep-cove border-[1px] border-solid box-border overflow-hidden flex flex-row items-start justify-center py-2 px-[21px] min-w-[182px] max-w-[239.27px]">
+                        <div className="overflow-y-auto flex flex-col items-center justify-start py-0 px-[25px]">
+                          <b className="relative tracking-[1px] leading-[20px] inline-block min-w-[87px]">
+                            SHOP NOW
+                          </b>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
           </div>
         </div>
       </div>

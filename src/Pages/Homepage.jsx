@@ -13,6 +13,8 @@ import FindOutBanner from "../customer/Components/Home/FindOutBanner";
 import ShopNowBanner from "../customer/Components/Home/ShopNowBanner";
 import HomeTodayGrid from "../customer/Components/Home/HomeTodayGrid";
 import HealthPicksSlider from "../customer/Components/Home/HealthPickerSlider";
+import BeautyDeals from "../customer/Components/Home/BeautyDeals";
+import PaymentMethodBanner from "../customer/Components/Home/PaymentMethodBanner";
 
 
 const Homepage = () => {
@@ -35,7 +37,6 @@ const Homepage = () => {
     <MainContainer>
       
         <div className="firstbanner mt-10" style={{ marginBottom: '30px' }}>
-          {/* <img src={banners?.[2].url} alt="" /> */}
           <HomeCardSlider/>
         </div>
         <div className="firstbanner" style={{ marginBottom: '30px' }}>
@@ -55,11 +56,17 @@ const Homepage = () => {
         <Carousel text={'New Arrivals'} />
       </div>
       <div style={{ margin: '30px 0', textAlign: 'center', fontSize: '23px', fontWeight: '800' }}>
+      <BeautyDeals/>
+      </div>
+      <div style={{ margin: '30px 0', textAlign: 'center', fontSize: '23px', fontWeight: '800' }}>
       <FindOutBanner/>
       </div>
      
       <div style={{ margin: '30px 0', textAlign: 'center', fontSize: '23px', fontWeight: '800' }}>
       <HealthPicksSlider/>
+      </div>
+      <div style={{ margin: '30px 0', textAlign: 'center', fontSize: '23px', fontWeight: '800' }}>
+      <PaymentMethodBanner/>
       </div>
     </MainContainer>
   );

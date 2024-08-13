@@ -69,7 +69,7 @@ const ShoppingCart = ({toggleDrawer}) => {
       <button className="w-full bg-wwwbootscom-deep-cove text-white py-3 font-bold">CHECKOUT NOW</button>
 
       <div className="p-4 flex justify-between">
-        {['visa', 'mastercard', 'amex', 'paypal', 'applepay', 'klarna', 'advantage-card'].map((method) => (
+        {['visa', 'mastercard', 'amex', 'paypal@2x', 'applepay', 'kalarna@2x', 'payment-icon-v2damts3d1691146448583@2x'].map((method) => (
           <img key={method} src={`${method}.png`} alt={method} className="h-6" />
         ))}
       </div>
