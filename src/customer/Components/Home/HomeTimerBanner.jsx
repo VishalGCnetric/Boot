@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const HomeTimerBanner = ({ className = "" }) => {
   const calculateTimeLeft = () => {
-    const targetDate = new Date("2024-08-14T00:00:00"); // Replace with your target date
+    const targetDate = new Date("2024-09-14T00:00:00"); // Replace with your target date
     const now = new Date();
     const difference = targetDate - now;
 
@@ -41,9 +41,9 @@ const HomeTimerBanner = ({ className = "" }) => {
         <div className="w-full flex flex-col items-start justify-center pt-0 px-0 pb-[11px] box-border max-w-[1440px] mq1900:max-w-full">
           <div className="self-stretch flex flex-col items-start justify-start max-w-full">
             <div className="w-full flex flex-row items-start justify-center py-3 px-6 box-border bg-[url('/public/background1@3x.png')] bg-cover bg-no-repeat bg-[top] max-w-[1418px] mq1425:max-w-full">
-              <div className="flex-1 flex flex-row items-center justify-between py-2.5 pl-[60px] pr-[72px] box-border max-w-full gap-5 mq1425:flex-wrap mq1425:pl-[30px] mq1425:pr-9 mq1425:box-border">
-              <div  className="rounded-8xs   flex flex-row items-center justify-center pt-[7px] px-7 pb-1.5 min-w-[160px] text-smi-8 text-wwwbootscom-black">
-                  <div className="relative uppercase font-semibold inline-block ">
+              <div className="flex-1 flex flex-row items-center justify-between py-2.5 pl-[60px]  box-border max-w-full gap-5 mq1425:flex-wrap mq1425:pl-[30px] mq1425:pr-9 mq1425:box-border">
+              <div  className="rounded-8xs w-[25%]  flex flex-row items-center justify-center pt-[7px] px-4 pb-1.5  text-smi-8 text-wwwbootscom-black">
+                  <div className="relative  uppercase font-semibold inline-block  ">
                   <img
                   className="h-2 w-4  relative overflow-hidden shrink-0 object-cover"
                   alt=""
@@ -127,12 +127,13 @@ const HomeTimerBanner = ({ className = "" }) => {
                       </div>
                     </div>
                   </div>
+                  
                 </div>
-                {/* <div  className="rounded-8xs bg-wwwbootscom-white border-wwwbootscom-white border-[1px] border-solid box-border flex flex-row items-center justify-center pt-[7px] px-7 pb-1.5 min-w-[160px] whitespace-nowrap text-smi-8 text-wwwbootscom-black">
-                  <div className="relative uppercase font-semibold inline-block min-w-[102px]">
+                <div  className="rounded-8xs bg-wwwbootscom-white border-wwwbootscom-white border-[1px] border-solid box-border flex flex-row items-center justify-center pt-[7px] px-7 pb-1.5  whitespace-nowrap text-smi-8 text-wwwbootscom-black cursor-pointer hover:bg-wwwbootscom-blackhover:text-white">
+                  <div className="relative uppercase font-semibold inline-block  ">
                     FIND OUT MORE
                   </div>
-                </div> */}
+                </div>
               </div>
             </div>
           </div>

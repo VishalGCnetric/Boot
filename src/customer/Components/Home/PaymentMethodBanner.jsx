@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const PaymentMethodBanner = ({ className = "" }) => {
   return (
     <div
-      className={`w-full max-w-[1440px] mx-auto px-4 py-2 flex flex-col items-center text-center text-lg font-light text-wwwbootscom-deep-cove ${className}`}
+      className={`w-full max-w-[1440px] p-10 mx-auto px-4 py-2 flex flex-col items-center text-center text-sm font-light text-wwwbootscom-deep-cove ${className}`}
     >
       <div className="w-full flex flex-col items-center py-4">
         <h2 className="text-4xl font-semibold mb-4">

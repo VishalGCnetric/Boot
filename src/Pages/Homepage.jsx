@@ -15,6 +15,7 @@ import HomeTodayGrid from "../customer/Components/Home/HomeTodayGrid";
 import HealthPicksSlider from "../customer/Components/Home/HealthPickerSlider";
 import BeautyDeals from "../customer/Components/Home/BeautyDeals";
 import PaymentMethodBanner from "../customer/Components/Home/PaymentMethodBanner";
+import DeliveryCard from "../customer/Components/Navbar/DeliveryCard";
 
 
 const Homepage = () => {
@@ -35,37 +36,45 @@ const Homepage = () => {
 
   return (
     <MainContainer>
-      
-        <div className="firstbanner mt-10" style={{ marginBottom: '30px' }}>
+      <div className="z-50 sticky top-0">
+      <DeliveryCard/>
+
+
+      </div>
+              
+
+        <div className="firstbanner mt-2 -" style={{ marginBottom: '20px' }}>
           <HomeCardSlider/>
         </div>
-        <div className="firstbanner" style={{ marginBottom: '30px' }}>
+        <div className="firstbanner" style={{ marginBottom: '20px' }}>
        <HomeTimerBanner/>
         </div>
-        <div className="firstbanner" style={{ marginBottom: '30px' }}>
-          {/* <img src={banners?.[2].url} alt="" /> */}
+        <div className="firstbanner" style={{ marginBottom: '20px' }}>
           <HomeBannerSlider/>
         </div>
-        <div className="self-stretch flex flex-col items-start justify-start pt-0 px-0 pb-[7px] box-border max-w-full">
-          {/* <img src={banners?.[2].url} alt="" /> */}
-          {/* <HomeCircleCard/> */}
-          <HomeTodayGrid/>
+        <div className="self-stretch flex flex-col items-start justify-start pt-0 px-0  box-border max-w-full">
+        
+        <HomeTodayGrid/>
+
+        </div>
+        <div className="self-stretch flex flex-col items-start justify-start pt-0 px-0  box-border max-w-full">
+        
           <ShopNowBanner/>
         </div>
-      <div>
+      <div className="my-10">
         <Carousel text={'New Arrivals'} />
       </div>
-      <div style={{ margin: '30px 0', textAlign: 'center', fontSize: '23px', fontWeight: '800' }}>
+      <div style={{ margin: '10px ', textAlign: 'center',   }}>
       <BeautyDeals/>
       </div>
-      <div style={{ margin: '30px 0', textAlign: 'center', fontSize: '23px', fontWeight: '800' }}>
+      <div  style={{ margin: '10px 0', textAlign: 'center',  }}>
       <FindOutBanner/>
       </div>
      
-      <div style={{ margin: '30px 0', textAlign: 'center', fontSize: '23px', fontWeight: '800' }}>
+      <div style={{ margin: '10px 0', textAlign: 'center',   }}>
       <HealthPicksSlider/>
       </div>
-      <div style={{ margin: '30px 0', textAlign: 'center', fontSize: '23px', fontWeight: '800' }}>
+      <div style={{ margin: '10px 0', textAlign: 'center',   }}>
       <PaymentMethodBanner/>
       </div>
     </MainContainer>
