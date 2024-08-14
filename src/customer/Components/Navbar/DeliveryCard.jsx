@@ -58,8 +58,8 @@ const cardData = [
   ];
   
   const DeliveryCardItem = ({ title, subtitle, imageSrc, altText, bgPadding }) => (
-    <div className="flex-1 flex flex-col items-start justify-center py-0 px-0  box-border min-w-[288px] max-w-[288px]">
-      <div className={`bg-wwwbootscom-deep-cove hover:bg-pink-600 flex flex-row items-center justify-center py-[4px] ${bgPadding}`}>
+    <div className="flex-1 flex flex-col items-start justify-center py-0 px-0  box-border min-w-[24%] max-w-[24%] ">
+      <div className={`w-full bg-wwwbootscom-deep-cove hover:bg-pink-600 flex flex-row items-center justify-center py-[4px] ${bgPadding}`}>
         <div className="flex flex-col items-start justify-start pt-0 pb-[5px] pl-0 pr-4">
           <img
             className="w-[35px] h-[35px] relative overflow-hidden shrink-0 object-cover"
@@ -82,9 +82,9 @@ const cardData = [
   const DeliveryCard = ({ className = "" }) => {
     return (
       <div
-        className={`w-full [background:linear-gradient(0deg,_rgba(255,_255,_255,_0),_#fff_2%)] overflow-hidden flex flex-col items-start justify-center max-w-[1445px] text-left text-mini-9 text-wwwbootscom-white font-wwwbootscom-inter-regular-16 mq1900:max-w-full ${className}`}
+        className={`w-full  [background:linear-gradient(0deg,_rgba(255,_255,_255,_0),_#fff_2%)] overflow-hidden flex flex-col items-start justify-center max-w-[1445px] text-left text-mini-9 text-wwwbootscom-white font-wwwbootscom-inter-regular-16 mq1900:max-w-full ${className}`}
       >
-        <div className=" w-full self-stretch flex flex-row flex-wrap items-start justify-center [row-gap:20px]">
+        <div className=" w-full self-stretch flex flex-row flex-wrap items-start justify-around [row-gap:20px]">
           {cardData.map((card) => (
             <DeliveryCardItem
               key={card.id}

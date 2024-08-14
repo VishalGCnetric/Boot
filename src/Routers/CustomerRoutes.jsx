@@ -48,7 +48,6 @@ const CustomerRoutes = () => {
       <ThemeProvider theme={customerTheme}>
         <HeaderTop />
         <NewNavbar/>
-        <DeliveryCard/>
         {/* {showNavigation && <Navigation />} */}
         <Routes>
           <Route path="/login" element={<Login />}></Route>

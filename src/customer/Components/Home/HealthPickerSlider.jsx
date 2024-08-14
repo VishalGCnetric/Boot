@@ -95,7 +95,7 @@ const HealthPicksSlider = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 -mt-10">
       <div className="flex justify-center gap-8 mb-4">
         <button 
           className={`py-2 text-sm ${selectedCategory === 'Top health picks' ? 'border-b-2 border-black' : 'border-b-2 border-transparent'}`} 

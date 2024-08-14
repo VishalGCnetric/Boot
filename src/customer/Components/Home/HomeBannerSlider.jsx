@@ -43,27 +43,23 @@ const HomeBannerSlider = () => {
     const settings = {
         dots: true,
         infinite: true,
-        autoplaySpeed: 1000,
+        autoplay: true, // Enable autoplay
+        autoplaySpeed: 2000, // Set autoplay speed to 1 second
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
         nextArrow: <CustomNextArrow />,
         prevArrow: <CustomPrevArrow />
     };
+    const banner =["b4.png","b3.png","b4.png","b3.png"]
 
     return (
         <div className="relative w-full mx-auto">
             <Slider {...settings}>
-                {bannerData.map((banner, index) => (
-                    <Banner
-                        key={index}
-                        title={banner.title}
-                        subtitle={banner.subtitle}
-                        description={banner.description}
-                        buttonText={banner.buttonText}
-                        imageUrl={banner.imageUrl}
-                        imageAlt={banner.imageAlt}
-                    />
+                {banner.map((banner, index) => (
+                   <div key={index}>
+<img src={banner} alt="banner" className="object-cover" />
+                   </div>
                 ))}
             </Slider>
         </div>
@@ -75,7 +71,7 @@ const CustomPrevArrow = (props) => {
     return (
       <div
         onClick={onClick}
-        className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 cursor-pointer"
+        className="absolute top-[46.5%] left-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md z-10 cursor-pointer"
       >
         <FaChevronLeft />
       </div>
@@ -87,7 +83,7 @@ const CustomPrevArrow = (props) => {
     return (
       <div
         onClick={onClick}
-        className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 cursor-pointer"
+        className="absolute top-[46.5%] right-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md z-10 cursor-pointer"
       >
         <FaChevronRight />
       </div>

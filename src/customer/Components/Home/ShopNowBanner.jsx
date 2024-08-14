@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const ShopNowBanner = ({ className = "" }) => {
   return (
     <div
-      className={`w-full flex flex-row flex-wrap items-start justify-start pt-[7px] px-0 pb-0 box-border max-w-[1440px] shrink-0 z-[5] mt-[-7px] text-center text-base-1 text-wwwbootscom-deep-cove font-wwwbootscom-inter-regular-16 mq1900:max-w-full ${className}`}
+      className={`w-full flex flex-row flex-wrap items-start justify-start pt-[7px] px-0 pb-0 box-border max-w-[1440px] shrink-0 z-[5] mt-[-50px] text-center text-base-1 text-wwwbootscom-deep-cove font-wwwbootscom-inter-regular-16 mq1900:max-w-full ${className}`}
     >
       <div className="flex-1 flex flex-row items-start justify-start py-[49px] px-[11px] box-border max-w-full">
         <div className="flex-1 flex flex-row items-start justify-start py-[11px] px-0 box-border max-w-[1440px] mq1900:max-w-full">

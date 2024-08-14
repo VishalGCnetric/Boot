@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import CartItem from "../Cart/CartItem";
 import ShoppingCart from "./ShoppingCart";
+import NestedMenu from "./NestedMenu";
+import { Link } from "react-router-dom";
 
 const NewNavbar = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -23,7 +24,9 @@ const NewNavbar = () => {
         <div className="w-full mx-auto px-4 flex justify-between items-center py-4">
           {/* Logo and Search Bar */}
           <div className="flex w-[90%] justify-between items-center gap-4 space-x-4">
+            <Link to="/">
             <img src="/bvi20logo20v2png@2x.png" alt="Boots Logo" className="w-24" />
+            </Link>
             <div className="relative w-full m-2">
               <input
                 type="text"
@@ -53,33 +56,23 @@ const NewNavbar = () => {
           </div>
         </div>
 
-        <div className="flex flex-col items-start justify-start pt-2.5 px-4 pb-0 text-mid text-wwwbootscom-congress-blue w-full p-4">
+        <div className="flex flex-col relative items-start justify-start pt-2.5 px-4 pb-0 text-mid text-wwwbootscom-congress-blue w-full p-4">
           <ul className="flex flex-row items-center justify-start gap-8 font-semibold ">
-            <li className="relative group">
+            <li className=" group">
               <a href="#" className="text-[inherit]">
                 Shop by department
               </a>
               {/* Dropdown */}
-              <div className="absolute left-0 top-full hidden group-hover:flex flex-col space-y-2 bg-white shadow-lg py-2 px-4">
-                <a href="#" className="hover:bg-blue-50">
-                  Health & Pharmacy
-                </a>
-                <a href="#" className="hover:bg-blue-50">
-                  Beauty & Skincare
-                </a>
+              <div className="w-full h-[80vh] absolute left-0 top-full hidden group-hover:flex flex-col bg-white shadow-lg py-2 px-4 z-50">
+                <NestedMenu />
               </div>
             </li>
-            <li className="relative group">
+            <li className=" group">
               <a href="#" className="text-[inherit]">
                 Prescriptions
               </a>
-              <div className="absolute left-0 top-full hidden group-hover:flex flex-col space-y-2 bg-white shadow-lg py-2 px-4">
-                <a href="#" className="hover:bg-blue-50">
-                  Medicines
-                </a>
-                <a href="#" className="hover:bg-blue-50">
-                  Treatments
-                </a>
+              <div className="w-full h-[80vh] absolute left-0 top-full hidden group-hover:flex flex-col bg-white shadow-lg py-2 px-4 z-50">
+                <NestedMenu />
               </div>
             </li>
             <li>
@@ -106,12 +99,9 @@ const NewNavbar = () => {
         <div
           className="w-[100%] p-4"
           role="presentation"
-          // onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
-    {/* <CartItem/> */}
-    {/* <Basket/> */}
-    <ShoppingCart toggleDrawer={toggleDrawer}/>
+          <ShoppingCart toggleDrawer={toggleDrawer} />
         </div>
       </Drawer>
     </>
