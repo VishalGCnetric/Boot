@@ -1,5 +1,4 @@
 import React from "react";
-import { Box, Typography, Paper, Divider, Grid } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
 import HomeIcon from "@mui/icons-material/Home";
 
@@ -15,90 +14,42 @@ const AddressCard = ({ heading, address }) => {
   } = address || {};
 
   return (
-    <Paper elevation={5} sx={{ padding: 3, borderRadius: 2 }}>
-      <Typography variant="h6" component="h1" sx={{ fontWeight: "bold", pb: 2 }}>
+    <div className="p-6 bg-white shadow-md rounded-md">
+      {/* <h1 className="text-xl text-indigo-900 font-bold mb-4">
         {heading || "Delivery Address"}
-      </Typography>
-      <Divider sx={{ mb: 2 }} />
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Typography
-            variant="body1"
-            component="p"
-            sx={{ fontWeight: "bold", textTransform: "capitalize" }}
-          >
+      </h1> */}
+      <hr className="mb-4" />
+      <div className="space-y-4">
+        <div>
+          <p className="text-lg font-semibold capitalize">
             {address?.fullName ||
-              `${address?.firstName} ${address?.lastName}` ||
+              `${address?.firstName || "Vishal"} ${address?.lastName || "Giri"}` ||
               "N/A"}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <HomeIcon sx={{ mr: 1, color: "gray" }} />
-            <Box>
-              <Typography
-                variant="body1"
-                component="p"
-                sx={{ fontWeight: "bold", textTransform: "capitalize" }}
-              >
-                Address
-              </Typography>
-              <Typography
-                variant="body2"
-                component="p"
-                sx={{ textTransform: "capitalize" }}
-              >
-                {streetLine1 || "N/A"}
-              </Typography>
-              {streetLine2 && (
-                <Typography
-                  variant="body2"
-                  component="p"
-                  sx={{ textTransform: "capitalize" }}
-                >
-                  {streetLine2}
-                </Typography>
-              )}
-              <Typography
-                variant="body2"
-                component="p"
-                sx={{ textTransform: "capitalize" }}
-              >
-                {`${city || "N/A"}, ${state || "N/A"} ${postalCode || "N/A"}`}
-              </Typography>
-              <Typography
-                variant="body2"
-                component="p"
-                sx={{ textTransform: "capitalize" }}
-              >
-                {country || "N/A"}
-              </Typography>
-            </Box>
-          </Box>
-        </Grid>
-        <Grid item xs={12}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <PhoneIcon sx={{ mr: 1, color: "gray" }} />
-            <Box>
-              <Typography
-                variant="body1"
-                component="p"
-                sx={{ fontWeight: "bold", textTransform: "capitalize" }}
-              >
-                Phone Number
-              </Typography>
-              <Typography
-                variant="body2"
-                component="p"
-                sx={{ textTransform: "capitalize" }}
-              >
-                {phoneNumber || "N/A"}
-              </Typography>
-            </Box>
-          </Box>
-        </Grid>
-      </Grid>
-    </Paper>
+          </p>
+        </div>
+        <div className="flex items-start space-x-2">
+          <HomeIcon className="w-5 h-5 text-indigo-900 mt-1" />
+          <div>
+            <p className="text-lg font-semibold capitalize">Address</p>
+            <p className="text-sm capitalize">{streetLine1 || "New one Streat"}</p>
+            {streetLine2 && (
+              <p className="text-sm capitalize">{streetLine2}</p>
+            )}
+            <p className="text-sm capitalize">
+              {`${city || "LA"}, ${state || "flourida"} ${postalCode || "453423"}`}
+            </p>
+            <p className="text-sm capitalize">{country || "US"}</p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-2">
+          <PhoneIcon className="w-5 h-5 text-indigo-900 mt-1" />
+          <div>
+            <p className="text-lg font-semibold capitalize">Phone Number</p>
+            <p className="text-sm capitalize">{phoneNumber || "987654321"}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

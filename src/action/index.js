@@ -102,7 +102,28 @@ export const ordersById = (id) => {
   });
 };
 
+export const receiveProductsByPartNumber = (id) => {
+  let url = `/product?partNumber=${id}`;
+  return new Promise((resolve, reject) => {
+    get(url)
+      .then((response) => {
+        if (response.status === 200) {
+          // let data = response.data;
 
+          // dispatch({
+          //   type: "ACTUAL_PRODUCTS",
+          //   products: data.products,
+          // });
+          resolve(response.data);
+          // console.log("this is product details response", response);
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      })
+      .finally();
+  });
+};
 
 export const receiveProductsSearch = (search) => {
   return new Promise((resolve, reject) => {

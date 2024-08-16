@@ -51,7 +51,7 @@ const HomeBannerSlider = () => {
         nextArrow: <CustomNextArrow />,
         prevArrow: <CustomPrevArrow />
     };
-    const banner =["b4.png","b3.png","b4.png","b3.png"]
+    const banner =["b4.png","b3.png","b4.png","https://assets.boots.com/content/dam/boots/shop-by-department/fragrance/2023-2024/13b/dior/13b_Fragrance_HERO_DIOR_Sauvage_supplied.dam.361x135x1440.ts%3D1722427597870.jpg"]
 
     return (
         <div className="relative w-full mx-auto">
@@ -71,7 +71,7 @@ const CustomPrevArrow = (props) => {
     return (
       <div
         onClick={onClick}
-        className="absolute top-[46.5%] left-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md z-10 cursor-pointer"
+        className="absolute top-[43%] left-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md z-10 cursor-pointer"
       >
         <FaChevronLeft />
       </div>
@@ -83,7 +83,7 @@ const CustomPrevArrow = (props) => {
     return (
       <div
         onClick={onClick}
-        className="absolute top-[46.5%] right-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md z-10 cursor-pointer"
+        className="absolute top-[43%] right-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md z-10 cursor-pointer"
       >
         <FaChevronRight />
       </div>

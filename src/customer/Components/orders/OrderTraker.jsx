@@ -3,9 +3,6 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import { Typography} from '@mui/material';
-
-
 
 const steps = [
   "Placed",
@@ -15,17 +12,27 @@ const steps = [
   'Delivered'
 ];
 
-
-
-export default function OrderTraker({activeStep}) {
-    
+export default function OrderTracker({ activeStep }) {
   return (
-    <Box sx={{ width: '100%' }} >
-      
-      <Stepper activeStep={activeStep} alternativeLabel>
+    <Box sx={{ width: '100%' }}>
+      <Stepper 
+        activeStep={activeStep} 
+        alternativeLabel
+        sx={{
+          '& .MuiStepLabel-root .Mui-completed': {
+            color: '#312e81', // completed step color
+          },
+          '& .MuiStepLabel-root .Mui-active': {
+            color: '#312e81', // active step color
+          },
+          '& .MuiStepLabel-root .MuiStepIcon-text': {
+            fill: '#ffffff', // step number text color when active/completed
+          }
+        }}
+      >
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel  sx={{ color: '#9155FD',fontSize: '44px' }}  className={``}>{label}</StepLabel>
+            <StepLabel>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>

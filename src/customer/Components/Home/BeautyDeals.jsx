@@ -132,7 +132,7 @@ const BeautyDeals = () => {
               </span>
             </div>
             <div className="p-4">
-              <h3 className="font-bold text-lg mb-2">{item.brand}</h3>
+              <h3 className="font-bold text-lg mb-2 text-indigo-900">{item.brand}</h3>
               <p className="text-sm text-gray-600">{item.name}</p>
               <button className="mt-4 w-full text-sm text-indigo-900 border border-indigo-900 hover:bg-indigo-900 hover:text-white py-2 rounded">
               SHOP NOW                </button>
