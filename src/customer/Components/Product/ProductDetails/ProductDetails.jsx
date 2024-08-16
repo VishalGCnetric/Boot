@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import StoreStockModal from './StoreStockModal';
+import { IoIosArrowBack,IoIosArrowForward } from "react-icons/io";
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
@@ -35,7 +36,7 @@ const ProductDetails = () => {
   return (
     <>
     {storeModal&&<StoreStockModal isTrue={storeModal} setIsTrue={setStoreModal}/>}
-      <div className="flex flex-col md:flex-row items-start md:items-center p-4 bg-white space-y-4 md:space-y-0 md:space-x-8 max-w-5xl mx-auto gap-10">
+      <div className="flex flex-col md:flex-row mt-10 items-start md:items-center p-4 bg-white space-y-4 md:space-y-0 md:space-x-8 max-w-5xl mx-auto gap-10">
         {/* Product Image */}
         <div className="w-full md:w-1/2">
           <div className="relative h-96"> {/* Adjusted to a fixed height */}
@@ -48,8 +49,8 @@ const ProductDetails = () => {
           </div>
           <div className="flex space-x-2 mt-2 w-full items-center">
             {/* Left Button */}
-            <button onClick={scrollLeft} className="mr-5 bg-gray-200 p-2 rounded">
-              &lt;
+            <button onClick={scrollLeft} className="mr-2 text-wwwbootscom-congress-blue bg-gray-200 p-1 rounded">
+              <IoIosArrowBack size={'30px'}/>
             </button>
 
             {/* Thumbnails */}
@@ -91,8 +92,8 @@ const ProductDetails = () => {
             </div>
 
             {/* Right Button */}
-            <button onClick={scrollRight} className="ml-5 bg-gray-200 p-2 rounded">
-              &gt;
+            <button onClick={scrollRight} className="ml-3 text-wwwbootscom-congress-blue bg-gray-200 p-1 rounded">
+              <IoIosArrowForward size={"30px"}/>
             </button>
           </div>
         </div>
@@ -134,7 +135,7 @@ const ProductDetails = () => {
             </div>
 
             {/* Add to Basket Button */}
-            <button className="px-6 py-2 bg-blue-700 w-full text-white font-semibold rounded">
+            <button className="px-6 py-2 bg-wwwbootscom-congress-blue hover:bg-btn-hover w-full text-white font-semibold rounded">
               Add to basket
             </button>
           </div>
@@ -145,7 +146,7 @@ const ProductDetails = () => {
           </div>
 
           {/* Find in Store Button */}
-          <button onClick={()=>setStoreModal(true)} className="mt-4 bg-gray-800 text-white font-bold py-2 px-4 rounded-md hover:bg-gray-900 flex items-center space-x-2">
+          <button onClick={()=>setStoreModal(true)} className="mt-4 bg-wwwbootscom-link-water text-wwwbootscom-congress-blue font-bold py-2 px-4 rounded-md hover:text-white hover:bg-btn-hover flex items-center space-x-2">
             <span>Find in store</span>
             {/* You can use an icon here for better UI */}
           </button>

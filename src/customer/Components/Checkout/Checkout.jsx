@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Stepper, Step, StepLabel, Typography } from '@mui/material';
 import { useLocation, useNavigate } from "react-router-dom";
 import AddDeliveryAddressForm from "./ShippingAddressForm";
 import PaymentMethod from "./PaymentMethod";
-import { CheckCircle, CircleOutlined, FiberManualRecord } from '@mui/icons-material/';
 import CustomStepper from "./CustomStepper";
 
 // Define the steps for the stepper
-const steps = ["LogIn", 'Shipping', `Payments`];
+const steps = ["LogIn", "Shipping", "Payments"];
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = useState(0); // State to manage active step
   const location = useLocation(); // Get the current location
   const queryParams = new URLSearchParams(location.search); // Extract query parameters from URL
-  const step = parseInt(queryParams.get('step'), 10) || 0; // Get the step from query parameter or default to 0
+  const step = parseInt(queryParams.get("step"), 10) || 0; // Get the step from query parameter or default to 0
   const navigate = useNavigate(); // Hook for navigating to different routes
 
   // Effect to update the active step when the URL changes
@@ -38,56 +36,47 @@ export default function Checkout() {
   // Function to reset the stepper to the first step
   const handleReset = () => {
     setActiveStep(0); // Reset the active step to 0
-    navigate('/checkout?step=0'); // Navigate to the first step
+    navigate("/checkout?step=0"); // Navigate to the first step
   };
 
   return (
-    <Box className="px-5 lg:px-8" sx={{ width: "100%" }}>
-      {/* <Stepper alternativeLabel activeStep={activeStep} connector={<div />}>
-        {steps.map((label, index) => (
-          <div key={label} style={{display:"flex", marginLeft:"20%", }}>
-            <StepLabel style={{ display: 'block', alignItems: 'center', justifyContent: 'center' }}>
-              {index < activeStep ? (
-                <CheckCircle color="secondary" sx={{ fontSize: 30, color: 'red', marginRight: '4px' }} />
-              ) : (
-                <CircleOutlined color="error" sx={{ fontSize: 30, color: 'red', marginRight: '8px' }} />
-              )}
-              {label}
-            </StepLabel>
-          </div>
-        ))}
-      </Stepper> */}
-
-<CustomStepper steps={steps} activeStep={activeStep}/>
+    <div className="px-5 lg:px-8 w-full">
+      <CustomStepper steps={steps} activeStep={activeStep} />
       {/* Conditional rendering based on the active step */}
       {activeStep === steps.length ? (
         <React.Fragment>
           {/* Display message when all steps are completed */}
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
-          </Typography>
+          <p className="mt-2 mb-1">All steps completed - you're finished</p>
           {/* Button to reset the stepper */}
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
+          <div className="flex flex-row pt-2">
+            <div className="flex-1" />
+            <button
+              onClick={handleReset}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Reset
+            </button>
+          </div>
         </React.Fragment>
       ) : (
         <React.Fragment>
           {/* Display back button for all steps except the first one */}
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
-              color="inherit"
+          <div className="flex flex-row pt-2">
+            <button
+              className={`${
+                activeStep === 0
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-blue-500 hover:bg-blue-700"
+              } text-white font-bold py-2 px-4 rounded`}
               disabled={activeStep === 0}
               onClick={handleBack}
-              sx={{ mr: 1 }}
             >
               Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-          </Box>
+            </button>
+            <div className="flex-1" />
+          </div>
           {/* Render different components based on the active step */}
-          <div className="w-[100%]">
+          <div className="w-full">
             {activeStep !== 2 ? (
               <AddDeliveryAddressForm handleNext={handleNext} />
             ) : (
@@ -96,6 +85,6 @@ export default function Checkout() {
           </div>
         </React.Fragment>
       )}
-    </Box>
+    </div>
   );
 }
