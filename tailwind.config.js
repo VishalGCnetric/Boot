@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         "wwwbootscom-mine-shaft": "#333",
+        "btn-hover":"#1B355C",
         "wwwbootscom-link-water": "#cae0f5",
         "wwwbootscom-congress-blue": "#004990",
         "wwwbootscom-concrete": "#f2f2f2",
@@ -27,6 +28,7 @@ module.exports = {
         "wwwbootscom-aqua-haze": "#f3f6f8",
         "wwwbootscom-tiara": "#c9cece",
         "wwwbootscom-hibiscus": "#b8237b",
+        
       },
       spacing: {},
       fontFamily: {
