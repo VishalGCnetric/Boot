@@ -42,7 +42,7 @@ const HeaderTop = () => {
               Log in/register
             </Link>
           </div>
-          <div className="flex items-center gap-2 border-l border-gray-300 pl-3 text-red-500">
+          <div className="hidden md:flex items-center gap-2 border-l border-gray-300 pl-3 text-red-500">
             <a href="#" className="text-red-500">
               Boots Advantage Card
             </a>

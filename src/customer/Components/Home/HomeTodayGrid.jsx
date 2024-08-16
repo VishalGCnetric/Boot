@@ -20,7 +20,7 @@ const PromoCard = ({ imgSrc, badgeText, title, description, shopNowText }) => {
           </div>
         </div>
       </div>
-      <div className="self-stretch flex flex-row items-start justify-end py-0 px-px text-3xl-1 text-wwwbootscom-black">
+      <div className="self-stretch flex flex-row items-start justify-end py-0  text-3xl-1 text-wwwbootscom-black">
         <div className="flex-1 rounded-tl-none rounded-tr-mini rounded-br-mini rounded-bl-none flex flex-col items-start justify-center pt-0 px-5 pb-5">
           <div className="self-stretch flex flex-col items-start justify-between min-h-[153px]">
             <div className="self-stretch flex flex-col items-start justify-start pt-0 px-0 pb-5 gap-2.5">

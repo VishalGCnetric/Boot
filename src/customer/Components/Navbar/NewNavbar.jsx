@@ -56,7 +56,7 @@ const NewNavbar = () => {
           </div>
         </div>
 
-        <div className="flex flex-col relative items-start justify-start pt-2.5 px-4 pb-0 text-mid text-wwwbootscom-congress-blue w-full p-4">
+        <div className="hidden md:flex flex-col relative items-start justify-start pt-2.5 px-4 pb-0 text-mid text-wwwbootscom-congress-blue w-full p-4">
           <ul className="flex flex-row items-center justify-start gap-8 font-semibold ">
             <li className=" group">
               <a href="#" className="text-[inherit]">

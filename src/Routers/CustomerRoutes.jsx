@@ -31,6 +31,7 @@ import Profile from "../customer/Components/Auth/Profile";
 import TransactionComponent from "../customer/Components/Checkout/TransactionComponent";
 import NewNavbar from "../customer/Components/Navbar/NewNavbar";
 import DeliveryCard from "../customer/Components/Navbar/DeliveryCard";
+import Dashboard from "../Pages/Dashboard";
 
 
 const CustomerRoutes = () => {
@@ -53,8 +54,8 @@ const CustomerRoutes = () => {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/sign-up" element={<RegisterPage />}></Route>
           <Route path="/shopping-cart" element={<ShoppingCart />}></Route>
-          {/* <Route path="/register" element={<Homepage />}></Route> */}
-
+          <Route path="/profile" element={<Dashboard />}></Route>
+       
           <Route path="/" element={<Homepage />}></Route>
           <Route path="/home" element={<Homepage />}></Route>
           <Route path="/about" element={<About />}></Route>
@@ -67,7 +68,7 @@ const CustomerRoutes = () => {
           <Route path="/product/:productId" element={<ProductDetails />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/account/order" element={<Order />}></Route>
-          <Route path="/account/order/:orderId" element={<OrderDetails />}></Route>
+          <Route path="/orderDetails/:orderId" element={<OrderDetails />}></Route>
           <Route path="/account/rate/:productId" element={<RateProduct />}></Route>
           <Route path="/checkout" element={<Checkout />}></Route>
           <Route path="/payment" element={<TransactionComponent />}></Route>
