@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
 import CartItem from '../Cart/CartItem';
+import { useNavigate } from 'react-router-dom';
 
 const ShoppingCart = ({toggleDrawer}) => {
   const [quantity, setQuantity] = useState(1);
+
+  const navigate = useNavigate()
+
+  const auth = true
+  const handleCheckout=()=>{
+    if(auth){
+
+      navigate('/checkout?step=1')
+    }else{
+      navigate('/login')
+    }
+  }
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
@@ -66,7 +79,7 @@ const ShoppingCart = ({toggleDrawer}) => {
         <p className="text-sm text-gray-500">You will not collect points when paying with points</p>
       </div>
 
-      <button className="w-full bg-wwwbootscom-deep-cove text-white py-3 font-bold">CHECKOUT NOW</button>
+      <button onClick={() => { handleCheckout();toggleDrawer(true);}} className="w-full bg-wwwbootscom-deep-cove text-white py-3 font-bold">CHECKOUT NOW</button>
 
       <div className="p-4 flex justify-between">
         {['visa', 'mastercard', 'amex', 'paypal@2x', 'applepay', 'kalarna@2x', 'payment-icon-v2damts3d1691146448583@2x'].map((method) => (

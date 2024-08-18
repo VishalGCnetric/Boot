@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const PaymentSuccessfull = () => {
+  const navigate = useNavigate()
   const [animationPlayed, setAnimationPlayed] = useState(false);
 
   useEffect(() => {
@@ -12,6 +14,7 @@ const PaymentSuccessfull = () => {
   }, []);
 
   const handleNewOrder = () => {
+    navigate('/');
     // Redirect to a new order page or homepage
   };
 

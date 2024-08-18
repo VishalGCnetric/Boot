@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import AddAddressModal from "./AddAddressModal";
+import { useNavigate } from "react-router-dom";
 
 const DeliveryAddressPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate()
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleNewOrder = () => {
+    navigate(`/checkout?step=${2}`);
+  };
 
   return (
     <div className="p-4 max-w-7xl mx-auto ">
@@ -13,7 +19,7 @@ const DeliveryAddressPage = () => {
         {/* Addresses Section */}
         <div className="w-full lg:w-2/3 p-6 rounded-lg shadow-xl">
           <h2 className="text-xl font-semibold mb-4">Select a delivery address</h2>
-          <div className="bg-white p-4 rounded shadow-md">
+          <div className="bg-white p-4">
             <h3 className="text-lg font-bold mb-4">Your addresses</h3>
 
             {/* Address List */}
@@ -41,8 +47,8 @@ const DeliveryAddressPage = () => {
 
         {/* Order Summary Section */}
         <div className="w-full lg:w-1/3 p-6 rounded-lg shadow-xl">
-          <div className="bg-white p-4 rounded shadow-md">
-            <button className="bg-yellow-500 text-white py-2 px-4 rounded-md w-full mb-4">
+          <div className="bg-white p-4 ">
+            <button onClick={handleNewOrder} className="bg-wwwbootscom-congress-blue hover:bg-btn-hover text-white py-2 px-4 rounded-md w-full mb-4">
               Use this address
             </button>
             <div className="border-t pt-4">

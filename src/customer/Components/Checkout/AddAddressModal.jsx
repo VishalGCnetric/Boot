@@ -1,7 +1,15 @@
 import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddAddressModal = ({ isOpen, onClose }) => {
+  const navigate = useNavigate()
   // Prevent background scrolling when the modal is open
+
+const handleAddress = ()=>{
+  navigate(`/checkout?step=${1}`);
+  alert('hello world')
+}
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -34,7 +42,7 @@ const AddAddressModal = ({ isOpen, onClose }) => {
         </button>
 
         {/* Form Inputs */}
-        <form className="space-y-4">
+        <form  className="space-y-4">
           <div>
             <label className="block text-sm font-medium">Country/Region</label>
             <select className="w-full border border-gray-300 rounded-md p-2 mt-1">
@@ -98,8 +106,9 @@ const AddAddressModal = ({ isOpen, onClose }) => {
             </a>
           </div>
 
-          <button type="submit" className="bg-yellow-500 text-white py-2 px-4 rounded-md mt-4 w-full">
-            Use this address
+          <button   className="bg-wwwbootscom-congress-blue hover:bg-btn-hover text-white py-2 px-4 rounded-md mt-4 w-full">
+            <Link to=''> Use this address</Link>
+           
           </button>
         </form>
       </div>

@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
+import { Link , useNavigate} from 'react-router-dom';
 
 const PaymentPage = () => {
+  const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState('');
+
+  const handleNewOrder = () => {
+    navigate(`/checkout?step=${4}`);
+  };
 
   return (
     <div className="p-4 max-w-7xl mx-auto ">
@@ -86,15 +92,21 @@ const PaymentPage = () => {
         </div>
 
         {/* Right Side: Order Summary */}
-        <div className="w-full lg:w-1/3 p-6 rounded-lg shadow-xl">
-          <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
-          <div className="mb-4">
-            <p>Items: <span className="float-right">₹200.00</span></p>
-            <p>Delivery: <span className="float-right">₹139.00</span></p>
+        <div className="w-full lg:w-1/3 ">
+          <div className="bg-white p-6 rounded-lg shadow-xl ">
+            <button  onClick={handleNewOrder} className="bg-wwwbootscom-congress-blue hover:bg-btn-hover text-white py-2 px-4 rounded-md w-full mb-4">
+             Use this Payment Method
+            </button>
+            <div className="border-t pt-4">
+              <h3 className="text-lg font-semibold mb-2">Order Summary</h3>
+              <p>Items: --</p>
+              <p>Delivery: --</p>
+              <p className="text-lg font-bold text-red-600 mt-4">Order Total: ₹200.00</p>
+            </div>
+            <a href="#" className="text-blue-600 text-sm mt-4 inline-block">
+              How are delivery costs calculated?
+            </a>
           </div>
-          <hr className="my-2" />
-          <p className="text-red-600 font-bold">Order Total: <span className="float-right">₹339.00</span></p>
-          <button className="w-full bg-yellow-500 p-2 rounded mt-4">Use this payment method</button>
         </div>
       </div>
     </div>

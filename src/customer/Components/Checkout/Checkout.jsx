@@ -11,7 +11,7 @@ import PaymentSuccessfull from "./PaymentSuccessfull";
 const steps = ["LogIn", "Delivery Address", "Order Summary", "Payments"];
 
 export default function Checkout() {
-  const [activeStep, setActiveStep] = useState(0); // State to manage active step
+  const [activeStep, setActiveStep] = useState(1); // State to manage active step
   const location = useLocation(); // Get the current location
   const queryParams = new URLSearchParams(location.search); // Extract query parameters from URL
   const step = parseInt(queryParams.get("step"), 10) || 0; // Get the step from query parameter or default to 0
@@ -67,11 +67,11 @@ export default function Checkout() {
           {/* Display back button for all steps except the first one */}
           <div className="flex flex-row pt-2">
             <button
-              className={`${activeStep === 0
+              className={`${activeStep === 1
                 ? "bg-gray-300 cursor-not-allowed"
                 : "bg-blue-500 hover:bg-blue-700"
                 } text-white font-bold py-2 px-4 rounded`}
-              disabled={activeStep === 0}
+              disabled={activeStep === 1}
               onClick={handleBack}
             >
               Back

@@ -11,7 +11,7 @@ const Login = () => {
   };
 
   const validatePassword = (password) => {
-    return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password);
+    return /^(?=.*\d)[A-Za-z\d@#]{6,}$/.test(password);
   };
 
   const handleLogin = (e) => {
@@ -29,7 +29,7 @@ const Login = () => {
     if (!password) {
       passwordError = 'Password is required';
     } else if (!validatePassword(password)) {
-      passwordError = 'Password must be at least 6 characters long and contain both letters and numbers';
+      passwordError = 'Password must be exactly 6 characters long and contain at least one numeric digit';
     }
 
     setErrors({ email: emailError, password: passwordError });
