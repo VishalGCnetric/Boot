@@ -22,7 +22,7 @@ const CustomStepper = ({ steps, activeStep }) => {
                 </svg>
               </div>
             ) : (
-              <div className="text-blue-600">
+              <div className={index === activeStep ? "text-blue-600" : "text-gray-400"}>
                 <svg
                   className="w-8 h-8"
                   fill="currentColor"
@@ -37,10 +37,10 @@ const CustomStepper = ({ steps, activeStep }) => {
                 </svg>
               </div>
             )}
-            <span className="mt-2 text-sm text-center">{label}</span>
+            <span className={`mt-2 text-sm text-center ${index === activeStep ? "text-blue-600" : "text-gray-400"}`}>{label}</span>
           </div>
           {index < steps.length - 1 && (
-            <div className="flex-grow h-[2px] bg-gray-400"></div>
+            <div className={`flex-grow h-[2px] ${index < activeStep ? "bg-blue-600" : "bg-gray-400"}`}></div>
           )}
         </React.Fragment>
       ))}
