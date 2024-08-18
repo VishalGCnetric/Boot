@@ -1,17 +1,15 @@
 import React from 'react';
 
-// const steps = ['Step 1', 'Step 2', 'Step 3', 'Step 4'];
-
 const CustomStepper = ({ steps, activeStep }) => {
   return (
-    <div className="flex justify-center items-center w-[80%] m-auto">
+    <div className="flex sm:mt-10 mt-2 justify-center items-center w-full overflow-x-auto space-x-4">
       {steps.map((label, index) => (
         <React.Fragment key={label}>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center min-w-[80px]">
             {index < activeStep ? (
-              <div className="text-wwwbootscom-congress-blue">
+              <div className="text-blue-600">
                 <svg
-                  className="w-8 h-8 mt-6"
+                  className="w-8 h-8"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -24,9 +22,9 @@ const CustomStepper = ({ steps, activeStep }) => {
                 </svg>
               </div>
             ) : (
-              <div className="text-wwwbootscom-congress-blue">
+              <div className={index === activeStep ? "text-blue-600" : "text-gray-400"}>
                 <svg
-                  className="w-8 h-8 mt-6"
+                  className="w-8 h-8"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -39,10 +37,10 @@ const CustomStepper = ({ steps, activeStep }) => {
                 </svg>
               </div>
             )}
-            <span className="mt-2">{label}</span>
+            <span className={`mt-2 text-sm text-center ${index === activeStep ? "text-blue-600" : "text-gray-400"}`}>{label}</span>
           </div>
           {index < steps.length - 1 && (
-            <div className="flex-grow h-[2px] bg-gray-400"></div>
+            <div className={`flex-grow h-[2px] ${index < activeStep ? "bg-blue-600" : "bg-gray-400"}`}></div>
           )}
         </React.Fragment>
       ))}

@@ -6,6 +6,7 @@ import LocalStorageService from "../../storage/LocalStorageService";
 const instance = axios.create({
   baseURL: "http://106.51.242.196:2109/",
 })
+
 const localStorageService = LocalStorageService.getService();
 const userAccessToken = localStorageService.getUserAuthAccessToken();
  console.log("userAccessToken", userAccessToken);

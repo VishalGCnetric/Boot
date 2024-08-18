@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import AddDeliveryAddressForm from "./ShippingAddressForm";
-import PaymentMethod from "./PaymentMethod";
 import CustomStepper from "./CustomStepper";
+import DeliveryAddressPage from "./DeliveryAddressPage";
+import OrderSummaryPage from "./OrderSummaryPage";
+import PaymentPage from "./PaymentPage";
+import PaymentSuccessfull from "./PaymentSuccessfull";
+
 
 // Define the steps for the stepper
-const steps = ["LogIn", "Shipping", "Payments"];
+const steps = ["LogIn", "Delivery Address", "Order Summary", "Payments"];
 
 export default function Checkout() {
-  const [activeStep, setActiveStep] = useState(0); // State to manage active step
+  const [activeStep, setActiveStep] = useState(1); // State to manage active step
   const location = useLocation(); // Get the current location
   const queryParams = new URLSearchParams(location.search); // Extract query parameters from URL
   const step = parseInt(queryParams.get("step"), 10) || 0; // Get the step from query parameter or default to 0
@@ -46,16 +49,17 @@ export default function Checkout() {
       {activeStep === steps.length ? (
         <React.Fragment>
           {/* Display message when all steps are completed */}
-          <p className="mt-2 mb-1">All steps completed - you're finished</p>
+          {/* <p className="mt-2 mb-1">All steps completed - you're finished</p> */}
+          <PaymentSuccessfull/>
           {/* Button to reset the stepper */}
           <div className="flex flex-row pt-2">
             <div className="flex-1" />
-            <button
+            {/* <button
               onClick={handleReset}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Reset
-            </button>
+            </button> */}
           </div>
         </React.Fragment>
       ) : (
@@ -63,12 +67,11 @@ export default function Checkout() {
           {/* Display back button for all steps except the first one */}
           <div className="flex flex-row pt-2">
             <button
-              className={`${
-                activeStep === 0
-                  ? "bg-gray-300 cursor-not-allowed"
-                  : "bg-blue-500 hover:bg-blue-700"
-              } text-white font-bold py-2 px-4 rounded`}
-              disabled={activeStep === 0}
+              className={`${activeStep === 1
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-blue-500 hover:bg-blue-700"
+                } text-white font-bold py-2 px-4 rounded`}
+              disabled={activeStep === 1}
               onClick={handleBack}
             >
               Back
@@ -77,12 +80,16 @@ export default function Checkout() {
           </div>
           {/* Render different components based on the active step */}
           <div className="w-full">
-            {activeStep !== 2 ? (
-              <AddDeliveryAddressForm handleNext={handleNext} />
-            ) : (
-              <PaymentMethod handleNext={handleNext} />
-            )}
+            {activeStep === 1 ? (
+              <DeliveryAddressPage handleNext={handleNext} />
+            ) : activeStep === 2 ? (
+              <OrderSummaryPage handleNext={handleNext} />
+            ) : activeStep === 3 ? (
+              <PaymentPage handleNext={handleNext} />
+            ) : null}
           </div>
+
+
         </React.Fragment>
       )}
     </div>

@@ -28,7 +28,6 @@ import ShoppingCart from "../customer/Components/Navbar/ShoppingCartModel";
 import NewArrivals from "../Pages/NewArrivals";
 import SunglassClp from "../Pages/SunglassClp";
 import Profile from "../customer/Components/Auth/Profile";
-import TransactionComponent from "../customer/Components/Checkout/TransactionComponent";
 import NewNavbar from "../customer/Components/Navbar/NewNavbar";
 import DeliveryCard from "../customer/Components/Navbar/DeliveryCard";
 import Dashboard from "../Pages/Dashboard";
@@ -71,7 +70,7 @@ const CustomerRoutes = () => {
           <Route path="/orderDetails/:orderId" element={<OrderDetails />}></Route>
           <Route path="/account/rate/:productId" element={<RateProduct />}></Route>
           <Route path="/checkout" element={<Checkout />}></Route>
-          <Route path="/payment" element={<TransactionComponent />}></Route>
+          
 
           <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route>
           <Route path="/shops" element={<Product />}></Route>
