@@ -11,8 +11,8 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 const products = [
   {
     alt: 'photo-printing',
-    text: 'Photo printing',
-    src: 'https://assets.boots.com/content/dam/boots/seasonal-campaigns/christmas/2024/13a_advent_calendar/13a_Advent_Calendar_Nav_withoutsg.dam.ts%3D1723106048701.png',
+    text: 'Trending',
+    src: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/7--march/wc-1103/P8a_1403_Homepage_CricleNav_NewTrending.dam.ts%3D1710244923054.png',
   },
   {
     alt: 'skincare',
@@ -21,23 +21,23 @@ const products = [
   },
   {
     alt: 'health-hub-skin-advice',
-    text: 'Health Hub skin advice',
+    text: 'Prescriptions',
     src: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P10a_Homepage_CircleNav_Pollen.dam.ts%3D1715087584705.png',
   },
   {
     alt: 'trending',
-    text: 'Trending',
+    text: 'Photo printing',
     src: 'https://assets.boots.com/content/dam/boots/shop-by-department/photo/2020-2021/11b/Photo11b_PhotoPrinting_CircleNav_Prints_Supplied.dam.ts%3D1621523495789.jpg',
   },
   {
     alt: 'prescriptions',
-    text: 'Prescriptions',
-    src: 'https://assets.boots.com/content/dam/boots/shop-by-department/beauty-and-skincare/2023-2024/p10a/circle-navs/10a_Beauty_CircleNav_Skincare_10343758_Summer24.dam.ts%3D1714732997964.png',
+    text: ' Health Hub skin advice',
+    src: 'https://assets.boots.com/content/dam/boots/shop-by-department/health-hub/skin-and-dermatology/HealthHub_Skin_Services_Circle_Nav.dam.ts%3D1712587239630.png',
   },
   {
     alt: 'advantage-card',
     text: 'Sign up to Advantage Card',
-    src: 'https://assets.boots.com/content/dam/boots/shop-by-department/photo/2020-2021/11b/Photo11b_PhotoPrinting_CircleNav_Prints_Supplied.dam.ts%3D1621523495789.jpg',
+    src: 'https://assets.boots.com/content/dam/boots/ad-card-25th-birthday-/bubble-navs/Price-advantage-nav.dam.ts%3D1663666755018.png',
   },
 ];
 

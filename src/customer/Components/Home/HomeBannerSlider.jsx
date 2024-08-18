@@ -51,7 +51,7 @@ const HomeBannerSlider = () => {
         nextArrow: <CustomNextArrow />,
         prevArrow: <CustomPrevArrow />
     };
-    const banner =["b4.png","b3.png","b4.png","https://assets.boots.com/content/dam/boots/shop-by-department/fragrance/2023-2024/13b/dior/13b_Fragrance_HERO_DIOR_Sauvage_supplied.dam.361x135x1440.ts%3D1722427597870.jpg"]
+    const banner =["b4.png","b3.png","b4.png","https://assets.boots.com/content/dam/boots/shop-by-department/fragrance/2023-2024/13b/dior/13b_Fragrance_HERO_DIOR_Sauvage_supplied.dam.361x135x1440.ts%3D1722427597870.jpg","https://assets.boots.com/content/dam/boots/seasonal-campaigns/christmas/2024/13a_advent_calendar/13a_Advent_Calendar_Hero_withoutsg.dam.361x135x1440.ts%3D1723025995908.jpg"]
 
     return (
         <div className="relative w-full mx-auto">

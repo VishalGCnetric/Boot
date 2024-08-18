@@ -4,9 +4,29 @@ import IconButton from "@mui/material/IconButton";
 import ShoppingCart from "./ShoppingCart";
 import NestedMenu from "./NestedMenu";
 import { Link } from "react-router-dom";
+import Loader from "../BackDrop/Loader";
+
+// Loader Component
+// const Loader = () => {
+//   return (
+//     <div className="fixed inset-0 bg-black bg-opacity-25 flex items-center justify-center z-50">
+//       <div className="bg-white p-4 rounded shadow-lg flex items-center justify-center space-x-2">
+//         <span className="text-gray-700">Loading...</span>
+//         <div className="flex space-x-2">
+//           <div className="w-3 h-3 bg-indigo-900 rounded-full animate-bounce"></div>
+//           <div className="w-3 h-3 bg-indigo-900 rounded-full animate-bounce delay-200"></div>
+//           <div className="w-3 h-3 bg-indigo-900 rounded-full animate-bounce delay-400"></div>
+//           <div className="w-3 h-3 bg-indigo-900 rounded-full animate-bounce delay-600"></div>
+//           <div className="w-3 h-3 bg-indigo-900 rounded-full animate-bounce delay-800"></div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 const NewNavbar = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -15,7 +35,19 @@ const NewNavbar = () => {
     ) {
       return;
     }
-    setDrawerOpen(open);
+
+    if (open) {
+      // Show the loader first
+      setLoading(true);
+
+      // Simulate a delay for loading (e.g., fetching data)
+      setTimeout(() => {
+        setLoading(false); // Hide the loader
+        setDrawerOpen(open); // Open the drawer
+      }, 1000); // Adjust delay as needed
+    } else {
+      setDrawerOpen(open); // Close the drawer
+    }
   };
 
   return (
@@ -25,7 +57,11 @@ const NewNavbar = () => {
           {/* Logo and Search Bar */}
           <div className="flex w-[90%] justify-between items-center gap-4 space-x-4">
             <Link to="/">
-            <img src="/bvi20logo20v2png@2x.png" alt="Boots Logo" className="w-24" />
+              <img
+                src="/bvi20logo20v2png@2x.png"
+                alt="Boots Logo"
+                className="w-24"
+              />
             </Link>
             <div className="relative w-full m-2">
               <input
@@ -104,6 +140,9 @@ const NewNavbar = () => {
           <ShoppingCart toggleDrawer={toggleDrawer} />
         </div>
       </Drawer>
+
+      {/* Show loader while loading */}
+      {isLoading && <Loader />}
     </>
   );
 };

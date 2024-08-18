@@ -12,7 +12,7 @@ const HomeCardSlider = () => {
       buttonText: "SHOP NOW",
       badge: "SAVE UP TO 20%",
       imageSrc:
-        "https://assets.boots.com/content/dam/boots/events/2023-2024/12--august/e889-fragrance-save-15pc/E889_Event_Tile_Fragrance_Save15pc.dam.ts%3D1723018880171.jpg",
+        "https://assets.boots.com/content/dam/boots/shop-by-department/beauty-and-skincare/2023-2024/13a/premium/13a_Premium_50_LizEarle_pos1.dam.ts%3D1722600980268.jpg",
     },
     {
       title: "Fragrance",
@@ -20,7 +20,7 @@ const HomeCardSlider = () => {
       buttonText: "SHOP NOW",
       badge: "SAVE 15%",
       imageSrc:
-        "https://assets.boots.com/content/dam/boots/events/2023-2024/12--august/e889-fragrance-save-15pc/E889_Event_Tile_Fragrance_Save15pc.dam.ts%3D1723018880171.jpg",
+        "https://assets.boots.com/content/dam/boots/events/2023-2024/12--august/e975-save-an-extra-10/E975_SaveExtra10_Tile.dam.ts%3D1723721560811.jpg",
     },
     {
       title: "Dyson Supersonic",
@@ -29,7 +29,7 @@ const HomeCardSlider = () => {
       buttonText: "SHOP NOW",
       badge: "£40 ON YOUR ADVANTAGE CARD",
       imageSrc:
-        "https://assets.boots.com/content/dam/boots/events/2023-2024/12--august/e889-fragrance-save-15pc/E889_Event_Tile_Fragrance_Save15pc.dam.ts%3D1723018880171.jpg",
+        "https://assets.boots.com/content/dam/boots/shop-by-department/electrical/2023---2024/reactive/P13a_ProductTile_Dyson_SupersonicOrigin_Save80.dam.ts%3D1721911185590.jpg",
     },
     {
       title: "Electrical",
@@ -38,7 +38,7 @@ const HomeCardSlider = () => {
       buttonText: "SHOP NOW",
       badge: "FROM £24.99",
       imageSrc:
-        "https://assets.boots.com/content/dam/boots/events/2023-2024/12--august/e889-fragrance-save-15pc/E889_Event_Tile_Fragrance_Save15pc.dam.ts%3D1723018880171.jpg",
+        "https://assets.boots.com/content/dam/boots/homepage/2023-2024/12--august/wc-1208/P13a_1408_Homepage_EventTile_Philips_Lumea_Save100.dam.ts%3D1723470250562.jpg",
     },
   ];
 

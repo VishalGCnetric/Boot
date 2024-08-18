@@ -11,7 +11,7 @@ const healthPicksData = [
     title: 'Boots vitamins',
     description: '1/2 price on selected Boots brand vitamins with Advantage Card*',
     buttonLabel: 'SHOP NOW',
-    imageUrl: 'p13a-0708-homepage-25-wellness-save15pc-healthtabdam8x9x360ts3d1722843032428jpg@2x.png',
+    imageUrl: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/12--august/wc-1208/P13b_1408_Homepage_25_Gucci_Flora_NPD.dam.8x9x360.ts%3D1723204817181.jpg',
     discount: 'Price Advantage',
   },
   {
@@ -20,7 +20,7 @@ const healthPicksData = [
     title: 'Sexual wellbeing',
     description: 'Save 15% on selected sexual wellbeing with code SWB15',
     buttonLabel: 'SHOP NOW',
-    imageUrl: 'p13a-0708-homepage-25-wellness-save15pc-healthtabdam8x9x360ts3d1722843032428jpg@2x.png',
+    imageUrl: 'https://assets.boots.com/content/dam/boots/events/2023-2024/12--august/e936_halfprice_footcare/E936_25_2.dam.8x9x360.ts%3D1723711057878.jpg',
     discount: 'Save 15%',
   },
   {
@@ -29,7 +29,7 @@ const healthPicksData = [
     title: 'Hayfever relief',
     description: 'Beat those summer sneezes & save 20% on selected hayfever relief',
     buttonLabel: 'SHOP NOW',
-    imageUrl: 'p13a-0708-homepage-25-wellness-save15pc-healthtabdam8x9x360ts3d1722843032428jpg@2x.png',
+    imageUrl: 'https://assets.boots.com/content/dam/boots/events/2023-2024/12--august/e936_halfprice_footcare/E936_25_4.dam.8x9x360.ts%3D1723711058126.jpg',
     discount: 'Save 20%',
   },
   {
@@ -38,7 +38,7 @@ const healthPicksData = [
     title: 'Travel health',
     description: 'Prep for summer holidays & save 20% on selected travel health',
     buttonLabel: 'SHOP NOW',
-    imageUrl: 'p13a-0708-homepage-25-wellness-save15pc-healthtabdam8x9x360ts3d1722843032428jpg@2x.png',
+    imageUrl: 'https://assets.boots.com/content/dam/boots/events/2023-2024/12--august/e936_halfprice_footcare/E936_25_3.dam.8x9x360.ts%3D1723711058008.jpg',
     discount: 'Save 20%',
   },
   {
@@ -47,7 +47,7 @@ const healthPicksData = [
     title: 'Hayfever',
     description: 'Prep for pollen! Buy 1 get 2nd 1/2 price on selected hayfever',
     buttonLabel: 'SHOP NOW',
-    imageUrl: 'p13a-0708-homepage-25-wellness-save15pc-healthtabdam8x9x360ts3d1722843032428jpg@2x.png',
+    imageUrl: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P10a_0805_Homepage_25_Hayfever_BOGSHP_HealthTab.dam.8x9x360.ts%3D1714854292732.jpg',
     discount: null,
   },
   {
@@ -56,7 +56,7 @@ const healthPicksData = [
     title: 'Footcare',
     description: 'Treat your feet this summer with buy 1 get 2nd 1/2 price on selected footcare',
     buttonLabel: 'SHOP NOW',
-    imageUrl: 'p13a-0708-homepage-25-wellness-save15pc-healthtabdam8x9x360ts3d1722843032428jpg@2x.png',
+    imageUrl: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P13b_1408_Homepage_25_BOGSHP_Footcare_UK-v2.dam.8x9x360.ts%3D1723559529941.jpg',
     discount: null,
   },
   {
@@ -65,7 +65,7 @@ const healthPicksData = [
     title: 'Summer health',
     description: 'Buy 1 get 2nd 1/2 price on selected summer health must-haves',
     buttonLabel: 'SHOP NOW',
-    imageUrl: 'p13a-0708-homepage-25-wellness-save15pc-healthtabdam8x9x360ts3d1722843032428jpg@2x.png',
+    imageUrl: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P10a_0805_Homepage_25_Seasonal_BOGSHP_HealthTab.dam.8x9x360.ts%3D1715080139886.jpg',
     discount: null,
   },
   {
@@ -74,7 +74,7 @@ const healthPicksData = [
     title: 'First aid',
     description: 'Take care of scrapes & buy 1 get 2nd 1/2 price on selected first aid',
     buttonLabel: 'SHOP NOW',
-    imageUrl: 'p13a-0708-homepage-25-wellness-save15pc-healthtabdam8x9x360ts3d1722843032428jpg@2x.png',
+    imageUrl: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P10a_0805_Homepage_25_FirstAid_BOGSHP_HealthTab.dam.8x9x360.ts%3D1721125657154.jpg',
     discount: null,
   },
 ];
@@ -128,13 +128,13 @@ const HealthPicksSlider = () => {
       </div>
       <Slider {...settings}>
         {filteredData.map(card => (
-          <div key={card.id} className="px-2 py-2 h-80 space-x-auto ">
-            <div className="relative h-80 bg-white shadow-md rounded-lg overflow-hidden h-86 flex flex-col justify-between">
+          <div key={card.id} className="px-2 py-2   space-x-auto ">
+            <div className="relative  bg-white shadow-md rounded-lg overflow-hidden h-86 flex flex-col justify-between">
               <div className="relative">
                 <img
                   src={card.imageUrl}
                   alt={card.title}
-                  className="w-full h-40 object-cover "
+                  className="w-full h-auto  "
                 />
                 {card.discount && (
                   <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 text-xs rounded">
