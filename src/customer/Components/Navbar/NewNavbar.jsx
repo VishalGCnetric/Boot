@@ -3,7 +3,7 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCart from "./ShoppingCart";
 import NestedMenu from "./NestedMenu";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Loader from "../BackDrop/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItems } from "../../../action/cart";
@@ -33,9 +33,13 @@ const NewNavbar = () => {
   const [isLoading, setLoading] = useState(false);
   const cart = useSelector((store) => store.cartItems.cartItems);
   const wt=localStorage.getItem("wt");
+  const wtt=localStorage.getItem("wtt");
+  const { user } = useSelector((state) => state.auth);
+
+console.log(wt,wtt,user)
   useEffect(() => {
     dispatch(getCartItems());
-  }, [dispatch,wt]);
+  }, [user, wt, wtt]);
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&

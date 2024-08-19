@@ -3,7 +3,7 @@ import AddressBook from '../customer/Components/adreess/AddressBook';
 import OrderHistory from "../customer/Components/orders/OrderHistory"
 import { useDispatch, useSelector } from 'react-redux';
 import { API_BASE_URL } from '../config/api';
-import { getCutomerOrdersNew } from '../action/cart';
+import { getCartItems, getCutomerOrdersNew } from '../action/cart';
 import axios from 'axios';
 const Sidebar = ({ items, onItemSelect }) => {
     return (
@@ -31,8 +31,11 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     const wt = localStorage.getItem('wt');
     const wtt = localStorage.getItem('wtt');
+  
     useEffect(() => {
       dispatch(getCutomerOrdersNew());
+      dispatch(getCartItems());
+
   }, [loading]);
     useEffect(() => {
       const fetchData = async () => {

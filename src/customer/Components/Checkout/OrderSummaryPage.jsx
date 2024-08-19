@@ -1,15 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 import { getCartItems, ShipingInfoOrder } from '../../../action/cart';
+
+import { getCartItems } from '../../../action/cart';
+import { API_BASE_URL } from '../../../config/api';
+import axios from 'axios';
+
 
 const OrderSummaryPage = () => {
   const navigate = useNavigate()
+  const [shippingMethod,setShippingMethod]=useState([]);
   const address = JSON.parse(localStorage.getItem('deliveryAddress'));
   const dispatch = useDispatch();
   const cart = useSelector((store) => store.cartItems.cartItems);
+  useEffect(() => {
+    const fetchAddresses = async () => {
+        const wt = localStorage.getItem("wt") 
+        const wtt = localStorage.getItem("wtt") 
+        try {
+            const res = await axios.get(`${API_BASE_URL}shipModes`, {
+                headers: {
+                    wt: wt,
+                    wtt: wtt,
+                },
+            });
+            const fetchedAddresses = res.data.usableShippingMode || [];
+            console.log(fetchedAddresses)
+            setShippingMethod(fetchedAddresses);
+        } catch (error) {
+            console.error("Error fetching addresses:", error);
+        } finally {
+        }
+    };
 
- 
+
+    fetchAddresses();
+}, []);
+  console.log(cart)
 
   useEffect(() => {
     dispatch(getCartItems());
@@ -50,6 +79,13 @@ const OrderSummaryPage = () => {
             <p>{`Nickname: ${address?.nickName}`}</p>
             <p>{`Address Type: ${address?.addressType}`}</p>
           </div>
+
+          <h2 className="text-xl  mt-10 font-semibold mb-4">Select shipping Mode</h2>
+          <select className="text-gray-700 rounded-lg shadow-xl p-6">
+           {shippingMethod.map((item)=>{
+            return <option value="">{item.shipModeCode}</option>
+           })}
+          </select>
         </div>
 
         {/* Right Side - Order Details */}

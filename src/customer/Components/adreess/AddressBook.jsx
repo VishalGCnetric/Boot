@@ -25,8 +25,8 @@ const AddressBook = () => {
 
     useEffect(() => {
         const fetchAddresses = async () => {
-            const wt = localStorage.getItem("wt") || "5010%2CoUdRcpqlX9qipP4lygxsFyr%2BL2e%2Ft0oRlqidJL2tpJWePii3ZQmegZCIjtVPa%2FlK9aocw%2FRTQ34KEZCnU1zgaj71NIQ6lUjOOIB42%2BfcLOaLNoQroPS5M8O56xaV4uAwTYYoO7momE8ELW93aVKZskdCWGjrwWrKPCgfeaQlwzFMTvXfTHS1fqK1KnaWAFYNudyeXOHpaGcT1ijNtx9%2BM5eNt6bUBAFY%2BwWHGI2YYoZ2GwO44k9q8kobs4fTHDibBwOkzO8DTvwJ3BqjBHQnjw%3D%3D"
-            const wtt = localStorage.getItem("wtt") || "5010%2CV8ifC4CbDJymhzvToXF4JJtW%2FPHz4SdHQ7EPTzwbdQY%3D";
+            const wt = localStorage.getItem("wt") 
+            const wtt = localStorage.getItem("wtt") 
             try {
                 const res = await axios.get(`${API_BASE_URL}addresses`, {
                     headers: {

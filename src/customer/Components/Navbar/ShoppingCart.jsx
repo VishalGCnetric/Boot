@@ -36,13 +36,13 @@ const ShoppingCart = ({toggleDrawer}) => {
         <button className="text-2xl" onClick={toggleDrawer(false)}>&times;</button>
       </div>
 
-      <div className="p-4 bg-blue-50 text-sm">
+      {/* <div className="p-4 bg-blue-50 text-sm">
         <p className="mb-1">Spend 501 points more for FREE Click & Collect</p>
         <p>Spend 1501 points more for FREE standard delivery</p>
-      </div>
+      </div> */}
       <div className="space-y-3">
             {cart?.orderItem === undefined ? (
-              <div>
+              <div className="p-2 my-4">
                 Your Cart Is Empty , add Products in Cart
               </div>
             ) : (
@@ -103,7 +103,7 @@ const ShoppingCart = ({toggleDrawer}) => {
         <p className="flex justify-between text-green-600 mb-1"><span>Savings</span><span>0.00</span></p>
         <p className="flex justify-between font-bold mb-1"><span>Total ({cart?.orderItem?.length} item)</span><span>{total.toFixed(2)}</span></p>
         <p className="text-sm text-gray-500 mb-1">Excludes delivery</p>
-        <p className="text-sm text-gray-500">You will not collect points when paying with points</p>
+        <p className="text-sm p-2 my-4 text-gray-500">You will not collect points when paying with points</p>
       </div>
 
       <button onClick={() => { navigate("/checkout?step=1");toggleDrawer(true);}} className="w-full bg-wwwbootscom-deep-cove text-white py-3 font-bold">CHECKOUT NOW</button>
