@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getCustomerNew } from '../../../action/Customer';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
+  const dispatch = useDispatch()
 
   const validateEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -37,6 +40,11 @@ const Login = () => {
     if (!emailError && !passwordError) {
       // Perform login logic here
       console.log('Logged in with:', { email, password });
+      const userData ={
+        email:email,
+        password:password,
+      }
+      dispatch(getCustomerNew(userData));
     }
   };
 

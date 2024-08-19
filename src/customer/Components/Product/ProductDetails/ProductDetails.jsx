@@ -1,11 +1,27 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import StoreStockModal from './StoreStockModal';
 import { IoIosArrowBack,IoIosArrowForward } from "react-icons/io";
+import { receiveProductsById } from '../../../../action';
+import { useParams } from 'react-router-dom';
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
-  const [mainImage, setMainImage] = useState('https://m.media-amazon.com/images/I/614aGdFgIxL._SX679_.jpg');
+  const [mainImage, setMainImage] = useState(null);
   const [storeModal,setStoreModal] = useState(false)
+  const imageContainerRef = useRef(null);
+  const [productDetails, setProductDetails] = useState({});
+  const { productId } = useParams();
+
+  console.log(productDetails)
+
+  useEffect(() => {
+   
+    receiveProductsById(productId).then((res) => {
+      
+      setProductDetails(res.catalogEntryView[0]);
+      setMainImage(res.catalogEntryView[0].fullImageRaw);
+    });
+  }, [productId]);
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -17,7 +33,6 @@ const ProductDetails = () => {
     }
   };
 
-  const imageContainerRef = useRef(null);
 
   const scrollLeft = () => {
     imageContainerRef.current.scrollBy({
@@ -59,35 +74,14 @@ const ProductDetails = () => {
               className="flex space-x-2 overflow-x-auto scrollbar-hide"
               style={{ scrollBehavior: 'smooth' }}
             >
+              {productDetails?.variants?.map((el)=>
               <img
-                onClick={() => setMainImage("https://m.media-amazon.com/images/I/61SFjHNtYgL._SX679_.jpg")}
-                src="https://m.media-amazon.com/images/I/61SFjHNtYgL._SX679_.jpg"
+                onClick={() => setMainImage(el?.mainImage)}
+                src={el?.smallImage}
                 alt="Thumbnail 1"
                 className="w-20 h-20 object-cover rounded-md border" // Static height and width
               />
-              <img
-                onClick={() => setMainImage("https://m.media-amazon.com/images/I/61NzXho-nFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg")}
-                src="https://m.media-amazon.com/images/I/61NzXho-nFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg"
-                alt="Thumbnail 2"
-                className="w-20 h-20 object-cover rounded-md border"
-              />
-              <img
-                onClick={()=>setMainImage('https://m.media-amazon.com/images/I/41KYbtB-jOL._SS40_.jpg')}
-                src="https://m.media-amazon.com/images/I/41KYbtB-jOL._SS40_.jpg"
-                alt="Thumbnail 3"
-                className="w-20 h-20 object-cover rounded-md border"
-              />
-              <img
-              onClick={()=>setMainImage('https://m.media-amazon.com/images/I/41+eSSimK7L._SS40_.jpg')}
-                src="https://m.media-amazon.com/images/I/41+eSSimK7L._SS40_.jpg"
-                alt="Thumbnail 4"
-                className="w-20 h-20 object-cover rounded-md border"
-              />
-              <img
-                src="https://m.media-amazon.com/images/I/61NzXho-nFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg"
-                alt="Thumbnail 5"
-                className="w-20 h-20 object-cover rounded-md border"
-              />
+            )}
               {/* Add more images here */}
             </div>
 
@@ -100,12 +94,12 @@ const ProductDetails = () => {
 
         {/* Product Details */}
         <div className="w-full md:w-1/2 space-y-4">
-          <h2 className="text-2xl font-bold">Philips Series 9000, 20-in-1 Ultimate Multi Grooming Trimmer for Face, Head, and Body MG9555/15</h2>
+          <h2 className="text-2xl font-bold">{productDetails?.name}</h2>
           <div className="flex items-center space-x-2">
             <span className="text-yellow-500 text-lg font-bold">4.5</span>
             <span className="text-gray-500">(131 reviews)</span>
           </div>
-          <div className="text-3xl font-bold text-gray-800">£84.99</div>
+          <div className="text-3xl font-bold text-gray-800">{productDetails?.price?.[0]?.value}</div>
           <div className="text-green-600 font-bold">Save £45.00 Was £129.99</div>
           <button className="bg-red-500 text-white font-bold py-2 px-4 rounded-md hover:bg-red-600">Great savings on selected Electrical Beauty - online only</button>
           <div className="text-gray-600 text-lg">Stock coming soon</div>
