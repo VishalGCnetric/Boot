@@ -50,7 +50,7 @@ const navigate=useNavigate();
 
       setTimeout(() => {
         navigate("/profile");
-        window.location.reload(); // Refresh the page after navigation
+        // window.location.reload();
       }, 500);
   
       

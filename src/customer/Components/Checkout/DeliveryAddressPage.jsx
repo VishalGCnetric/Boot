@@ -13,8 +13,6 @@ const DeliveryAddressPage = () => {
   const dispatch = useDispatch();
   const cart = useSelector((store) => store.cartItems.cartItems);
 
-  console.log(cart)
-
   useEffect(() => {
     dispatch(getCartItems());
   }, [dispatch]);
@@ -61,6 +59,24 @@ const DeliveryAddressPage = () => {
 
     fetchAddresses();
   }, []);
+
+  function formatToTwoDecimalPlaces(number) {
+    let strNumber = number.toString();
+    let [integerPart, decimalPart] = strNumber.split('.');
+
+    // If there's no decimal part, add ".00"
+    if (!decimalPart) {
+        return integerPart + '.00';
+    }
+
+    // If decimal part is less than 2 digits, pad with zeros
+    if (decimalPart.length < 2) {
+        return integerPart + '.' + decimalPart.padEnd(2, '0');
+    }
+
+    // If decimal part is more than 2 digits, slice to 2 digits
+    return integerPart + '.' + decimalPart.slice(0, 2);
+}
 
   return (
     <div className="p-4 max-w-7xl mx-auto ">
@@ -123,7 +139,7 @@ const DeliveryAddressPage = () => {
               <h3 className="text-lg font-semibold mb-2">Order Summary</h3>
               <p>Items: --</p>
               <p>Delivery: --</p>
-              <p className="text-lg font-bold text-red-600 mt-4">Order Total: ₹{cart?.grandTotal}</p>
+              <p className="text-lg font-bold text-red-600 mt-4">Order Total: ₹{formatToTwoDecimalPlaces(cart?.grandTotal)}</p>
             </div>
             <a href="#" className="text-blue-600 text-sm mt-4 inline-block">
               How are delivery costs calculated?
