@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import AddressCard from './AdreessCard';
 import axios from 'axios';
 import { API_BASE_URL } from '../../../config/api';
-
+import Loader from '../BackDrop/Loader';
 
 const AddressBook = () => {
     const [addresses, setAddresses] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [newAddress, setNewAddress] = useState({
         lastName: "",
         zipCode: "",
@@ -19,7 +20,6 @@ const AddressBook = () => {
         primary: "false",
         phone1: ""
     });
-
     const [selectedAddressId, setSelectedAddressId] = useState('');
     const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -34,11 +34,13 @@ const AddressBook = () => {
                         wtt: wtt,
                     },
                 });
-                const fetchedAddresses = res.data;
+                const fetchedAddresses = res.data.contact || [];
                 setAddresses(fetchedAddresses);
                 setSelectedAddressId(fetchedAddresses[0]?.addressId || '');
             } catch (error) {
                 console.error("Error fetching addresses:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -81,48 +83,65 @@ const AddressBook = () => {
         setIsFormVisible(!isFormVisible);
     };
 
-    const selectedAddress = addresses.find(address => address.addressId === selectedAddressId);
+    const selectedAddress = addresses?.find(address => address.addressId === selectedAddressId);
 
     return (
         <div>
             <h2 className="text-xl font-bold py-2 text-indigo-900">My Address Book</h2>
             <p>Select primary address from here</p>
 
-            {/* Select Address Dropdown */}
-            <select
-                className="p-2 border my-2 rounded w-full mb-4"
-                value={selectedAddressId}
-                onChange={(e) => setSelectedAddressId(e.target.value)}
-            >
-                <option value="">Select Address</option>
-                {addresses.map((address) => (
-                    <option key={address.addressId} value={address.addressId}>
-                        {`${address.firstName} ${address.lastName} - ${address.city}`}
-                    </option>
-                ))}
-            </select>
-
-            {/* Display Selected Address Details */}
-            <h2 className="text-xl font-bold py-2 text-indigo-900">Primary Address</h2>
-            {selectedAddress && (
-                <div className="border-2 border-indigo-900">
-                    <AddressCard address={selectedAddress} />
-                </div>
-            )}
-
-            {/* Address Cards */}
-            <h2 className="text-xl font-bold py-2 mt-4 text-indigo-900">All Addresses</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                {addresses.map((address) => (
-                    <div
-                        key={address.addressId}
-                        className="cursor-pointer"
-                        onClick={() => setSelectedAddressId(address.addressId)}
+            {/* Loading State */}
+            {loading ? (
+                <Loader/>
+            ) : (
+                <>
+                    {/* Select Address Dropdown */}
+                    <select
+                        className="p-2 border my-2 rounded w-full mb-4"
+                        value={selectedAddressId}
+                        onChange={(e) => setSelectedAddressId(e.target.value)}
                     >
-                        <AddressCard address={address} />
-                    </div>
-                ))}
-            </div>
+                        <option value="">Select Address</option>
+                        {Array.isArray(addresses) && addresses.length > 0 ? (
+                            addresses.map((address) => (
+                                <option key={address.addressId} value={address.addressId}>
+                                    {`${address.firstName} ${address.lastName} - ${address.city}`}
+                                </option>
+                            ))
+                        ) : (
+                            <option value="">No addresses available</option>
+                        )}
+                    </select>
+
+                    {/* Display Selected Address Details */}
+                    <h2 className="text-xl font-bold py-2 text-indigo-900">Primary Address</h2>
+                    {selectedAddress ? (
+                        <div className="border-2 border-indigo-900">
+                            <AddressCard address={selectedAddress} />
+                        </div>
+                    ) : (
+                        <p>No primary address selected.</p>
+                    )}
+
+                    {/* Address Cards */}
+                    <h2 className="text-xl font-bold py-2 mt-4 text-indigo-900">All Addresses</h2>
+                    {addresses.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            {addresses.map((address) => (
+                                <div
+                                    key={address.addressId}
+                                    className="cursor-pointer"
+                                    onClick={() => setSelectedAddressId(address.addressId)}
+                                >
+                                    <AddressCard address={address} />
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <p>No addresses found.</p>
+                    )}
+                </>
+            )}
 
             {/* Add New Address Form */}
             {!isFormVisible && (
