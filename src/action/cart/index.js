@@ -251,6 +251,7 @@ export const ShipingInfoOrder = async (reqData) => {
     });
   };
 
+
 export const placeOrder = async (grandTotal,addressId) => {
 //   let setship={
 //     shipModeId: cartItems?.cartItems?.shipModeId,
