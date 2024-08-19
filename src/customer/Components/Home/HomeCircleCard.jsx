@@ -3,40 +3,9 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const cardData = [
-  {
-    alt: 'photo-printing',
-    text: 'Photo printing',
-    src: 'https://assets.boots.com/content/dam/boots/seasonal-campaigns/christmas/2024/13a_advent_calendar/13a_Advent_Calendar_Nav_withoutsg.dam.ts%3D1723106048701.png',
-  },
-  {
-    alt: 'skincare',
-    text: 'Skincare',
-    src: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P10a_Homepage_CircleNav_SunHoliday.dam.ts%3D1716208803095.png',
-  },
-  {
-    alt: 'health-hub-skin-advice',
-    text: 'Health Hub skin advice',
-    src: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P10a_Homepage_CircleNav_Pollen.dam.ts%3D1715087584705.png',
-  },
-  {
-    alt: 'trending',
-    text: 'Trending',
-    src: 'https://assets.boots.com/content/dam/boots/shop-by-department/photo/2020-2021/11b/Photo11b_PhotoPrinting_CircleNav_Prints_Supplied.dam.ts%3D1621523495789.jpg',
-  },
-  {
-    alt: 'prescriptions',
-    text: 'Prescriptions',
-    src: 'https://assets.boots.com/content/dam/boots/shop-by-department/beauty-and-skincare/2023-2024/p10a/circle-navs/10a_Beauty_CircleNav_Skincare_10343758_Summer24.dam.ts%3D1714732997964.png',
-  },
-  {
-    alt: 'advantage-card',
-    text: 'Sign up to Advantage Card',
-    src: 'https://assets.boots.com/content/dam/boots/shop-by-department/photo/2020-2021/11b/Photo11b_PhotoPrinting_CircleNav_Prints_Supplied.dam.ts%3D1621523495789.jpg',
-  },
-];
 
-const HomeCircleCard = () => {
+
+const HomeCircleCard = ({banners}) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -46,7 +15,38 @@ const HomeCircleCard = () => {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />
   };
-
+  const cardData = [
+    {
+      alt: 'photo-printing',
+      text: 'Photo printing',
+      src: banners[14].url,
+    },
+    {
+      alt: 'skincare',
+      text: 'Skincare',
+      src: banners[22].url,
+    },
+    {
+      alt: 'health-hub-skin-advice',
+      text: 'Health Hub skin advice',
+      src: banners[16].url
+    },
+    {
+      alt: 'trending',
+      text: 'Trending',
+      src: banners[17].url
+    },
+    {
+      alt: 'prescriptions',
+      text: 'Prescriptions',
+      src: banners[30].url
+    },
+    {
+      alt: 'advantage-card',
+      text: 'Sign up to Advantage Card',
+      src: 'https://assets.boots.com/content/dam/boots/shop-by-department/photo/2020-2021/11b/Photo11b_PhotoPrinting_CircleNav_Prints_Supplied.dam.ts%3D1621523495789.jpg',
+    },
+  ];
   return (
     <div className="relative w-full mx-auto">
       <Slider {...settings}>

@@ -79,10 +79,10 @@ const cardData = [
     </div>
   );
   
-  const DeliveryCard = ({ className = "" }) => {
+  const DeliveryCard = ({ banners}) => {
     return (
       <div
-        className={`w-full  [background:linear-gradient(0deg,_rgba(255,_255,_255,_0),_#fff_2%)] overflow-hidden flex flex-col items-start justify-center max-w-[1445px] text-left text-mini-9 text-wwwbootscom-white font-wwwbootscom-inter-regular-16 mq1900:max-w-full ${className}`}
+        className={`w-full  [background:linear-gradient(0deg,_rgba(255,_255,_255,_0),_#fff_2%)] overflow-hidden flex flex-col items-start justify-center max-w-[1445px] text-left text-mini-9 text-wwwbootscom-white font-wwwbootscom-inter-regular-16 mq1900:max-w-full `}
       >
         <div className=" w-full  flex flex-col md:flex-row flex-wrap items-start justify-around gap-4">
           {cardData.map((card) => (

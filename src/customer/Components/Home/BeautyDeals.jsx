@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const BeautyDeals = () => {
+const BeautyDeals = ({banners}) => {
   const categories = [
     { name: 'Beauty deals', active: true },
     { name: 'Skincare savings', active: false },
@@ -14,25 +14,25 @@ const BeautyDeals = () => {
         {
           brand: 'Fenty Skin',
           name: 'Treat lips to NEW Treatz Hydrating & Strengthening Lip Oil',
-          image: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/12--august/wc-1208/P13b_1408_Homepage_25_ParentChildEvent_ShopAll_Offers.dam.8x9x360.ts%3D1723472499895.jpg',
+          image: banners[6].url,
           tag: 'NEW',
         },
         {
           brand: 'NYX',
           name: 'NEW Butter Gloss Bling Lip Gloss, the OG gloss with sparkly shine',
-          image: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/12--august/13a_Homepage_Scroller_Tab4_NYX_ButterGloss.dam.8x9x360.ts%3D1722005894197.jpg',
+          image: banners[24].url,
           tag: 'NEW & ONLY AT BOOTS',
         },
         {
           brand: 'e.l.f.',
           name: 'NEW Brow Laminating Gel, FREE gift when you spend £20!',
-          image: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/11--july/wc-0107/P12a_0307_Homepage_25_ELF_BrowGel_NPDScroller.dam.8x9x360.ts%3D1719865470983.jpg',
+          image: banners[23].url,
           tag: 'FREE GIFT',
         },
         {
           brand: 'Fenty Beauty',
           name: 'Discover the NEW Gloss Bomb Stix High-Shine Gloss Stick',
-          image: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/12--august/wc-1208/P13b_1408_Homepage_25_ParentChildEvent_AveenoBaby_SaveAThird.dam.8x9x360.ts%3D1723472499452.jpg',
+          image: banners[25].url,
           tag: 'NEW',
         },
       ],
@@ -43,24 +43,24 @@ const BeautyDeals = () => {
         {
           brand: 'Olay',
           name: '1/2 price on Vitamin C Anti-Dark Spot SPF30 Day Cream 50ml',
-          image: 'https://assets.boots.com/content/dam/boots/brands/brand---o/olay/olay-bt/2024_olay_bt/olay_bt_04-2024/2024-03_olay_brand-treatment_product-tile_super-serum.dam.ts%3D1712137389236.jpg',
+          image: banners[27].url,
           tag: '1/2 PRICE',
         },
         {
           brand: 'No7',
           name: '3 for 2 on selected Future Renew, including Defence Shield SPF50**',
-          image: 'https://assets.boots.com/content/dam/boots/shop-by-department/beauty-and-skincare/2023-2024/12a/no7/12a_Beauty_25_Scroller_No7.dam.8x9x360.ts%3D1718709300459.jpg',
+          image: banners[28].url,
           tag: '3 FOR 2',
         },
         {
           brand: 'Estée Lauder',
           name: 'FREE gift when you buy Advanced Night Repair Serum',
-          image: 'https://assets.boots.com/content/dam/boots/shop-by-department/beauty-and-skincare/2024-2025/1a/beauty/P1a_Too_Faced_25.dam.8x9x360.ts%3D1723713420470.jpg',
+          image: banners[29].url,
         },
         {
           brand: 'Fragrance',
           name: 'Treat yourself to a new fave & save up to 1/2 price on selected scents',
-          image: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/12--august/wc-1208/P13b_1408_Homepage_25_SUTHP_Fragrance.dam.8x9x360.ts%3D1723472999712.jpg',
+          image: banners[20].url,
           tag: 'SAVE UP TO 1/2 PRICE',
         },
       ],
@@ -71,18 +71,18 @@ const BeautyDeals = () => {
         {
           brand: 'Soltan',
           name: 'Protect the whole family with save 25% on selected Family Packs',
-          image: 'https://assets.boots.com/content/dam/boots/shop-by-department/sun-and-holiday/2023---2024/13a/13a_Sun_Hero_Soltan_WhichAwards.dam.56x51x1440.ts%3D1722518600629.jpg',
+          image: banners[18].url,
         },
         {
           brand: 'E45',
           name: 'Save 25% on selected E45, sun protection for dry & sensitive skin',
-          image: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/12--august/wc-1208/P13b_1408_Homepage_25_Prada_NPD.dam.8x9x360.ts%3D1723204817315.jpg',
+          image: banners[21].url,
           tag: 'SAVE 25%',
         },
         {
           brand: 'Sanctuary Spa',
           name: 'Treat your loved ones & save 1/3 on selected Sanctuary Spa gift sets',
-          image: 'https://assets.boots.com/content/dam/boots/shop-by-department/fragrance/2023-2024/13b/13b_Fragrance_25_Ariana_Grande_Supplied.dam.8x9x360.ts%3D1721908008219.png',
+          image: banners[19].url,
           tag: 'SAVE 1/3',
         },
         {

@@ -4,84 +4,84 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const healthPicksData = [
-  {
-    id: 1,
-    category: 'Top health picks',
-    title: 'Boots vitamins',
-    description: '1/2 price on selected Boots brand vitamins with Advantage Card*',
-    buttonLabel: 'SHOP NOW',
-    imageUrl: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/12--august/wc-1208/P13b_1408_Homepage_25_Gucci_Flora_NPD.dam.8x9x360.ts%3D1723204817181.jpg',
-    discount: 'Price Advantage',
-  },
-  {
-    id: 2,
-    category: 'Top health picks',
-    title: 'Sexual wellbeing',
-    description: 'Save 15% on selected sexual wellbeing with code SWB15',
-    buttonLabel: 'SHOP NOW',
-    imageUrl: 'https://assets.boots.com/content/dam/boots/events/2023-2024/12--august/e936_halfprice_footcare/E936_25_2.dam.8x9x360.ts%3D1723711057878.jpg',
-    discount: 'Save 15%',
-  },
-  {
-    id: 3,
-    category: 'Top health picks',
-    title: 'Hayfever relief',
-    description: 'Beat those summer sneezes & save 20% on selected hayfever relief',
-    buttonLabel: 'SHOP NOW',
-    imageUrl: 'https://assets.boots.com/content/dam/boots/events/2023-2024/12--august/e936_halfprice_footcare/E936_25_4.dam.8x9x360.ts%3D1723711058126.jpg',
-    discount: 'Save 20%',
-  },
-  {
-    id: 4,
-    category: 'Top health picks',
-    title: 'Travel health',
-    description: 'Prep for summer holidays & save 20% on selected travel health',
-    buttonLabel: 'SHOP NOW',
-    imageUrl: 'https://assets.boots.com/content/dam/boots/events/2023-2024/12--august/e936_halfprice_footcare/E936_25_3.dam.8x9x360.ts%3D1723711058008.jpg',
-    discount: 'Save 20%',
-  },
-  {
-    id: 5,
-    category: 'Buy 1 get 2nd 1/2 price',
-    title: 'Hayfever',
-    description: 'Prep for pollen! Buy 1 get 2nd 1/2 price on selected hayfever',
-    buttonLabel: 'SHOP NOW',
-    imageUrl: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P10a_0805_Homepage_25_Hayfever_BOGSHP_HealthTab.dam.8x9x360.ts%3D1714854292732.jpg',
-    discount: null,
-  },
-  {
-    id: 6,
-    category: 'Buy 1 get 2nd 1/2 price',
-    title: 'Footcare',
-    description: 'Treat your feet this summer with buy 1 get 2nd 1/2 price on selected footcare',
-    buttonLabel: 'SHOP NOW',
-    imageUrl: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P13b_1408_Homepage_25_BOGSHP_Footcare_UK-v2.dam.8x9x360.ts%3D1723559529941.jpg',
-    discount: null,
-  },
-  {
-    id: 7,
-    category: 'Buy 1 get 2nd 1/2 price',
-    title: 'Summer health',
-    description: 'Buy 1 get 2nd 1/2 price on selected summer health must-haves',
-    buttonLabel: 'SHOP NOW',
-    imageUrl: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P10a_0805_Homepage_25_Seasonal_BOGSHP_HealthTab.dam.8x9x360.ts%3D1715080139886.jpg',
-    discount: null,
-  },
-  {
-    id: 8,
-    category: 'Buy 1 get 2nd 1/2 price',
-    title: 'First aid',
-    description: 'Take care of scrapes & buy 1 get 2nd 1/2 price on selected first aid',
-    buttonLabel: 'SHOP NOW',
-    imageUrl: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P10a_0805_Homepage_25_FirstAid_BOGSHP_HealthTab.dam.8x9x360.ts%3D1721125657154.jpg',
-    discount: null,
-  },
-];
 
-const HealthPicksSlider = () => {
+
+const HealthPicksSlider = ({banners}) => {
   const [selectedCategory, setSelectedCategory] = useState('Top health picks');
-
+  const healthPicksData = [
+    {
+      id: 1,
+      category: 'Top health picks',
+      title: 'Boots vitamins',
+      description: '1/2 price on selected Boots brand vitamins with Advantage Card*',
+      buttonLabel: 'SHOP NOW',
+      imageUrl: banners[31].url,
+      discount: 'Price Advantage',
+    },
+    {
+      id: 2,
+      category: 'Top health picks',
+      title: 'Sexual wellbeing',
+      description: 'Save 15% on selected sexual wellbeing with code SWB15',
+      buttonLabel: 'SHOP NOW',
+      imageUrl: banners[34].url,
+      discount: 'Save 15%',
+    },
+    {
+      id: 3,
+      category: 'Top health picks',
+      title: 'Hayfever relief',
+      description: 'Beat those summer sneezes & save 20% on selected hayfever relief',
+      buttonLabel: 'SHOP NOW',
+      imageUrl: banners[26].url,
+      discount: 'Save 20%',
+    },
+    {
+      id: 4,
+      category: 'Top health picks',
+      title: 'Travel health',
+      description: 'Prep for summer holidays & save 20% on selected travel health',
+      buttonLabel: 'SHOP NOW',
+      imageUrl: banners[32].url,
+      discount: 'Save 20%',
+    },
+    {
+      id: 5,
+      category: 'Buy 1 get 2nd 1/2 price',
+      title: 'Hayfever',
+      description: 'Prep for pollen! Buy 1 get 2nd 1/2 price on selected hayfever',
+      buttonLabel: 'SHOP NOW',
+      imageUrl: banners[33].url,
+      discount: null,
+    },
+    {
+      id: 6,
+      category: 'Buy 1 get 2nd 1/2 price',
+      title: 'Footcare',
+      description: 'Treat your feet this summer with buy 1 get 2nd 1/2 price on selected footcare',
+      buttonLabel: 'SHOP NOW',
+      imageUrl: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/9--may/wc-0605/P13b_1408_Homepage_25_BOGSHP_Footcare_UK-v2.dam.8x9x360.ts%3D1723559529941.jpg',
+      discount: null,
+    },
+    {
+      id: 7,
+      category: 'Buy 1 get 2nd 1/2 price',
+      title: 'Summer health',
+      description: 'Buy 1 get 2nd 1/2 price on selected summer health must-haves',
+      buttonLabel: 'SHOP NOW',
+      imageUrl: banners[2].url,
+      discount: null,
+    },
+    {
+      id: 8,
+      category: 'Buy 1 get 2nd 1/2 price',
+      title: 'First aid',
+      description: 'Take care of scrapes & buy 1 get 2nd 1/2 price on selected first aid',
+      buttonLabel: 'SHOP NOW',
+      imageUrl: banners[5].url,
+      discount: null,
+    },
+  ];
   const filteredData = healthPicksData.filter(item => item.category === selectedCategory);
 
   const settings = {
