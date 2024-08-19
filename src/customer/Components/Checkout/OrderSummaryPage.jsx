@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import { getCartItems, ShipingInfoOrder } from '../../../action/cart';
+
 import { getCartItems } from '../../../action/cart';
 import { API_BASE_URL } from '../../../config/api';
 import axios from 'axios';
+
 
 const OrderSummaryPage = () => {
   const navigate = useNavigate()
@@ -31,6 +35,7 @@ const OrderSummaryPage = () => {
         }
     };
 
+
     fetchAddresses();
 }, []);
   console.log(cart)
@@ -38,26 +43,23 @@ const OrderSummaryPage = () => {
   useEffect(() => {
     dispatch(getCartItems());
   }, [dispatch]);
-  console.log(address)
+  
 
   const handleNewOrder = () => {
-    navigate('/checkout?step=3')
+    if(cart.orderId&&address.addressId){
+      let shiping={
+        orderItemId: cart?.orderId,
+        addressId: address.addressId
+    }
+    
+    ShipingInfoOrder(shiping).then((res) => {
+      navigate('/checkout?step=3')
+      alert('Proceed for payment')
+    });
+   
+  }
   }
 
-  // const address = {
-  //   name: 'Sajjak',
-  //   addressLine1: 'Yellareddy Circle, FCI Main Road, Kadugodi',
-  //   city: 'Bengaluru',
-  //   state: 'Karnataka',
-  //   zip: '560067',
-  //   country: 'India',
-  // };
-
-  const orderDetails = {
-    items: 3,
-    delivery: 'Free',
-    total: '₹200.00',
-  };
 
   return (
     <div className="p-4 max-w-7xl mx-auto ">
