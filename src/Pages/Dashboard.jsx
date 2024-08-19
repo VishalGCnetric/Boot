@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddressBook from '../customer/Components/adreess/AddressBook';
 import OrderHistory from "../customer/Components/orders/OrderHistory"
+import { useDispatch, useSelector } from 'react-redux';
+import { API_BASE_URL } from '../config/api';
+import { getCutomerOrdersNew } from '../action/cart';
+import axios from 'axios';
 const Sidebar = ({ items, onItemSelect }) => {
     return (
         <div className="w-1/4 text-indigo-900  bg-gray-100 p-4">
@@ -20,10 +24,40 @@ const Sidebar = ({ items, onItemSelect }) => {
 
 const Dashboard = () => {
     const [selectedItem, setSelectedItem] = useState('my account summary');
-
+    const [loading, setLoading] = useState(true);
+    const [profile, setProfile] = useState({});
+    const { user } = useSelector((state) => state.auth);
+    const { newOrder } = useSelector((store) => store);
+    const dispatch = useDispatch();
+    const wt = localStorage.getItem('wt');
+    const wtt = localStorage.getItem('wtt');
+    useEffect(() => {
+      dispatch(getCutomerOrdersNew());
+  }, [loading]);
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+         
+            const response = await axios.get(`${API_BASE_URL}info`, {
+              headers: {
+                wt: wt || user?.WCToken,
+                wtt: wtt || user?.WCTrustedToken,
+              },
+            });
+            const data = response.data;
+            setProfile(data);
+          
+          setLoading(false); // Set loading to false once data is fetched
+        } catch (error) {
+          console.log('Error', error);
+        }
+      };
+  
+      fetchData();
+    }, [user, wt, wtt]);
     const items = [
-        { label: 'my account summary', component: <AccountSummary /> },
-        { label: 'change login details', component: <ChangeLoginDetails /> },
+        { label: 'my account summary', component: <AccountSummary profile={profile}/> },
+        { label: 'change login details', component: <ChangeLoginDetails profile={profile} /> },
         { label: 'personal information', component: <PersonalInformation /> },
         { label: 'order history', component: <OrderHistory /> },
         { label: 'address book', component: <AddressBook /> },
@@ -48,9 +82,9 @@ const Dashboard = () => {
     );
 };
 
-const AccountSummary = () => (
+const AccountSummary = ({profile}) => (
     <div>
-        <h2 className="text-4xl font-bold text-center text-indigo-900">Hello Vishal</h2>
+        <h2 className="text-4xl font-bold text-center text-indigo-900">Hello {profile.firstName||"Vishal"}</h2>
         <h3 className="text-xl mt-4 text text-indigo-900 font-semibold">Account Summary</h3>
 
         <div className="bg-white p-4 shadow-md border mt-6">
@@ -100,12 +134,12 @@ const AccountSummary = () => (
 );
 
 
-const ChangeLoginDetails = () => (
+const ChangeLoginDetails = ({profile}) => (
     <div>
         <h2 className="text-xl text-indigo-900  font-bold">Change login details</h2>
         <div className="mt-4">
             <label className="block text-indigo-900  font-semibold">Email address:</label>
-            <p className="text-gray-600">vishal@cnetric.com</p>
+            <p className="text-gray-600">{profile.logonId}</p>
             <a href="#" className="text-indigo-500">Change email</a>
         </div>
         <div className="mt-4">

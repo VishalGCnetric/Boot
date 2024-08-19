@@ -42,7 +42,18 @@ const orderData = [
     const handleRowClick = (orderId) => {
         navigate(`/orderDetails/${orderId}`);
     };
-
+    function convertToDateOnly(dateTimeString) {
+        // Create a new Date object from the input string
+        const date = new Date(dateTimeString);
+        
+        // Extract the year, month, and day
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed, so add 1
+        const day = String(date.getDate()).padStart(2, '0');
+    
+        // Return the formatted date string
+        return `${year}-${month}-${day}`;
+    }
     return (
         <div>
             <h2 className="text-2xl font-bold mb-4">Order History</h2>
@@ -66,10 +77,11 @@ const orderData = [
                 onClick={() => handleRowClick(order.orderId)}
             >
                 <td className="py-2 px-4">{order.orderId}</td>
-                <td className="py-2 px-4">{order.placedDate}</td>
+                <td className="py-2 px-4">{convertToDateOnly(order.placedDate)}</td>
                 <td className="py-2 px-4">{2}</td>
-                <td className="py-2 px-4">{order.grandTotal}</td>
                 <td className="py-2 px-4">
+  {order.grandTotal ? parseFloat(order.grandTotal).toFixed(2) : '0.00'}
+</td>                <td className="py-2 px-4">
                     <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold 
                         ${order.orderStatus === 'Delivered' ? 'bg-green-100 text-green-600' : ''}
                         ${order.orderStatus === 'M' ? 'bg-yellow-100 text-yellow-600' : ''}
