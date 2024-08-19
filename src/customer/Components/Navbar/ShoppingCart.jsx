@@ -1,27 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CartItem from '../Cart/CartItem';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCartItems, RemoveCartItemNew, updateCartQtyNEW } from '../../../action/cart';
+import toast from 'react-hot-toast';
 
 const ShoppingCart = ({toggleDrawer}) => {
-  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const cart = useSelector((store) => store.cartItems.cartItems);
+  const { auth } = useSelector((store) => store.auth);
 
-  const navigate = useNavigate()
+  let formattedPrice = cart?.totalProductPrice || 0;
+  let total = +formattedPrice || 0;
 
-  const auth = true
-  const handleCheckout=()=>{
-    if(auth){
+  useEffect(() => {
+    dispatch(getCartItems());
+  }, [dispatch]);
 
-      navigate('/checkout?step=1')
-    }else{
-      navigate('/login')
-    }
-  }
+  const handleRemoveItemFromCart = (data) => {
+    dispatch(RemoveCartItemNew(data));
+  };
 
+  const handleUpdateCartQty = (data) => {
+    updateCartQtyNEW(data, toast).then(() => {
+      toast.success('Quantity Updated Successfully');
+      dispatch(getCartItems());
+    });
+  };
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="flex justify-between items-center p-4 border-b">
-        <h2 className="text-lg font-semibold">Your basket (1 item)</h2>
-        <span className="font-bold">999 points</span>
+        <h2 className="text-lg font-semibold">Your basket ({cart?.orderItem?.length})</h2>
+        <span className="font-bold">{total.toFixed(2)}</span>
         <button className="text-2xl" onClick={toggleDrawer(false)}>&times;</button>
       </div>
 
@@ -29,9 +40,25 @@ const ShoppingCart = ({toggleDrawer}) => {
         <p className="mb-1">Spend 501 points more for FREE Click & Collect</p>
         <p>Spend 1501 points more for FREE standard delivery</p>
       </div>
-     
-      <CartItem />
-      <CartItem/>
+      <div className="space-y-3">
+            {cart?.orderItem === undefined ? (
+              <div>
+                Your Cart Is Empty , add Products in Cart
+              </div>
+            ) : (
+              cart?.orderItem?.map((item) => (
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  showButton={true}
+                  handleRemoveItemFromCart={handleRemoveItemFromCart}
+                  handleUpdateCartQty={handleUpdateCartQty}
+                />
+              ))
+            )}
+          </div>
+      {/* <CartItem />
+      <CartItem/> */}
 {/* 
       <div className="p-4 flex">
         <img src="product-image.jpg" alt="Product" className="w-24 h-24 object-cover mr-4" />
@@ -72,14 +99,14 @@ const ShoppingCart = ({toggleDrawer}) => {
       </div>
 
       <div className="p-4 border-t">
-        <p className="flex justify-between mb-1"><span>Subtotal</span><span>1249 points</span></p>
-        <p className="flex justify-between text-green-600 mb-1"><span>Savings</span><span>-250 points</span></p>
-        <p className="flex justify-between font-bold mb-1"><span>Total (1 item)</span><span>999 points</span></p>
+        <p className="flex justify-between mb-1"><span>Subtotal ({cart?.orderItem?.length} item)</span><span>{total.toFixed(2)}</span></p>
+        <p className="flex justify-between text-green-600 mb-1"><span>Savings</span><span>0.00</span></p>
+        <p className="flex justify-between font-bold mb-1"><span>Total ({cart?.orderItem?.length} item)</span><span>{total.toFixed(2)}</span></p>
         <p className="text-sm text-gray-500 mb-1">Excludes delivery</p>
         <p className="text-sm text-gray-500">You will not collect points when paying with points</p>
       </div>
 
-      <button onClick={() => { handleCheckout();toggleDrawer(true);}} className="w-full bg-wwwbootscom-deep-cove text-white py-3 font-bold">CHECKOUT NOW</button>
+      <button onClick={() => { navigate("/checkout?step=1");toggleDrawer(true);}} className="w-full bg-wwwbootscom-deep-cove text-white py-3 font-bold">CHECKOUT NOW</button>
 
       <div className="p-4 flex justify-between">
         {['visa', 'mastercard', 'amex', 'paypal@2x', 'applepay', 'kalarna@2x', 'payment-icon-v2damts3d1691146448583@2x'].map((method) => (

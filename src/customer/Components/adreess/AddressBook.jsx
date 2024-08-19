@@ -1,50 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AddressCard from './AdreessCard';
+import axios from 'axios';
+import { API_BASE_URL } from '../../../config/api';
 
-const addressData = [
-    {
-        lastName: "Garcia",
-        zipCode: "12345",
-        firstName: "Juan",
-        email1: "juang@example.com",
-        city: "Mexico City",
-        addressType: "ShippingAndBilling",
-        state: "Mexico City",
-        addressLine: ["Av. Insurgentes Sur 123", "Col. Condesa", ""],
-        addressId: "3074457365572057425",
-        primary: "true",
-        phone1: "5543219876"
-    },
-    {
-        lastName: "Smith",
-        zipCode: "54321",
-        firstName: "John",
-        email1: "johnsmith@example.com",
-        city: "Los Angeles",
-        addressType: "Shipping",
-        state: "California",
-        addressLine: ["123 Main St", "Suite 400", ""],
-        addressId: "3074457365572057426",
-        primary: "false",
-        phone1: "2139876543"
-    },
-    {
-        lastName: "Kumar",
-        zipCode: "110001",
-        firstName: "Raj",
-        email1: "rajkumar@example.com",
-        city: "New Delhi",
-        addressType: "Billing",
-        state: "Delhi",
-        addressLine: ["45 Janpath", "Connaught Place", ""],
-        addressId: "3074457365572057427",
-        primary: "false",
-        phone1: "911234567890"
-    }
-];
 
 const AddressBook = () => {
-    const [addresses, setAddresses] = useState(addressData);
+    const [addresses, setAddresses] = useState([]);
     const [newAddress, setNewAddress] = useState({
         lastName: "",
         zipCode: "",
@@ -59,8 +20,30 @@ const AddressBook = () => {
         phone1: ""
     });
 
-    const [selectedAddressId, setSelectedAddressId] = useState(addressData[0]?.addressId || '');
+    const [selectedAddressId, setSelectedAddressId] = useState('');
     const [isFormVisible, setIsFormVisible] = useState(false);
+
+    useEffect(() => {
+        const fetchAddresses = async () => {
+            const wt = localStorage.getItem("wt");
+            const wtt = localStorage.getItem("wtt");
+            try {
+                const res = await axios.get(`${API_BASE_URL}addresses`, {
+                    headers: {
+                        wt: wt,
+                        wtt: wtt,
+                    },
+                });
+                const fetchedAddresses = res.data;
+                setAddresses(fetchedAddresses);
+                setSelectedAddressId(fetchedAddresses[0]?.addressId || '');
+            } catch (error) {
+                console.error("Error fetching addresses:", error);
+            }
+        };
+
+        fetchAddresses();
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -103,7 +86,8 @@ const AddressBook = () => {
     return (
         <div>
             <h2 className="text-xl font-bold py-2 text-indigo-900">My Address Book</h2>
-<p>Select primary address from hear</p>
+            <p>Select primary address from here</p>
+
             {/* Select Address Dropdown */}
             <select
                 className="p-2 border my-2 rounded w-full mb-4"
@@ -122,30 +106,34 @@ const AddressBook = () => {
             <h2 className="text-xl font-bold py-2 text-indigo-900">Primary Address</h2>
             {selectedAddress && (
                 <div className="border-2 border-indigo-900">
-                <AddressCard address={selectedAddress}/>
+                    <AddressCard address={selectedAddress} />
                 </div>
             )}
 
             {/* Address Cards */}
-
             <h2 className="text-xl font-bold py-2 mt-4 text-indigo-900">All Addresses</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 {addresses.map((address) => (
-                    <div className={`cursor-pointer`} onClick={()=>{setSelectedAddressId(address.addressId)}}>
-                                   <AddressCard address={address}/>
-                                   </div>
-
+                    <div
+                        key={address.addressId}
+                        className="cursor-pointer"
+                        onClick={() => setSelectedAddressId(address.addressId)}
+                    >
+                        <AddressCard address={address} />
+                    </div>
                 ))}
             </div>
 
             {/* Add New Address Form */}
-            {!isFormVisible && <button
-                onClick={handleShowForm}
-                className="bg-indigo-900 text-white py-2 px-4 rounded mb-4"
-            >
-                Add New Address
-            </button>
-}
+            {!isFormVisible && (
+                <button
+                    onClick={handleShowForm}
+                    className="bg-indigo-900 text-white py-2 px-4 rounded mb-4"
+                >
+                    Add New Address
+                </button>
+            )}
+
             {isFormVisible && (
                 <div>
                     <h3 className="text-xl text-indigo-900 font-semibold mb-2">Add New Address</h3>
@@ -233,9 +221,11 @@ const AddressBook = () => {
                         Add Address
                     </button>
                     <button
-onClick={handleShowForm}                        className="text-indigo-900 border-2 border-indigo-900 ml-10 bg-white hover:bg-red-500 hover:text-white py-2 px-4 rounded mt-4"
+                        onClick={handleShowForm}
+                        className="text-indigo-900 border-2 border-indigo-900 ml-10 bg-white hover:bg-red-500 hover:text-white py-2 px-4 rounded mt-4"
                     >
-Cancle                    </button>
+                        Cancel
+                    </button>
                 </div>
             )}
         </div>

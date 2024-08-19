@@ -15,46 +15,13 @@ const OrderDetails = () => {
   const navigate = useNavigate();
   const address = JSON.parse(localStorage.getItem("shippingAddress"));
 
-  // Dummy Data
-  const dummyOrderDetails = {
-    orderStatus: "SHIPPED",
-    orderItem: [
-      {
-        partNumber: "123456",
-        quantity: "2",
-        orderItemPrice: "25.00",
-        productId: "101",
-      },
-      {
-        partNumber: "789012",
-        quantity: "1",
-        orderItemPrice: "50.00",
-        productId: "102",
-      },
-    ],
-  };
-
-  const dummyProducts = [
-    {
-      partNumber: "123456",
-      thumbnail: "https://via.placeholder.com/150",
-      catalogEntryView: [{ productName: "Product 1" }],
-    },
-    {
-      partNumber: "789012",
-      thumbnail: "https://via.placeholder.com/150",
-      catalogEntryView: [{ productName: "Product 2" }],
-    },
-  ];
-
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        // Fetch order details from API (simulated)
         const order = await ordersById(orderId);
+        console.log(order);
         setOrderDetails(order);
 
-        // Fetch product details for each item in the order
         const productPromises = order.orderItem.map((item) =>
           receiveProductsByPartNumber(item.partNumber)
         );
@@ -63,9 +30,6 @@ const OrderDetails = () => {
         setProducts(productsData);
       } catch (error) {
         console.error("Error fetching order details:", error);
-        // Fallback to dummy data if there's an error
-        setOrderDetails(dummyOrderDetails);
-        setProducts(dummyProducts);
       } finally {
         setLoading(false);
       }
@@ -114,6 +78,7 @@ const OrderDetails = () => {
           </div>
         </div>
       </div>
+
       <div className="grid grid-cols-1 gap-4">
         {orderDetails?.orderItem.map((item, index) => {
           const product = products.find((product) => product.partNumber === item.partNumber);
@@ -136,38 +101,38 @@ const OrderDetails = () => {
                     <h4 className="text-lg font-semibold text-indigo-900">
                       Price: ${parseFloat(item.orderItemPrice).toFixed(2)}
                     </h4>
+                    <p className="text-gray-600">Order Item Status: {item.orderItemStatus}</p>
+                    <p className="text-gray-600">Expected Ship Date: {item.expectedShipDate}</p>
+                    <p className="text-gray-600">Fulfillment Center: {item.fulfillmentCenterName}</p>
+                    <p className="text-gray-600">Carrier: {item.carrier}</p>
                   </div>
                 </div>
-                <div className="md:col-span-2 text-right">
-                  <button
-                    className="text-indigo-900 flex items-center space-x-2"
-                    onClick={() => navigate(`/account/rate/${item.productId}`)}
-                  >
-                    <svg
-                      className="w-8 h-8"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l2.358 7.271a1 1 0 00.95.69h7.656c.969 0 1.371 1.24.588 1.81l-6.18 4.414a1 1 0 00-.364 1.118l2.357 7.271c.3.921-.755 1.688-1.54 1.118l-6.18-4.414a1 1 0 00-1.176 0l-6.18 4.414c-.784.57-1.838-.197-1.54-1.118l2.357-7.271a1 1 0 00-.364-1.118L2.204 12.7c-.783-.57-.38-1.81.588-1.81h7.656a1 1 0 00.95-.69l2.358-7.271z"
-                      />
-                    </svg>
-                    <span className="text-sm">Rate & Review</span>
-                  </button>
-                </div>
+               
               </div>
             </div>
           );
         })}
       </div>
+    
       <div className="p-4 shadow-md bg-white rounded-md">
         <h2 className="text-xl font-bold py-2 text-indigo-900">Shipping Address</h2>
-        <AddressCard address={address} />
+        <AddressCard
+          address={{
+            lastName: orderDetails?.paymentInstruction[0]?.lastName,
+            zipCode: orderDetails?.paymentInstruction[0]?.postalCode,
+            resourceId: orderDetails?.paymentInstruction[0]?.billing_address_id,
+            city: orderDetails?.paymentInstruction[0]?.city,
+            nickName: orderDetails?.paymentInstruction[0]?.nickName,
+            addressType: "ShippingAndBilling",
+            addressLine: orderDetails?.paymentInstruction[0]?.addressLine,
+            addressId: orderDetails?.paymentInstruction[0]?.billing_address_id,
+            phone1: orderDetails?.paymentInstruction[0]?.phone1,
+            firstName: orderDetails?.paymentInstruction[0]?.firstName,
+            email1: orderDetails?.paymentInstruction[0]?.email1,
+            state: orderDetails?.paymentInstruction[0]?.state,
+            primary: "false"
+          }}
+        />
       </div>
     </div>
   );

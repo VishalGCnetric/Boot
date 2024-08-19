@@ -5,7 +5,6 @@ import { getOrdersSuccess } from "../../Redux/Admin/Orders/ActionCreator";
 import store from "../../Redux/Store";
 import { deleteCall, get, post, putCall } from "../../api/config/APIController";
 
-
 export const getCartItems = () => {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
@@ -75,7 +74,7 @@ export const getCutomerOrdersNew = () => {
       get("orders")
         .then((response) => {
           if (response.status === 200) {
-            // console.log("this getCutomerOrdersNew", response.data);
+            console.log("this getCutomerOrdersNew", response.data);
             dispatch({
               type: "GET_ORDER_HISTORY_NEW",
               order: response?.data,
@@ -91,23 +90,22 @@ export const getCutomerOrdersNew = () => {
   };
 };
 
-export const AddItemToCartNew = (data) => {
-  // let data = {
-  //   productVariantId: id,
-  //   quantity: 1,
-  // };
+export const AddItemToCartNew = ({partNumber,quantity}) => {
+  let data = {
+    partNumber: partNumber,
+    quantity: `${quantity}`,
+  };
   // return (dispatch) => {
     return new Promise((resolve, reject) => {
       post("cart", data)
         .then((response) => {
-          if (response.status === 200) {
-          
+          if (response.status === 201) {
+            // toast.success("Item added to cart");
             store.dispatch({
               type: "GET_ORDER_HISTORY_NEW",
               order: response?.data,
             });
             resolve(response.data);
-            toast.success('Product Added into Cart Successfully')
           }
         })
         .catch((error) => {
@@ -117,13 +115,43 @@ export const AddItemToCartNew = (data) => {
     });
   // };
 };
-export const RemoveCartItemNew = (lineId) => {
-  let url = `/cart?lineId=${lineId}`;
-  // const {orderId,orderItemId}=reqdata;
-  // const data = { orderId, orderItemId };
+
+// export const RemoveCartItemNew = (data) => {
+//   let url = `cart`;
+//   console.log(data,"remove cart item");
+//   // let data = {
+//   //   productVariantId: id,
+//   //   quantity: 1,
+//   // };
+//   // return (dispatch) => {
+//     return new Promise((resolve, reject) => {
+//       deleteCall(url,data)
+//         .then((response) => {
+//           if (response.status === 200) {
+//             // console.log("this getCutomerOrdersNew", response.data);
+//             // dispatch({
+//             //   type: "GET_ORDER_HISTORY_NEW",
+//             //   order: response?.data,
+//             // });
+//             alert("Item has been removed from cart");
+//             resolve(response.data);
+//           }
+//         })
+//         .catch((error) => {
+//           reject(error);
+//         })
+//         .finally();
+//     });
+//   };
+// };
+
+export const RemoveCartItemNew = (reqdata) => {
+  let url = `cart`;
+  const {orderId,orderItemId}=reqdata;
+  const data = { orderId, orderItemId };
 
   return (dispatch) => { // Return a function that accepts dispatch
-    return deleteCall(url)
+    return deleteCall(url, data)
       .then((response) => {
         if (response.status === 200) {
           // Dispatch an action to update the cart after item removal
@@ -144,23 +172,19 @@ export const RemoveCartItemNew = (lineId) => {
 };
 
 export const updateCartQtyNEW = (reqdata,toast) => {
-  // const { orderId, orderItemId, productId, quantity } = reqdata;
+  const { orderId, orderItemId, productId, quantity } = reqdata;
   const payload = {
-    lineId: reqdata.lineId,
-    quantity: reqdata.quantity,
-};
-console.log(payload)
+    orderId: orderId,
+    orderItemId: orderItemId,
+    productId: productId,
+    quantity: quantity,
+  };
   return new Promise((resolve, reject) => {
     putCall(`cart`, payload)
       .then((response) => {
-        console.log('response',response.data,response.status)
         if (response.status==200) {
-          toast.success('Quantity Updated Successfully');
-
           resolve(response.data);
         } else {
-          toast.success('Failed to update cart quantity');
-
           reject(new Error('Failed to update cart quantity'));
         }
       })
@@ -172,43 +196,85 @@ console.log(payload)
   });
 };
 
-export const updateCartQtyModel = (reqdata,toast) => {
-  // const { orderId, orderItemId, productId, quantity } = reqdata;
-  const payload = {
-    lineId: reqdata.lineId,
-    quantity: reqdata.quantity,
-};
-console.log(payload)
+// export const updateCartQtyNEW = async (reqdata) => {
+//   const { orderId, orderItemId, productId, quantity } = reqdata;
+//   const payload = {
+//     orderId,
+//     orderItemId,
+//     productId,
+//     quantity,
+//   };
+
+//   try {
+//     const response = await putCall(`cart`, payload);
+//     if (response.ok) {
+//       if (response.status === 200) {
+//         // Dispatch an action to update the cart after item removal
+//         dispatch(getCartItems());
+//         alert("Item has been removed from cart");
+//       } else {
+//         // Handle other status codes if needed
+//         console.error("Failed to remove item from cart:", response.data);
+//       }
+//     }
+//   } catch (error) {
+//     console.error('Error updating cart quantity:', error);
+//     throw error;
+//   }
+// };
+
+export const ShipingInfoOrder = async (reqData) => {
+  //   let setship={
+  //     shipModeId: cartItems?.cartItems?.shipModeId,
+  //     orderItemId: cartItems?.cartItems?.orderItemId,
+  //     addressId: data?.shippingAddress?.addressId
+  // }
+  const { orderItemId,addressId } = reqData;
+  const data = {
+    shipModeId: "715852384",
+    orderItemId: orderItemId,
+    addressId: addressId,
+  };
+  console.log(data,"setshipingData");
+    return new Promise((resolve, reject) => {
+      return putCall("setShipping", data)
+        .then((res) => {
+          getCartItems()
+          resolve(res);
+          // getCustomerLoginCart();
+        })
+        .catch((error) => {
+          reject(false);
+          console.log(error);
+        })
+        .finally();
+    });
+  };
+
+export const placeOrder = async (grandTotal,addressId) => {
+//   let setship={
+//     shipModeId: cartItems?.cartItems?.shipModeId,
+//     orderItemId: cartItems?.cartItems?.orderItemId,
+//     addressId: data?.shippingAddress?.addressId
+// }
+// const { shipModeId,orderItemId,addressId } = reqData;
+const data = {
+  "piAmount": grandTotal,
+  "billing_address_id": addressId || "3074457365572057425",
+  "payMethodId": "MasterCard",
+  "account": "5425233430109903",
+  "expire_month": "04",
+  "expire_year": "2026",
+  "cc_cvc": "123",
+  "cc_brand": "MasterCard"
+}
   return new Promise((resolve, reject) => {
-    putCall(`cart`, payload)
-      .then((response) => {
-        console.log('response',response.data,response.status)
-        if (response.status==200) {
-          // toast.success('Quantity Updated Successfully');
-
-          resolve(response.data);
-        } else {
-          // toast.success('Failed to update cart quantity');
-
-          reject(new Error('Failed to update cart quantity'));
-        }
-      })
-      .catch((error) => {
-        console.error('Error updating cart quantity:', error);
-        // toast.error("Failed to update cart quantity");
-        reject(error);
-      });
-  });
-};
-
-export const placeOrder = async (data) => {
-
-console.log(data,"paymentData")
-  return new Promise((resolve, reject) => {
-    return post("checkout", data)
+    return post("payment", data)
       .then((res) => {
+        toast.success("payment sucessful")
+        
+           resolve(res);
        
-        resolve(res);
         // getCustomerLoginCart();
       })
       .catch((error) => {
@@ -218,3 +284,35 @@ console.log(data,"paymentData")
       .finally();
   });
 };
+
+export const preCheckout=()=>{
+  return new Promise((resolve, reject) => {
+    return putCall("preCheckout", )
+    .then((res) => {
+      resolve(res);
+    })
+    .catch((error) => {
+      reject(false);
+      console.log(error);
+    })
+    .finally();
+
+  })
+   
+}
+
+export const CheckoutReq=()=>{
+  return new Promise((resolve, reject) => {
+    return post("checkout")
+    .then((res) => {
+      resolve(res);
+    })
+    .catch((error) => {
+      reject(false);
+      console.log(error);
+    })
+    .finally();
+
+  })
+   
+}
