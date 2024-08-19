@@ -49,8 +49,10 @@ const navigate=useNavigate();
       toast.success("LogIn SuccessFull");
 
       setTimeout(() => {
-        navigate("/profile")
+        navigate("/profile");
+        window.location.reload(); // Refresh the page after navigation
       }, 500);
+  
       
     }
   };

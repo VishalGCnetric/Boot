@@ -43,9 +43,9 @@ const HeaderTop = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    window.location.reload(true);
 
     navigate("/login"); // navigate to the login page
+    window.location.reload();
   };
 
   return (
