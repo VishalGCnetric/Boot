@@ -46,7 +46,8 @@ const CustomerRoutes = () => {
 
 
       <ThemeProvider theme={customerTheme}>
-        <HeaderTop />
+        <div className="-z-40">        <HeaderTop />
+        </div>
         <NewNavbar/>
         {/* {showNavigation && <Navigation />} */}
         <Routes>

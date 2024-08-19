@@ -32,9 +32,10 @@ const NewNavbar = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const cart = useSelector((store) => store.cartItems.cartItems);
+  const wt=localStorage.getItem("wt");
   useEffect(() => {
     dispatch(getCartItems());
-  }, [dispatch]);
+  }, [dispatch,wt]);
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
