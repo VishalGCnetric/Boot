@@ -4,7 +4,7 @@ const DEPLOYED='https://pear-poised-hen.cyclic.app/'
 const LOCALHOST='http://106.51.242.196:2109/'
 
 
-export const API_BASE_URL = LOCALHOST;
+export const API_BASE_URL = "http://106.51.242.196:2109/";
 
 const api = axios.create({
   baseURL: API_BASE_URL,

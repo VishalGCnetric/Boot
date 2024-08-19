@@ -93,7 +93,7 @@ const NewNavbar = () => {
                 />
               </IconButton>
               <span className="absolute -top-1 -right-1 bg-blue-300  text-wwwbootscom-deep-cove text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              {cart?.orderItem?.length}
+              {cart?.orderItem?.length || 0}
               </span>
             </div>
           </div>
