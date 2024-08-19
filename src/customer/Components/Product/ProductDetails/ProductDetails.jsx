@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import StoreStockModal from './StoreStockModal';
 import { IoIosArrowBack,IoIosArrowForward } from "react-icons/io";
 import { receiveProductsById } from '../../../../action';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AddItemToCartNew, getCartItems } from '../../../../action/cart';
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
@@ -11,6 +14,10 @@ const ProductDetails = () => {
   const imageContainerRef = useRef(null);
   const [productDetails, setProductDetails] = useState({});
   const { productId } = useParams();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { auth } = useSelector((store) => store.auth);
+  const { customersProduct, review, cartItems } = useSelector((store) => store);
 
   console.log(productDetails)
 
@@ -19,9 +26,42 @@ const ProductDetails = () => {
     receiveProductsById(productId).then((res) => {
       
       setProductDetails(res.catalogEntryView[0]);
-      setMainImage(res.catalogEntryView[0].fullImageRaw);
+      setMainImage(res.catalogEntryView[0].variants[0]);
     });
   }, [productId]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const partNumber = mainImage && mainImage.partNumber;
+   
+
+    if(!auth){
+      toast.error("Please Login First")
+      navigate("/sign-in");
+    }
+    if (partNumber) {
+      AddItemToCartNew({ partNumber, quantity })
+        .then((res) => {
+          // alert("Added to Cart")
+          toast.success("Product Added To Cart")
+          dispatch(getCartItems());
+        })
+        .catch((error) => {
+          console.error("Error adding item to cart:", error);
+        });
+    } else {
+      // toast.error("out of Stock")
+      console.error("Part number is missing.");
+    }
+
+  };
+
+  useEffect(() => {
+
+    if (cartItems?.cartItems?.cart?.lines.length > 0) {
+      dispatch(getCartItems());
+    }
+  }, [cartItems?.cartItems?.cart?.lines.length]);
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -56,7 +96,7 @@ const ProductDetails = () => {
         <div className="w-full md:w-1/2">
           <div className="relative h-96"> {/* Adjusted to a fixed height */}
             <img
-              src={mainImage}
+              src={mainImage?.mainImage}
               alt="Philips Series 9000 Trimmer"
               className="w-full h-full object-cover rounded-md shadow-lg" // Fixed height with h-full
             />
@@ -76,7 +116,7 @@ const ProductDetails = () => {
             >
               {productDetails?.variants?.map((el)=>
               <img
-                onClick={() => setMainImage(el?.mainImage)}
+                onClick={() => setMainImage(el)}
                 src={el?.smallImage}
                 alt="Thumbnail 1"
                 className="w-20 h-20 object-cover rounded-md border" // Static height and width
@@ -129,7 +169,7 @@ const ProductDetails = () => {
             </div>
 
             {/* Add to Basket Button */}
-            <button className="px-6 py-2 bg-wwwbootscom-congress-blue hover:bg-btn-hover w-full text-white font-semibold rounded">
+            <button onClick={handleSubmit} className="px-6 py-2 bg-wwwbootscom-congress-blue hover:bg-btn-hover w-full text-white font-semibold rounded">
               Add to basket
             </button>
           </div>
