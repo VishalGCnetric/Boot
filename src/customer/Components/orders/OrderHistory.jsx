@@ -1,4 +1,7 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getCutomerOrdersNew } from '../../../action/cart';
+import { useEffect } from 'react';
 const orderData = [
     {
         orderId: '123456',
@@ -29,7 +32,13 @@ const orderData = [
 
  const OrderHistory = () => {
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
+    const { newOrder } = useSelector((store) => store);
+  
+    useEffect(() => {
+        dispatch(getCutomerOrdersNew());
+    }, []);
+  console.log(newOrder?.orderNew?.Order)
     const handleRowClick = (orderId) => {
         navigate(`/orderDetails/${orderId}`);
     };
@@ -48,7 +57,35 @@ const orderData = [
                     </tr>
                 </thead>
                 <tbody>
-                    {orderData.map((order, index) => (
+                {newOrder?.orderNew?.Order?.length > 0 ? (
+            newOrder.orderNew.Order.map((order, index) =>(
+            
+                <tr
+                key={index}
+                className="border-b cursor-pointer hover:bg-gray-100"
+                onClick={() => handleRowClick(order.orderId)}
+            >
+                <td className="py-2 px-4">{order.orderId}</td>
+                <td className="py-2 px-4">{order.placedDate}</td>
+                <td className="py-2 px-4">{2}</td>
+                <td className="py-2 px-4">{order.grandTotal}</td>
+                <td className="py-2 px-4">
+                    <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold 
+                        ${order.orderStatus === 'Delivered' ? 'bg-green-100 text-green-600' : ''}
+                        ${order.orderStatus === 'M' ? 'bg-yellow-100 text-yellow-600' : ''}
+                        ${order.orderStatus === 'Cancelled' ? 'bg-red-100 text-red-600' : ''}
+                        ${order.orderStatus === 'Shipped' ? 'bg-blue-100 text-blue-600' : ''}
+                    `}>
+                        {order.orderStatus=="M"?"Processing":order.orderStatus}
+                    </span>
+                </td>
+            </tr>
+              ))
+            
+          ) : (
+            <p>No orders available.</p>
+          )}
+                    {/* {orderData.map((order, index) => (
                         <tr
                             key={index}
                             className="border-b cursor-pointer hover:bg-gray-100"
@@ -69,7 +106,7 @@ const orderData = [
                                 </span>
                             </td>
                         </tr>
-                    ))}
+                    ))} */}
                 </tbody>
             </table>
         </div>

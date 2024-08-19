@@ -2,15 +2,14 @@ import React from "react";
 import PhoneIcon from "@mui/icons-material/Phone";
 import HomeIcon from "@mui/icons-material/Home";
 
-const AddressCard = ({ heading, address }) => {
+const AddressCard = ({  address }) => {
   const {
-    phoneNumber,
-    streetLine1,
+    phone1,
+    addressLine,
     streetLine2,
     city,
     state,
-    postalCode,
-    country,
+    zipCode,
   } = address || {};
 
   return (
@@ -31,21 +30,21 @@ const AddressCard = ({ heading, address }) => {
           <HomeIcon className="w-5 h-5 text-indigo-900 mt-1" />
           <div>
             <p className="text-lg font-semibold capitalize">Address</p>
-            <p className="text-sm capitalize">{streetLine1 || "New one Streat"}</p>
+            <p className="text-sm capitalize">{addressLine || "New one Streat"}</p>
             {streetLine2 && (
               <p className="text-sm capitalize">{streetLine2}</p>
             )}
             <p className="text-sm capitalize">
-              {`${city || "LA"}, ${state || "flourida"} ${postalCode || "453423"}`}
+              {`${city || "LA"}, ${state || "flourida"} ${zipCode || "453423"}`}
             </p>
-            <p className="text-sm capitalize">{country || "US"}</p>
+            {/* <p className="text-sm capitalize">{country || "US"}</p> */}
           </div>
         </div>
         <div className="flex items-start space-x-2">
           <PhoneIcon className="w-5 h-5 text-indigo-900 mt-1" />
           <div>
             <p className="text-lg font-semibold capitalize">Phone Number</p>
-            <p className="text-sm capitalize">{phoneNumber || "987654321"}</p>
+            <p className="text-sm capitalize">{phone1 || "987654321"}</p>
           </div>
         </div>
       </div>

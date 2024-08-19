@@ -4,9 +4,11 @@ import { get } from "../api/config/APIController";
 // import { useDispatch, useSelector } from "react-redux";
 import { getCartItems } from "./cart";
 
-export const receiveProducts = () => {
+export const receiveProducts = (setloading) => {
+  
   return new Promise((resolve, reject) => {
-    get("products2")
+    setloading(true);
+    get("products/portmans")
       .then((response) => {
         if (response.status === 200) {
           // let data = response.data;
@@ -15,11 +17,14 @@ export const receiveProducts = () => {
           //   type: "ACTUAL_PRODUCTS",
           //   products: data.products,
           // });
+          setloading(false);
+
           resolve(response.data);
           // console.log("this is product response", response);
         }
       })
       .catch((error) => {
+        setloading(false);
         reject(error);
       })
       .finally();
@@ -64,7 +69,7 @@ export const receiveProducts = () => {
 // };
 
 export const receiveProductsById = (id) => {
-  let url = `product?productId=${id}`;
+  let url = `/product?productId=${id}`;
   return new Promise((resolve, reject) => {
     get(url)
       .then((response) => {
@@ -85,23 +90,6 @@ export const receiveProductsById = (id) => {
       .finally();
   });
 };
-
-export const ordersById = (id) => {
-  let url = `order?orderId=${id}`;
-  return new Promise((resolve, reject) => {
-    get(url)
-      .then((response) => {
-        if (response.status === 200) {
-          resolve(response.data);
-        }
-      })
-      .catch((error) => {
-        reject(error);
-      })
-      .finally();
-  });
-};
-
 export const receiveProductsByPartNumber = (id) => {
   let url = `/product?partNumber=${id}`;
   return new Promise((resolve, reject) => {
@@ -124,10 +112,27 @@ export const receiveProductsByPartNumber = (id) => {
       .finally();
   });
 };
+export const ordersById = (id) => {
+  let url = `order?orderId=${id}`;
+  return new Promise((resolve, reject) => {
+    get(url)
+      .then((response) => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      })
+      .finally();
+  });
+};
+
+
 
 export const receiveProductsSearch = (search) => {
   return new Promise((resolve, reject) => {
-    get(`search?query=${search}`)
+    get(`search/portmans?query=${search}`)
       .then((response) => {
         if (response.status === 200) {
           resolve(response.data);
@@ -143,7 +148,7 @@ export const receiveProductsSearch = (search) => {
 
 export const receiveGetContent = () => {
   return new Promise((resolve, reject) => {
-    get("getContent")
+    get("content/portmans")
       .then((response) => {
         if (response.status === 200) {
 

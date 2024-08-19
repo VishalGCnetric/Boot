@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCart from "./ShoppingCart";
 import NestedMenu from "./NestedMenu";
 import { Link } from "react-router-dom";
 import Loader from "../BackDrop/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartItems } from "../../../action/cart";
 
 // Loader Component
 // const Loader = () => {
@@ -25,9 +27,14 @@ import Loader from "../BackDrop/Loader";
 // };
 
 const NewNavbar = () => {
+  const dispatch = useDispatch();
+
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
-
+  const cart = useSelector((store) => store.cartItems.cartItems);
+  useEffect(() => {
+    dispatch(getCartItems());
+  }, [dispatch]);
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -86,7 +93,7 @@ const NewNavbar = () => {
                 />
               </IconButton>
               <span className="absolute -top-1 -right-1 bg-blue-300  text-wwwbootscom-deep-cove text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                3
+              {cart?.orderItem?.length}
               </span>
             </div>
           </div>
