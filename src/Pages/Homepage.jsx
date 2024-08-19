@@ -24,7 +24,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchData = async () => {
 
-      const res = await axios.get(`${API_BASE_URL}/content`)
+      const res = await axios.get(`${API_BASE_URL}content2`)
       setBanners(res.data)
     }
     fetchData()
@@ -37,45 +37,45 @@ const Homepage = () => {
   return (
     <MainContainer>
       <div className="z-50 sticky top-0">
-      <DeliveryCard/>
+      <DeliveryCard banners={banners}/>
 
 
       </div>
               
 
         <div className="firstbanner mt-2 -" style={{ marginBottom: '20px' }}>
-          <HomeCardSlider/>
+          <HomeCardSlider banners={banners}/>
         </div>
         <div className="firstbanner" style={{ marginBottom: '20px' }}>
-       <HomeTimerBanner/>
+       <HomeTimerBanner banners={banners}/>
         </div>
         <div className="firstbanner" style={{ marginBottom: '20px' }}>
-          <HomeBannerSlider/>
+          <HomeBannerSlider banners={banners}/>
         </div>
         <div className="self-stretch flex flex-col items-start justify-start pt-0 px-0  box-border max-w-full">
         
-        <HomeTodayGrid/>
+        <HomeTodayGrid banners={banners}/>
 
         </div>
         <div className="self-stretch flex flex-col items-start justify-start pt-0 px-0  box-border max-w-full">
         
-          <ShopNowBanner/>
+          <ShopNowBanner banners={banners}/>
         </div>
       <div className="my-10">
         <Carousel text={'New Arrivals'} />
       </div>
       <div style={{ margin: '10px ', textAlign: 'center',   }}>
-      <BeautyDeals/>
+      <BeautyDeals banners={banners}/>
       </div>
       <div  style={{ margin: '10px 0', textAlign: 'center',  }}>
-      <FindOutBanner/>
+      <FindOutBanner banners={banners}/>
       </div>
      
       <div style={{ margin: '10px 0', textAlign: 'center',   }}>
-      <HealthPicksSlider/>
+      <HealthPicksSlider banners={banners}/>
       </div>
       <div style={{ margin: '10px 0', textAlign: 'center',   }}>
-      <PaymentMethodBanner/>
+      <PaymentMethodBanner />
       </div>
     </MainContainer>
   );
