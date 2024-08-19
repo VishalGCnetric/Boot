@@ -162,3 +162,19 @@ export const receiveGetContent = () => {
       .finally();
   });
 };
+export const receiveAllAddresses = () => {
+  return new Promise((resolve, reject) => {
+    get("/addresses")
+      .then((response) => {
+        if (response.status === 200) {
+
+          resolve(response.data);
+
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      })
+      .finally();
+  });
+};

@@ -33,7 +33,9 @@ export const getCustomerNew = (data) => {
               type: "GET_CUSTOMER_NEW",
               user: response?.data,
             });
-            console.log(response.data, "response.data")
+            console.log(response.data)
+            localStorage.setItem("wt", response.data.WCToken);
+    localStorage.setItem("wtt", response.data.WCTrustedToken);
             // window.location.replace("/");
             resolve(response.data);
           }

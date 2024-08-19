@@ -18,8 +18,11 @@ const ProductDetails = () => {
   const dispatch = useDispatch()
   const { auth } = useSelector((store) => store.auth);
   const { customersProduct, review, cartItems } = useSelector((store) => store);
+  const wt= localStorage.getItem("wt")
+ const wtt=  localStorage.getItem("wtt")
 
-  console.log(productDetails)
+  console.log("wt",wt)
+  console.log("wtt",wtt)
 
   useEffect(() => {
    
@@ -35,9 +38,9 @@ const ProductDetails = () => {
     const partNumber = mainImage && mainImage.partNumber;
    
 
-    if(!auth){
+    if(!wt&&!wtt){
       toast.error("Please Login First")
-      navigate("/sign-in");
+      navigate("/login");
     }
     if (partNumber) {
       AddItemToCartNew({ partNumber, quantity })

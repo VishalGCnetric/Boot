@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddAddressModal from "./AddAddressModal";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../../config/api";
+import axios from "axios";
 
 const DeliveryAddressPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [allAddress, setAllAddress] = useState([])
   const navigate = useNavigate()
 
   const openModal = () => setIsModalOpen(true);
@@ -12,6 +15,28 @@ const DeliveryAddressPage = () => {
   const handleNewOrder = () => {
     navigate(`/checkout?step=${2}`);
   };
+
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      const wt = localStorage.getItem("wt");
+      const wtt = localStorage.getItem("wtt");
+      try {
+        const res = await axios.get(`${API_BASE_URL}addresses`, {
+          headers: {
+            wt: wt,
+            wtt: wtt,
+          },
+        });
+        console.log(res.data.contact)
+
+      } catch (error) {
+        console.error("Error fetching addresses:", error);
+
+      }
+    };
+
+    fetchAddresses();
+  }, []);
 
   return (
     <div className="p-4 max-w-7xl mx-auto ">
@@ -24,16 +49,19 @@ const DeliveryAddressPage = () => {
 
             {/* Address List */}
             <ul className="space-y-4">
-              <li className="border rounded p-3 flex items-start justify-between">
-                <div>
-                  <input type="radio" name="address" className="mr-2" checked />
-                  <span>Sajjak Yellareddy circy, FCI Main Road, kadugodi, BENGALURU, KARNATAKA, 560067, India</span>
-                  <div className="text-sm text-blue-600 mt-2">
-                    <a href="#">Edit address</a> | <a href="#">Add delivery instructions</a>
+              {allAddress?.map((address, index) => (
+                <li key={address.addressId} className="border rounded p-3 flex items-start justify-between">
+                  <div>
+                    <input type="radio" name="address" className="mr-2" />
+                    <span>
+                      {address.firstName} {address.lastName}, {address.addressLine?.join(", ")} {address.city}, {address.state}, {address.zipCode}, {address.country || "India"}
+                    </span>
+                    <div className="text-sm text-blue-600 mt-2">
+                      <a href="#">Edit address</a> | <a href="#">Add delivery instructions</a>
+                    </div>
                   </div>
-                </div>
-              </li>
-              {/* Repeat for other addresses */}
+                </li>
+              ))}
             </ul>
 
             <button

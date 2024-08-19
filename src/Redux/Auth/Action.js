@@ -1,3 +1,4 @@
+// actions.js
 import axios from 'axios';
 import {
   REGISTER_REQUEST,
@@ -11,86 +12,87 @@ import {
   GET_USER_FAILURE,
   LOGOUT
 } from './ActionTypes';
-import api, { API_BASE_URL } from '../../config/api';
-import {toast} from "react-hot-toast"
+import { API_BASE_URL } from '../../config/api';
+import { WidthWideOutlined } from '@mui/icons-material';
 
 // Register action creators
-const registerRequest = () => ({ type: REGISTER_REQUEST });
-const registerSuccess = (user) => ({ type: REGISTER_SUCCESS, payload:user });
-const registerFailure = error => ({ type: REGISTER_FAILURE, payload: error });
-
-export const register = userData => async dispatch => {
+export const registerRequest = () => ({ type: REGISTER_REQUEST });
+export const registerSuccess = (user) => ({ type: REGISTER_SUCCESS, payload: user });
+export const registerFailure = error => ({ type: REGISTER_FAILURE, payload: error });
+export const register = (userData, toast) => async dispatch => {
   dispatch(registerRequest());
   try {
-    const response=await axios.post(`${API_BASE_URL}/signup`, userData);
+    // console.log(userData,"register");
+    const response = await axios.post(`${API_BASE_URL}signup`, userData);
     const user = response.data;
-    if(user.jwt) localStorage.setItem("jwt",user.jwt)
-    console.log("registerr :",user)
-toast.success("User Account Created Successfully")
+    // localStorage.setItem("jwt", user.jwt);
+    toast.success("Registration Successful");
+    // alert("registration successful")
     dispatch(registerSuccess(user));
   } catch (error) {
-    toast.error("Error in User Account Creation")
-
-    dispatch(registerFailure(error.message));
+    toast.error("Something Went Wrong, Please Try Again");
+    dispatch(registerFailure(error.errorMessage));
   }
 };
 
 // Login action creators
-const loginRequest = () => ({ type: LOGIN_REQUEST });
-const loginSuccess = user => ({ type: LOGIN_SUCCESS, payload: user });
-const loginFailure = error => ({ type: LOGIN_FAILURE, payload: error });
-
-export const login = (userData,navigate,toast) => async dispatch => {
+export const loginRequest = () => ({ type: LOGIN_REQUEST });
+export const loginSuccess = user => ({ type: LOGIN_SUCCESS, payload: user });
+export const loginFailure = error => ({ type: LOGIN_FAILURE, payload: error });
+export const login = (userData, navigate, from,toast) => async dispatch => {
   dispatch(loginRequest());
   try {
-    const response = await axios.post(`${API_BASE_URL}/login`, userData);
+    const response = await axios.post(`${API_BASE_URL}login`, userData);
     const user = response.data;
-  
-
-    if(user.token) localStorage.setItem("jwt",user.token)
-    dispatch({ type: GET_USER_SUCCESS, payload: user });
+    console.log(user.WCToken)
+    // Assuming tokens are stored in the user object returned from the API
+    localStorage.setItem("wt", user.WCToken);
+    localStorage.setItem("wtt", user.WCTrustedToken);
+toast.success("Login Successful" );
+    // Dispatch actions to update user state
+    dispatch(getUser());
     dispatch(loginSuccess(user));
-    toast.success("Login Successfull")
 
-    
+    // Navigate to the original destination
+    navigate(from, { replace: true });
+
+    return Promise.resolve(response);
   } catch (error) {
+    // Properly handle errors
+    toast.error("Login failed, please check credentials");
+    // alert("Email or password mismatched, please check");
     dispatch(loginFailure(error.message));
-    toast.error(error.message)
-    console.log(error)
-    navigate('/')
-
-    // alert('Login Successfully')
-    
- 
+    return Promise.reject(error);
   }
 };
 
 
+// Get user details action creator
+export const getUserRequest = () => ({ type: GET_USER_REQUEST });
+export const getUserSuccess = user => ({ type: GET_USER_SUCCESS, payload: user });
+export const getUserFailure = error => ({ type: GET_USER_FAILURE, payload: error });
 
-//  get user from token
-export const getUser = (token) => {
-  return async (dispatch) => {
-    dispatch({ type: GET_USER_REQUEST });
-    try {
-      const response = await axios.get(`${API_BASE_URL}/api/users/profile`,{
-        headers:{
-          "Authorization":`Bearer ${token}`
-        }
-      });
-      const user = response.data;
-      dispatch({ type: GET_USER_SUCCESS, payload: user });
-      console.log("req User ",user)
-    } catch (error) {
-      const errorMessage = error.message;
-      dispatch({ type: GET_USER_FAILURE, payload: errorMessage });
-    }
-  };
+export const getUser = () => async dispatch => {
+  dispatch(getUserRequest());
+  try {
+    const response = await axios.get(`${API_BASE_URL}info`, {
+      headers: {
+        'wt': localStorage.getItem("wt"),
+        'wtt': localStorage.getItem("wtt")
+      }
+    });
+    const user = response.data;
+    dispatch(getUserSuccess(user));
+  } catch (error) {
+    dispatch(getUserFailure(error.message));
+  }
 };
 
-export const logout = (token) => {
-    return async (dispatch) => {
-      dispatch({ type: LOGOUT });
-      // toast.success("Logout Successfully")
-      localStorage.clear();
-    };
-  };
+// Logout action creator
+export const logout = () => async dispatch => {
+  dispatch({ type: LOGOUT });
+  // localStorage.clear();
+  localStorage.removeItem('wt')
+  localStorage.removeItem('wtt')
+  localStorage.removeItem("state")
+};
