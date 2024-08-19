@@ -1,13 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link , useNavigate} from 'react-router-dom';
+import { getCartItems } from '../../../action/cart';
 
 const PaymentPage = () => {
   const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState('');
 
+  const dispatch = useDispatch();
+  const cart = useSelector((store) => store.cartItems.cartItems);
+
+  useEffect(() => {
+    dispatch(getCartItems());
+  }, [dispatch]);
+
   const handleNewOrder = () => {
     navigate(`/checkout?step=${4}`);
   };
+
+  function formatToTwoDecimalPlaces(number) {
+    let strNumber = number.toString();
+    let [integerPart, decimalPart] = strNumber.split('.');
+
+    // If there's no decimal part, add ".00"
+    if (!decimalPart) {
+        return integerPart + '.00';
+    }
+
+    // If decimal part is less than 2 digits, pad with zeros
+    if (decimalPart.length < 2) {
+        return integerPart + '.' + decimalPart.padEnd(2, '0');
+    }
+
+    // If decimal part is more than 2 digits, slice to 2 digits
+    return integerPart + '.' + decimalPart.slice(0, 2);
+}
 
   return (
     <div className="p-4 max-w-7xl mx-auto ">
@@ -101,7 +128,7 @@ const PaymentPage = () => {
               <h3 className="text-lg font-semibold mb-2">Order Summary</h3>
               <p>Items: --</p>
               <p>Delivery: --</p>
-              <p className="text-lg font-bold text-red-600 mt-4">Order Total: ₹200.00</p>
+              <p className="text-lg font-bold text-red-600 mt-4">Order Total: ₹{formatToTwoDecimalPlaces(cart?.grandTotal)}</p>
             </div>
             <a href="#" className="text-blue-600 text-sm mt-4 inline-block">
               How are delivery costs calculated?
