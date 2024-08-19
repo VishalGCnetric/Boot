@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getCustomerNew } from '../../../action/Customer';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
   const dispatch = useDispatch()
-
+const navigate=useNavigate();
   const validateEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
@@ -45,12 +46,19 @@ const Login = () => {
         password:password,
       }
       dispatch(getCustomerNew(userData));
+      toast.success("LogIn SuccessFull");
+
+      setTimeout(() => {
+        navigate("/profile")
+      }, 500);
+      
     }
   };
 
   return (
     <div className="container my-10 flex flex-col md:flex-row justify-between p-5 sm:px-36 bg-white">
       {/* Returning Customer Section */}
+      <Toaster/>
       <div className="w-full md:w-1/2 sm:pr-20 sm:border-r-2 mt-8 md:mt-0">
         <h2 className="text-4xl text-center mb-10 font-bold text-wwwbootscom-congress-blue">Returning customer</h2>
         <form className="mt-4" onSubmit={handleLogin}>
