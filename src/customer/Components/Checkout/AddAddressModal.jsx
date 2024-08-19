@@ -1,14 +1,24 @@
-import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../../config/api";
 
-const AddAddressModal = ({ isOpen, onClose }) => {
-  const navigate = useNavigate()
-  // Prevent background scrolling when the modal is open
+const AddAddressModal = ({ isOpen, onClose, refreshAddresses }) => {
+  const navigate = useNavigate();
 
-const handleAddress = ()=>{
-  navigate(`/checkout?step=${1}`);
-  alert('hello world')
-}
+  const [addressData, setAddressData] = useState({
+    firstName: "",
+    lastName: "",
+    city: "",
+    country: "Mexico",
+    state: "",
+    zipCode: "",
+    phone1: "",
+    nickName: "", // Ensure this field is set
+    email1: "",
+    addressType: "ShippingAndBilling",
+    addressLine: ["", ""],
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -18,9 +28,49 @@ const handleAddress = ()=>{
     }
 
     return () => {
-      document.body.style.overflow = "auto"; // Ensure scrolling is reset on component unmount
+      document.body.style.overflow = "auto";
     };
   }, [isOpen]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name.startsWith("addressLine")) {
+      const index = parseInt(name.split(".")[1], 10);
+      setAddressData((prevData) => {
+        const newAddressLine = [...prevData.addressLine];
+        newAddressLine[index] = value;
+        return { ...prevData, addressLine: newAddressLine };
+      });
+    } else {
+      setAddressData({ ...addressData, [name]: value });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const wt = localStorage.getItem("wt");
+    const wtt = localStorage.getItem("wtt");
+
+    if (!addressData.nickName) {
+      alert("Nickname is required");
+      return;
+    }
+
+    try {
+      await axios.post(`${API_BASE_URL}address`, addressData, {
+        headers: {
+          wt: wt,
+          wtt: wtt,
+        },
+      });
+      alert("Address added successfully!");
+      onClose();
+      refreshAddresses(); 
+    } catch (error) {
+      console.error("Error adding address:", error);
+      alert("Failed to add address. Please try again.");
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -29,86 +79,125 @@ const handleAddress = ()=>{
       <div className="bg-white w-full max-w-2xl p-6 rounded-md shadow-md overflow-y-auto max-h-screen">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Enter a new delivery address</h2>
-          <button onClick={onClose} className="text-2xl font-semibold">
-            &times;
-          </button>
+          <button onClick={onClose} className="text-2xl font-semibold">&times;</button>
         </div>
 
-        <h3 className="text-lg font-semibold mb-4">Add a new address</h3>
-
-        <button className="bg-blue-100 text-blue-700 py-2 px-4 rounded-md mb-4 flex items-center">
-          <span>Save time. Autofill your current location.</span>
-          <button className="ml-2 bg-blue-200 text-blue-700 py-1 px-2 rounded-md">Autofill</button>
-        </button>
-
-        {/* Form Inputs */}
-        <form  className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium">Country/Region</label>
-            <select className="w-full border border-gray-300 rounded-md p-2 mt-1">
-              <option>India</option>
-              {/* Add more options as needed */}
-            </select>
+            <label className="block text-sm font-medium">Full name (First and Last name)</label>
+            <input
+              type="text"
+              name="firstName"
+              value={addressData.firstName}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md p-2 mt-1"
+              placeholder="First Name"
+              required
+            />
+            <input
+              type="text"
+              name="lastName"
+              value={addressData.lastName}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md p-2 mt-1"
+              placeholder="Last Name"
+              required
+            />
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Full name (First and Last name)</label>
-            <input type="text" className="w-full border border-gray-300 rounded-md p-2 mt-1" />
+            <label className="block text-sm font-medium">Nickname</label>
+            <input
+              type="text"
+              name="nickName"
+              value={addressData.nickName}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md p-2 mt-1"
+              placeholder="Enter a nickname"
+              required
+            />
           </div>
 
           <div>
             <label className="block text-sm font-medium">Mobile number</label>
-            <input type="text" className="w-full border border-gray-300 rounded-md p-2 mt-1" placeholder="May be used to assist delivery" />
+            <input
+              type="text"
+              name="phone1"
+              value={addressData.phone1}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md p-2 mt-1"
+              placeholder="May be used to assist delivery"
+              required
+            />
           </div>
 
           <div>
             <label className="block text-sm font-medium">Pincode</label>
-            <input type="text" className="w-full border border-gray-300 rounded-md p-2 mt-1" placeholder="6 digits [0-9] PIN code" />
+            <input
+              type="text"
+              name="zipCode"
+              value={addressData.zipCode}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md p-2 mt-1"
+              placeholder="6 digits [0-9] PIN code"
+              required
+            />
           </div>
 
           <div>
             <label className="block text-sm font-medium">Flat, House no., Building, Company, Apartment</label>
-            <input type="text" className="w-full border border-gray-300 rounded-md p-2 mt-1" />
+            <input
+              type="text"
+              name="addressLine.0"
+              value={addressData.addressLine[0]}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md p-2 mt-1"
+              required
+            />
           </div>
 
           <div>
             <label className="block text-sm font-medium">Area, Street, Sector, Village</label>
-            <input type="text" className="w-full border border-gray-300 rounded-md p-2 mt-1" />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Landmark</label>
-            <input type="text" className="w-full border border-gray-300 rounded-md p-2 mt-1" placeholder="E.g. near Apollo hospital" />
+            <input
+              type="text"
+              name="addressLine.1"
+              value={addressData.addressLine[1]}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md p-2 mt-1"
+              required
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium">Town/City</label>
-              <input type="text" className="w-full border border-gray-300 rounded-md p-2 mt-1" />
+              <input
+                type="text"
+                name="city"
+                value={addressData.city}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded-md p-2 mt-1"
+                required
+              />
             </div>
             <div>
               <label className="block text-sm font-medium">State</label>
-              <select className="w-full border border-gray-300 rounded-md p-2 mt-1">
-                <option>Choose a state</option>
-                {/* Add more options as needed */}
-              </select>
+              <input
+                type="text"
+                name="state"
+                value={addressData.state}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded-md p-2 mt-1"
+                required
+              />
             </div>
           </div>
 
-          <div className="flex items-center">
-            <input type="checkbox" className="mr-2" />
-            <label className="text-sm">Make this my default address</label>
-          </div>
-
-          <div className="text-blue-600 text-sm mt-4">
-            <a href="#" className="hover:underline">
-              Add preferences, notes, access codes and more
-            </a>
-          </div>
-
-          <button   className="bg-wwwbootscom-congress-blue hover:bg-btn-hover text-white py-2 px-4 rounded-md mt-4 w-full">
-            <Link to=''> Use this address</Link>
-           
+          <button
+            type="submit"
+            className="bg-wwwbootscom-congress-blue hover:bg-btn-hover text-white py-2 px-4 rounded-md mt-4 w-full"
+          >
+            Add this address
           </button>
         </form>
       </div>
