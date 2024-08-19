@@ -28,13 +28,13 @@ export const getCustomerNew = (data) => {
           // console.log("response", response);
           if (response.status === 201) {
             // console.log("this is details", response.data);
-            LocalStorageService.setUserAuthAccessToken(response.data.token);
+            LocalStorageService.setUserAuthAccessToken(response.data);
             dispatch({
               type: "GET_CUSTOMER_NEW",
               user: response?.data,
             });
             console.log(response.data, "response.data")
-            window.location.replace("/");
+            // window.location.replace("/");
             resolve(response.data);
           }
         })
