@@ -14,7 +14,7 @@ const BeautyDeals = () => {
         {
           brand: 'Fenty Skin',
           name: 'Treat lips to NEW Treatz Hydrating & Strengthening Lip Oil',
-          image: 'p13a-0708-homepage-25-firstaidbeauty-pad-doublepointsdam56x51x1440ts3d1722607813073jpg@2x.png',
+          image: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/12--august/wc-1208/P13b_1408_Homepage_25_ParentChildEvent_ShopAll_Offers.dam.8x9x360.ts%3D1723472499895.jpg',
           tag: 'NEW',
         },
         {
@@ -32,7 +32,7 @@ const BeautyDeals = () => {
         {
           brand: 'Fenty Beauty',
           name: 'Discover the NEW Gloss Bomb Stix High-Shine Gloss Stick',
-          image: 'p13a-0708-homepage-25-firstaidbeauty-pad-doublepointsdam56x51x1440ts3d1722607813073jpg@2x.png',
+          image: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/12--august/wc-1208/P13b_1408_Homepage_25_ParentChildEvent_AveenoBaby_SaveAThird.dam.8x9x360.ts%3D1723472499452.jpg',
           tag: 'NEW',
         },
       ],
@@ -88,7 +88,7 @@ const BeautyDeals = () => {
         {
           brand: 'Soap & Glory',
           name: 'Only £7 for selected Soap & Glory with your Advantage Card*',
-          image: 'p13a-0208-homepage-25-nrt-healthtabdam8x9x360ts3d1722431970133jpg@2x.png',
+          image: 'https://assets.boots.com/content/dam/boots/homepage/2023-2024/12--august/wc-1208/P13b_1408_Homepage_25_Flow_Headset_HealthTab.dam.8x9x360.ts%3D1723471555300.jpg',
           tag: 'PRICE ADVANTAGE',
         },
       ],
