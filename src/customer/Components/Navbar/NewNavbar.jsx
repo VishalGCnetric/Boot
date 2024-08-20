@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartItems } from "../../../action/cart";
 import { API_BASE_URL } from "../../../config/api";
 import axios from "axios";
+import SearchIcon from '@mui/icons-material/Search';
 
 const NewNavbar = () => {
   const dispatch = useDispatch();
@@ -79,7 +80,8 @@ const NewNavbar = () => {
                 className="border border-gray-300 py-2 px-4 w-full"
               />
               <button className="absolute right-2 top-2 w-5 h-5 text-wwwbootscom-deep-cove">
-                <img src="button--search@3x.png" alt="Search" />
+                {/* <img src="button--search@3x.png" loading="lazy" alt="Search" /> */}
+                <SearchIcon sx={{ color: 'indigo.900' }} />
               </button>
             </div>
           </div>
@@ -94,7 +96,7 @@ const NewNavbar = () => {
                 />
               </IconButton>
               <span className="absolute -top-1 -right-1 bg-blue-300 text-wwwbootscom-deep-cove text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                {cartdata?.length || 0}
+                {cart?.orderItem?.length || 0}
               </span>
             </div>
           </div>

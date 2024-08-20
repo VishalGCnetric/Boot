@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { getCustomerNew } from '../../../action/Customer';
 import toast, { Toaster } from 'react-hot-toast';
+import { getCartItems } from '../../../action/cart';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -20,42 +21,50 @@ const navigate=useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-
+  
     let emailError = '';
     let passwordError = '';
-
+  
     if (!email) {
       emailError = 'Email is required';
     } else if (!validateEmail(email)) {
       emailError = 'Please enter a valid email';
     }
-
+  
     if (!password) {
       passwordError = 'Password is required';
     } else if (!validatePassword(password)) {
       passwordError = 'Password must be exactly 6 characters long and contain at least one numeric digit';
     }
-
-    setErrors({ email: emailError, password: passwordError });
-
-    if (!emailError && !passwordError) {
-      // Perform login logic here
-      console.log('Logged in with:', { email, password });
-      const userData ={
-        email:email,
-        password:password,
-      }
-      dispatch(getCustomerNew(userData));
-      toast.success("LogIn SuccessFull");
-
-      setTimeout(() => {
-        navigate("/profile");
-        // window.location.reload();
-      }, 500);
   
-      
+    setErrors({ email: emailError, password: passwordError });
+  
+    if (!emailError && !passwordError) {
+      const userData = {
+        email: email,
+        password: password,
+      };
+  
+      // Dispatch getCustomerNew to handle login
+      dispatch(getCustomerNew(userData))
+        .then((user) => {
+          // Dispatch getCartItems to update the cart after login
+          dispatch(getCartItems());
+          toast.success("Login Successful");
+          navigate("/profile")
+
+          // Adding a slight delay before reloading the page to ensure all updates are complete
+          setTimeout(() => {
+            window.location.reload(); 
+          }, 500); 
+        
+        })
+        .catch((error) => {
+          toast.error("Login failed. Please try again.");
+        });
     }
   };
+  
 
   return (
     <div className="container my-10 flex flex-col md:flex-row justify-between p-5 sm:px-36 bg-white">

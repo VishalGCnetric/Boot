@@ -8,15 +8,17 @@ import toast from 'react-hot-toast';
 const ShoppingCart = ({toggleDrawer}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [cartData,setCartData]=useState();
   const cart = useSelector((store) => store.cartItems.cartItems);
   const { auth } = useSelector((store) => store.auth);
 
   let formattedPrice = cart?.totalProductPrice || 0;
   let total = +formattedPrice || 0;
-
+let wt=localStorage.getItem("wt");
+let wtt = localStorage.getItem("wtt");
   useEffect(() => {
     dispatch(getCartItems());
-  }, [dispatch]);
+  }, [dispatch,wt,wtt]);
 
   const handleRemoveItemFromCart = (data) => {
     dispatch(RemoveCartItemNew(data));
