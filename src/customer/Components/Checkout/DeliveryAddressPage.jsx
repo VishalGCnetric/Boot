@@ -13,6 +13,8 @@ const DeliveryAddressPage = () => {
   const dispatch = useDispatch();
   const cart = useSelector((store) => store.cartItems.cartItems);
 
+  console.log(cart)
+
   useEffect(() => {
     dispatch(getCartItems());
   }, [dispatch]);
@@ -36,7 +38,7 @@ const DeliveryAddressPage = () => {
     setSelectedAddressId(address.addressId);
   };
 
-  console.log(selectedAddressId)
+
 
   useEffect(() => {
     const fetchAddresses = async () => {
