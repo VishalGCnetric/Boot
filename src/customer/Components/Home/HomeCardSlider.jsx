@@ -11,7 +11,7 @@ const HomeCardSlider = ({banners}) => {
       subtitle: "Save 15% when you spend £50 or save 20% when you spend £70",
       buttonText: "SHOP NOW",
       badge: "SAVE UP TO 20%",
-      imageSrc:banners[10]
+      imageSrc:banners?.[10]
         ,
     },
     {
@@ -20,7 +20,7 @@ const HomeCardSlider = ({banners}) => {
       buttonText: "SHOP NOW",
       badge: "SAVE 15%",
       imageSrc:
-      banners[11]
+      banners?.[11]
     },
     {
       title: "Dyson Supersonic",
@@ -29,7 +29,7 @@ const HomeCardSlider = ({banners}) => {
       buttonText: "SHOP NOW",
       badge: "£40 ON YOUR ADVANTAGE CARD",
       imageSrc:
-      banners[0]
+      banners?.[0]
     },
     {
       title: "Electrical",
@@ -38,7 +38,7 @@ const HomeCardSlider = ({banners}) => {
       buttonText: "SHOP NOW",
       badge: "FROM £24.99",
       imageSrc:
-        banners[3]
+        banners?.[3]
     },
   ];
 
@@ -104,8 +104,9 @@ const HomeCardSlider = ({banners}) => {
        <div className="relative bg-white shadow-md rounded-lg overflow-hidden h-86 flex flex-col justify-between">
          <div className="relative">
            <img
-             src={card.imageSrc.url}
+             src={card?.imageSrc?.url}
              alt={card.title}
+             loading="lazy"
              className="w-full h-40 object-cover"
            />
            <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 text-xs rounded">

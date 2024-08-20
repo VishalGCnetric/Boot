@@ -15,7 +15,7 @@ const HealthPicksSlider = ({banners}) => {
       title: 'Boots vitamins',
       description: '1/2 price on selected Boots brand vitamins with Advantage Card*',
       buttonLabel: 'SHOP NOW',
-      imageUrl: banners[31].url,
+      imageUrl: banners?.[31].url,
       discount: 'Price Advantage',
     },
     {
@@ -24,7 +24,7 @@ const HealthPicksSlider = ({banners}) => {
       title: 'Sexual wellbeing',
       description: 'Save 15% on selected sexual wellbeing with code SWB15',
       buttonLabel: 'SHOP NOW',
-      imageUrl: banners[34].url,
+      imageUrl: banners?.[34].url,
       discount: 'Save 15%',
     },
     {
@@ -33,7 +33,7 @@ const HealthPicksSlider = ({banners}) => {
       title: 'Hayfever relief',
       description: 'Beat those summer sneezes & save 20% on selected hayfever relief',
       buttonLabel: 'SHOP NOW',
-      imageUrl: banners[26].url,
+      imageUrl: banners?.[26].url,
       discount: 'Save 20%',
     },
     {
@@ -42,7 +42,7 @@ const HealthPicksSlider = ({banners}) => {
       title: 'Travel health',
       description: 'Prep for summer holidays & save 20% on selected travel health',
       buttonLabel: 'SHOP NOW',
-      imageUrl: banners[32].url,
+      imageUrl: banners?.[32].url,
       discount: 'Save 20%',
     },
     {
@@ -51,7 +51,7 @@ const HealthPicksSlider = ({banners}) => {
       title: 'Hayfever',
       description: 'Prep for pollen! Buy 1 get 2nd 1/2 price on selected hayfever',
       buttonLabel: 'SHOP NOW',
-      imageUrl: banners[33].url,
+      imageUrl: banners?.[33].url,
       discount: null,
     },
     {
@@ -69,7 +69,7 @@ const HealthPicksSlider = ({banners}) => {
       title: 'Summer health',
       description: 'Buy 1 get 2nd 1/2 price on selected summer health must-haves',
       buttonLabel: 'SHOP NOW',
-      imageUrl: banners[2].url,
+      imageUrl: banners?.[2].url,
       discount: null,
     },
     {
@@ -78,7 +78,7 @@ const HealthPicksSlider = ({banners}) => {
       title: 'First aid',
       description: 'Take care of scrapes & buy 1 get 2nd 1/2 price on selected first aid',
       buttonLabel: 'SHOP NOW',
-      imageUrl: banners[5].url,
+      imageUrl: banners?.[5].url,
       discount: null,
     },
   ];
