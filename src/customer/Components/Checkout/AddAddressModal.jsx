@@ -5,7 +5,7 @@ import { API_BASE_URL } from "../../../config/api";
 import toast from 'react-hot-toast';
 import { Toaster } from 'react-hot-toast';
 
-const AddAddressModal = ({ isOpen, onClose, refreshAddresses }) => {
+const AddAddressModal = ({ setUpdated, isOpen, onClose, refreshAddresses }) => {
   const navigate = useNavigate();
 
   const [addressData, setAddressData] = useState({
@@ -54,7 +54,7 @@ const AddAddressModal = ({ isOpen, onClose, refreshAddresses }) => {
     const wtt = localStorage.getItem("wtt");
 
     if (!addressData.nickName) {
-      alert("Nickname is required");
+      // alert("Nickname is required");
       return;
     }
 
@@ -69,10 +69,11 @@ const AddAddressModal = ({ isOpen, onClose, refreshAddresses }) => {
       toast.success("Address added successfully!")
       onClose();
       refreshAddresses(); 
+      setUpdated((pre)=>!pre)
      
     } catch (error) {
       console.error("Error adding address:", error);
-      alert("Failed to add address. Please try again.");
+      // alert("Failed to add address. Please try again.");
     }
   };
 

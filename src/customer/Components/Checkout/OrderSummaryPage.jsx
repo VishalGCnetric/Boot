@@ -113,9 +113,10 @@ const OrderSummaryPage = () => {
             </button>
             <div className="border-t pt-4">
               <h3 className="text-lg font-semibold mb-2">Order Summary</h3>
-              <p>Items: --</p>
-              <p>Delivery: --</p>
-              <p className="text-lg font-bold text-red-600 mt-4">Order Total: ₹{formatToTwoDecimalPlaces(cart?.grandTotal)}</p>
+              {cart?.orderItem?.map((el)=> <div className="border my-2 p-2"><p><span className="text-gray-800">Item :</span> {el?.partNumber}</p>
+              <p><span className="text-gray-800">Order Item id:</span> {el?.orderItemId}</p>
+              </div> )}
+              <p className="text-lg font-bold text-red-600 mt-4"><span>Order Total: ₹</span>{formatToTwoDecimalPlaces(cart?.grandTotal)}</p>
             </div>
             <a href="#" className="text-blue-600 text-sm mt-4 inline-block">
               How are delivery costs calculated?
