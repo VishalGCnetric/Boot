@@ -77,9 +77,9 @@ const NewNavbar = () => {
               <input
                 type="text"
                 placeholder="Search products, brands and services..."
-                className="border border-gray-300 py-2 px-4 w-full"
+                className="border w-[95%] border-gray-300 py-2 px-4 "
               />
-              <button className="absolute right-2 top-2 w-5 h-5 text-wwwbootscom-deep-cove">
+              <button className="absolute right-14 top-2 w-5 h-5 text-wwwbootscom-deep-cove">
                 {/* <img src="button--search@3x.png" loading="lazy" alt="Search" /> */}
                 <SearchIcon sx={{ color: 'indigo.900' }} />
               </button>
