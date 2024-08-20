@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../../config/api";
+import toast from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 const AddAddressModal = ({ isOpen, onClose, refreshAddresses }) => {
   const navigate = useNavigate();
@@ -63,9 +65,11 @@ const AddAddressModal = ({ isOpen, onClose, refreshAddresses }) => {
           wtt: wtt,
         },
       });
-      alert("Address added successfully!");
+      // alert("Address added successfully!");
+      toast.success("Address added successfully!")
       onClose();
       refreshAddresses(); 
+     
     } catch (error) {
       console.error("Error adding address:", error);
       alert("Failed to add address. Please try again.");
@@ -75,6 +79,9 @@ const AddAddressModal = ({ isOpen, onClose, refreshAddresses }) => {
   if (!isOpen) return null;
 
   return (
+
+    <>
+    <Toaster/>
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white w-full max-w-2xl p-6 rounded-md shadow-md overflow-y-auto max-h-screen">
         <div className="flex justify-between items-center mb-4">
@@ -202,6 +209,7 @@ const AddAddressModal = ({ isOpen, onClose, refreshAddresses }) => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 
