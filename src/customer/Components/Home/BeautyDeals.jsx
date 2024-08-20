@@ -14,25 +14,25 @@ const BeautyDeals = ({banners}) => {
         {
           brand: 'Fenty Skin',
           name: 'Treat lips to NEW Treatz Hydrating & Strengthening Lip Oil',
-          image: banners[6].url,
+          image: banners?.[6].url,
           tag: 'NEW',
         },
         {
           brand: 'NYX',
           name: 'NEW Butter Gloss Bling Lip Gloss, the OG gloss with sparkly shine',
-          image: banners[24].url,
+          image: banners?.[24].url,
           tag: 'NEW & ONLY AT BOOTS',
         },
         {
           brand: 'e.l.f.',
           name: 'NEW Brow Laminating Gel, FREE gift when you spend £20!',
-          image: banners[23].url,
+          image: banners?.[23].url,
           tag: 'FREE GIFT',
         },
         {
           brand: 'Fenty Beauty',
           name: 'Discover the NEW Gloss Bomb Stix High-Shine Gloss Stick',
-          image: banners[25].url,
+          image: banners?.[25].url,
           tag: 'NEW',
         },
       ],
@@ -43,24 +43,24 @@ const BeautyDeals = ({banners}) => {
         {
           brand: 'Olay',
           name: '1/2 price on Vitamin C Anti-Dark Spot SPF30 Day Cream 50ml',
-          image: banners[27].url,
+          image: banners?.[27].url,
           tag: '1/2 PRICE',
         },
         {
           brand: 'No7',
           name: '3 for 2 on selected Future Renew, including Defence Shield SPF50**',
-          image: banners[28].url,
+          image: banners?.[28].url,
           tag: '3 FOR 2',
         },
         {
           brand: 'Estée Lauder',
           name: 'FREE gift when you buy Advanced Night Repair Serum',
-          image: banners[29].url,
+          image: banners?.[29].url,
         },
         {
           brand: 'Fragrance',
           name: 'Treat yourself to a new fave & save up to 1/2 price on selected scents',
-          image: banners[20].url,
+          image: banners?.[20].url,
           tag: 'SAVE UP TO 1/2 PRICE',
         },
       ],
@@ -71,18 +71,18 @@ const BeautyDeals = ({banners}) => {
         {
           brand: 'Soltan',
           name: 'Protect the whole family with save 25% on selected Family Packs',
-          image: banners[18].url,
+          image: banners?.[18].url,
         },
         {
           brand: 'E45',
           name: 'Save 25% on selected E45, sun protection for dry & sensitive skin',
-          image: banners[21].url,
+          image: banners?.[21].url,
           tag: 'SAVE 25%',
         },
         {
           brand: 'Sanctuary Spa',
           name: 'Treat your loved ones & save 1/3 on selected Sanctuary Spa gift sets',
-          image: banners[19].url,
+          image: banners?.[19].url,
           tag: 'SAVE 1/3',
         },
         {
@@ -124,7 +124,7 @@ const BeautyDeals = ({banners}) => {
         {filteredProducts?.items.map((item) => (
           <div key={item.brand} className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="relative">
-              <img src={item.image} alt={item.name} className="w-full h-48 object-fit" />
+              <img src={item.image} alt={item.name} loading="lazy" className="w-full h-48 object-fit" />
               <span className="absolute top-2 right-2 bg-black text-white text-xs px-2 py-1 rounded">
                 {item.tag}
               </span>

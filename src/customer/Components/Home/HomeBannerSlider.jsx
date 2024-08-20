@@ -51,7 +51,7 @@ const HomeBannerSlider = ({banners}) => {
         nextArrow: <CustomNextArrow />,
         prevArrow: <CustomPrevArrow />
     };
-    const banner =[banners[13].url,banners[9].url,banners[8].url,banners[4].url,banners[15].url]
+    const banner =[banners?.[13]?.url,banners?.[9]?.url,banners?.[8]?.url,banners?.[4]?.url,banners?.[15]?.url]
 
     return (
         <div className="relative w-full mx-auto">
