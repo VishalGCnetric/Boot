@@ -12,6 +12,7 @@ const DeliveryAddressPage = () => {
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const dispatch = useDispatch();
   const cart = useSelector((store) => store.cartItems.cartItems);
+  const [updated,setUpdated] = useState(false)
 
   console.log(cart)
 
@@ -60,7 +61,7 @@ const DeliveryAddressPage = () => {
     };
 
     fetchAddresses();
-  }, []);
+  }, [updated]);
 
   function formatToTwoDecimalPlaces(number) {
     let strNumber = number.toString();
@@ -96,8 +97,9 @@ const DeliveryAddressPage = () => {
             <h3 className="text-lg font-bold mb-4">Your addresses</h3>
 
             {/* Address List */}
+            {!allAddress?.[0]?<h3>You have no Addresses</h3> : null }
             <ul className="space-y-4">
-              {allAddress.map((address, index) => (
+              {allAddress?.map((address, index) => (
                 <li
                   key={address.addressId}
                   className="border rounded p-3 flex items-start justify-between"
@@ -139,9 +141,10 @@ const DeliveryAddressPage = () => {
             
             <div className="border-t pt-4">
               <h3 className="text-lg font-semibold mb-2">Order Summary</h3>
-              <p>Items: --</p>
-              <p>Delivery: --</p>
-              <p className="text-lg font-bold text-red-600 mt-4">Order Total: ₹{formatToTwoDecimalPlaces(cart?.grandTotal)}</p>
+              {cart?.orderItem?.map((el)=> <div className="border my-2 p-2"><p><span className="text-gray-800">Item :</span> {el?.partNumber}</p>
+              <p><span className="text-gray-800">Order Item id:</span> {el?.orderItemId}</p>
+              </div> )}
+              <p className="text-lg font-bold text-red-600 mt-4"><span>Order Total: ₹</span>{formatToTwoDecimalPlaces(cart?.grandTotal)}</p>
             </div>
             <a href="#" className="text-blue-600 text-sm mt-4 inline-block">
               How are delivery costs calculated?
@@ -151,7 +154,7 @@ const DeliveryAddressPage = () => {
       </div>
 
       {/* Modal for Adding New Address */}
-      <AddAddressModal isOpen={isModalOpen} onClose={closeModal} />
+      <AddAddressModal setUpdated={setUpdated} isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 };
