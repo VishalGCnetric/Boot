@@ -24,7 +24,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchData = async () => {
 
-      const res = await axios.get(`${API_BASE_URL}content2`)
+      const res = await axios.get(`${API_BASE_URL}content`)
       setBanners(res.data)
     }
     fetchData()

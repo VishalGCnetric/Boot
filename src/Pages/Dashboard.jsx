@@ -36,7 +36,7 @@ const Dashboard = () => {
       dispatch(getCutomerOrdersNew());
       dispatch(getCartItems());
 
-  }, [loading]);
+  }, [loading,wt,wtt]);
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -48,6 +48,8 @@ const Dashboard = () => {
               },
             });
             const data = response.data;
+            dispatch(getCartItems());
+
             setProfile(data);
           
           setLoading(false); // Set loading to false once data is fetched
