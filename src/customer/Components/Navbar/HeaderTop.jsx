@@ -84,16 +84,17 @@ const HeaderTop = () => {
             }, 5000); }}
           >
             {profile.firstName ? (
-              <>
+              <><Link to="/profile">
                 <div>Hi {profile.firstName}</div>
+                </Link>
                 {isDropdownOpen && (
                   <div className="absolute top-full mt-2 w-32 z-9999 bg-white shadow-lg rounded-md">
-                    {/* <div
+                    <div
                       className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
                       onClick={() => navigate("./profile")}
                     >
                       Profile
-                    </div> */}
+                    </div>
                     <div
                       className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
                       onClick={handleLogout}

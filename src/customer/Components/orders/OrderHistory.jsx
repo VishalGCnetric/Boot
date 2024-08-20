@@ -95,7 +95,7 @@ const orderData = [
               ))
             
           ) : (
-            <p>No orders available.</p>
+            <div className="py-4 text-center font-semibold px-auto">No orders available.</div>
           )}
                     {/* {orderData.map((order, index) => (
                         <tr
